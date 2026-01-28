@@ -134,11 +134,11 @@
   }
 }
 
-/* Slider: içerik aşağıdan yukarı smooth giriş */
+/* Slider: tüm blok (daire + metin + buton) aşağıdan yukarı — SS gibi */
 @keyframes slider-content-slide-up {
   0% {
     opacity: 0;
-    transform: translateY(80px);
+    transform: translateY(120px);
   }
   100% {
     opacity: 1;
@@ -147,7 +147,7 @@
 }
 
 .slider-content-enter {
-  animation: slider-content-slide-up 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: slider-content-slide-up 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Slider: next/prev geçiş — smooth fade + hafif kayma */

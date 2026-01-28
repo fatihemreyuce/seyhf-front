@@ -78,56 +78,48 @@ export function Slider({ slides }: SliderProps) {
         />
       </div>
 
-      {/* Sol: kırmızı daire — referans gibi solda, soldan boşluklu, dikey ortada */}
+      {/* Kırmızı daire: sabit, animasyonsuz */}
       <div
-        className="absolute left-8 top-1/2 z-0 h-[min(70vw,380px)] w-[min(70vw,380px)] -translate-x-[30%] -translate-y-1/2 rounded-full bg-[#cc3333] md:left-12 md:-translate-x-[28%] lg:left-16"
+        className="absolute left-8 top-1/2 z-0 h-[min(70vw,380px)] w-[min(70vw,380px)] -translate-x-[30%] -translate-y-1/2 rounded-full bg-[#cc3333] opacity-70 md:left-12 md:-translate-x-[28%] lg:left-16"
         aria-hidden
       />
 
-      {/* Yazı + buton — next/prev’de smooth fade + kayma */}
-      <div
-        className={cn(
-          "slider-transition-wrap relative z-20 grid h-full min-h-0 grid-cols-[1fr_1fr]",
-          transitionOut && "slider-transition-out"
-        )}
-      >
-        <div className="flex flex-col items-center justify-center px-6 py-8 md:px-10 md:py-10 lg:px-12 lg:py-12">
-          <div
-            key={index}
-            className={cn(
-              "slider-content-enter mx-auto max-w-2xl space-y-4 text-center text-white",
-              "mt-4 mb-4 px-4 md:mt-6 md:mb-6 md:px-6"
-            )}
-          >
-            <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-[2.75rem]">
-              {slide.title}
-            </h1>
-            {slide.description ? (
-              <p className="mx-auto max-w-xl text-base leading-relaxed text-white/95 line-clamp-4 wrap-break-word sm:text-lg">
-                {slide.description}
-              </p>
-            ) : null}
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-              <Link
-                href="/contact"
-                className="group relative inline-flex overflow-hidden rounded-lg border-2 border-white bg-transparent px-6 py-3 text-base font-bold text-white transition-colors duration-300"
-              >
-                <span className="relative z-10">Get In Touch +</span>
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 bg-[#ED3237] origin-center scale-x-0 transition-transform duration-350 ease-out group-hover:scale-x-100"
-                />
-              </Link>
-              <div className="flex items-center gap-3">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#cc3333]">
-                  <Headphones className="h-5 w-5 text-white" aria-hidden />
-                </span>
-                <span className="text-white">+55 (121) 234 444</span>
-              </div>
+      {/* Metin + buton + tel — ref: sola hizalı, kısmen daire üstünde; buton gri, koyu yazı */}
+      <div className="relative z-10 flex h-full min-h-0 flex-col justify-center pl-8 pr-6 md:pl-16 md:pr-10 lg:pl-24 lg:pr-12">
+        <div
+          key={index}
+          className={cn(
+            "slider-content-enter slider-transition-wrap max-w-2xl space-y-4 text-left text-white",
+            transitionOut && "slider-transition-out"
+          )}
+        >
+          <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-[2.75rem]">
+            {slide.title}
+          </h1>
+          {slide.description ? (
+            <p className="max-w-xl text-base leading-relaxed text-white/95 line-clamp-4 sm:text-lg">
+              {slide.description}
+            </p>
+          ) : null}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Link
+              href="/contact"
+              className="group relative inline-flex overflow-hidden rounded-lg border-2 border-white bg-transparent px-6 py-3 text-base font-bold text-white transition-colors duration-300"
+            >
+              <span className="relative z-10">Get In Touch +</span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 bg-[#ED3237] origin-center scale-x-0 transition-transform duration-350 ease-out group-hover:scale-x-100"
+              />
+            </Link>
+            <div className="flex items-center gap-3">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#cc3333]">
+                <Headphones className="h-5 w-5 text-white" aria-hidden />
+              </span>
+              <span className="text-white">+55 (121) 234 444</span>
             </div>
           </div>
         </div>
-        <div aria-hidden />
       </div>
 
       {/* Üçgen + pembe daire — ref. animasyon halleri: üçgen önde, bazen örtüşme bazen az mesafe */}
