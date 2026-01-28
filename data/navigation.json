@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "label": "Home",
+    "href": "/",
+    "hasDropdown": true,
+    "order": 1
+  },
+  {
+    "id": "2",
+    "label": "About Us",
+    "href": "/about",
+    "hasDropdown": true,
+    "order": 2
+  },
+  {
+    "id": "3",
+    "label": "Services",
+    "href": "/services",
+    "hasDropdown": true,
+    "order": 3
+  },
+  {
+    "id": "4",
+    "label": "Page",
+    "href": "/page",
+    "hasDropdown": true,
+    "order": 4
+  },
+  {
+    "id": "5",
+    "label": "Blog",
+    "href": "/blog",
+    "hasDropdown": true,
+    "order": 5
+  },
+  {
+    "id": "6",
+    "label": "Contact",
+    "href": "/contact",
+    "hasDropdown": false,
+    "order": 6
+  }
+]
