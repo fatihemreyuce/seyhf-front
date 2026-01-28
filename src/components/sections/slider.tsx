@@ -25,6 +25,11 @@ const FALLBACK_SLIDES: SliderResponse[] = [
 
 const SLIDE_TRANSITION_MS = 400;
 
+/** HTML etiketlerini kaldırıp sadece düz metni döndürür. */
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "").trim();
+}
+
 export function Slider({ slides }: SliderProps) {
   const items = slides.length > 0 ? slides : FALLBACK_SLIDES;
   const [index, setIndex] = useState(0);
@@ -98,7 +103,7 @@ export function Slider({ slides }: SliderProps) {
           </h1>
           {slide.description ? (
             <p className="max-w-xl text-base leading-relaxed text-white/95 line-clamp-4 sm:text-lg">
-              {slide.description}
+              {stripHtml(slide.description)}
             </p>
           ) : null}
           <div className="flex flex-wrap items-center gap-4 pt-2">
