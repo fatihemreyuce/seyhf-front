@@ -1,0 +1,31 @@
+---
+description: Sayfa hizalama ve padding yapısı — siyah çizgi / ortak sol padding (Tailwind)
+alwaysApply: true
+---
+
+# Layout & Padding Yapısı (Korunacak)
+
+Bu yapı **Tailwind'de** tutulur (`globals.css`), ayrı `.ts` dosyası açılmaz. Yeni bölüm / sayfa / layout eklerken aynı utility'ler kullanılır.
+
+## Tailwind utility'ler (`globals.css`)
+
+- **`.content-container`** — `max-w-7xl`, `mx-auto`, `px-6 sm:px-8 md:px-10 lg:px-12` (ortak container + padding)
+- **`.content-container-edge`** — sol hiza için `left` değerleri (slider daire, vb. absolute öğeler)
+
+## Kullanım
+
+```tsx
+<div className="content-container">{/* içerik */}</div>
+```
+
+Absolute + sol hizalı öğe (örn. slider daire):
+
+```tsx
+<div className="content-container-edge absolute ..." />
+```
+
+## Nerede kullanılır?
+
+Header, TopBar, slider içeriği, partners ve diğer section’lar, sayfa layout’ları. Full-bleed arka plan varsa arka plan tam genişlik, **içerik** `content-container` ile sınırlanır.
+
+Bu padding / max-width değerleri değiştirilmez; hep `globals.css`’teki utility’lere göre kalır.

@@ -1,4 +1,4 @@
-import { fetchSliders } from "@/lib/fetch-sliders";
+import { fetchSliders } from "@/lib/api";
 import { Slider } from "./slider";
 
 /** Slider verisi panel API'sinden (fetchSliders) çekilir; hata/boşta Slider fallback kullanır. */

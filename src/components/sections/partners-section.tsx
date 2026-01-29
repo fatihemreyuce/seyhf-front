@@ -1,4 +1,6 @@
-import { fetchPartners } from "@/lib/fetch-partners";
+import { Suspense } from "react";
+import { fetchPartners } from "@/lib/api";
+import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
 import { PartnersCarousel } from "./partners-carousel";
 
 /** Partner kartları: slider altında ana sayfada gösterilir. 4’lü kaydırmalı, noktaya basınca sayfa değişir. */
@@ -19,20 +21,21 @@ export async function PartnersSection() {
         <span className="absolute bottom-[14%] right-[8%] h-2 w-2 rounded-full bg-[#eab308]" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-6 py-10 md:py-14">
-        <div className="mb-8 text-center">
+      <div className="content-container relative py-10 md:py-14">
+        <AnimateOnScroll variant="from-top" className="mb-8 text-center">
           <p className="mb-1.5 text-xs font-medium uppercase tracking-wider text-white/70 md:text-sm">
-            Our Services List
+            Our Partners List
           </p>
           <h2 className="text-2xl font-bold uppercase tracking-tight text-white md:text-3xl lg:text-4xl">
-            THE{" "}
-            <span className="text-[#ED3237]">[</span>
-            <span className="text-[#4ade80]">SERVICES</span>
-            <span className="text-[#ED3237]">]</span> WE&apos;RE OFFERING
+            THE <span className="text-[#ED3237]">[</span>
+            <span className="text-[#4ade80]">PARTNERS</span>
+            <span className="text-[#ED3237]">]</span> WE&apos;RE WORKING WITH
           </h2>
-        </div>
+        </AnimateOnScroll>
 
-        <PartnersCarousel partners={partners} />
+        <Suspense fallback={null}>
+          <PartnersCarousel partners={partners} />
+        </Suspense>
       </div>
     </section>
   );

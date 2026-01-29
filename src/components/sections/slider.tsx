@@ -48,7 +48,7 @@ export function Slider({ slides }: SliderProps) {
         setIsTransitioning(false);
       }, SLIDE_TRANSITION_MS);
     },
-    [items.length]
+    [items.length],
   );
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export function Slider({ slides }: SliderProps) {
         className={cn(
           "slider-transition-wrap absolute inset-0 z-0 overflow-hidden",
           transitionOut && "slider-transition-out-fade",
-          !transitionOut && (hover ? "opacity-80" : "opacity-55")
+          !transitionOut && (hover ? "opacity-80" : "opacity-55"),
         )}
       >
         <Image
@@ -79,23 +79,25 @@ export function Slider({ slides }: SliderProps) {
           fill
           className="object-cover object-center"
           sizes="100vw"
-          unoptimized={typeof slide.imageUrl === "string" && slide.imageUrl.startsWith("http")}
+          unoptimized={
+            typeof slide.imageUrl === "string" &&
+            slide.imageUrl.startsWith("http")
+          }
         />
       </div>
 
-      {/* Kırmızı daire: sabit, animasyonsuz */}
-      <div
-        className="absolute left-8 top-1/2 z-0 h-[min(70vw,380px)] w-[min(70vw,380px)] -translate-x-[30%] -translate-y-1/2 rounded-full bg-[#cc3333] opacity-70 md:left-12 md:-translate-x-[28%] lg:left-16"
-        aria-hidden
-      />
-
-      {/* Metin + buton + tel — ref: sola hizalı, kısmen daire üstünde; buton gri, koyu yazı */}
-      <div className="relative z-10 flex h-full min-h-0 flex-col justify-center pl-8 pr-6 md:pl-16 md:pr-10 lg:pl-24 lg:pr-12">
+      {/* İçerik wrapper: content-container (siyah çizgi) */}
+      <div className="content-container relative z-10 flex h-full min-h-0 flex-col justify-center">
+        {/* Kırmızı daire: content-container-edge ile hizalı */}
+        <div
+          className="content-container-edge absolute top-1/2 z-0 h-[min(70vw,380px)] w-[min(70vw,380px)] -translate-x-[30%] -translate-y-1/2 rounded-full bg-[#cc3333] opacity-70 md:-translate-x-[28%]"
+          aria-hidden
+        />
         <div
           key={index}
           className={cn(
             "slider-content-enter slider-transition-wrap max-w-2xl space-y-4 text-left text-white",
-            transitionOut && "slider-transition-out"
+            transitionOut && "slider-transition-out",
           )}
         >
           <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-[2.75rem]">
@@ -146,7 +148,7 @@ export function Slider({ slides }: SliderProps) {
         onClick={() => go(-1)}
         className={cn(
           "absolute left-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-colors duration-200 md:left-4 md:h-11 md:w-11",
-          "bg-[#9ca3af] hover:bg-[#cc3333]"
+          "bg-[#9ca3af] hover:bg-[#cc3333]",
         )}
         aria-label="Önceki slide"
       >
@@ -157,7 +159,7 @@ export function Slider({ slides }: SliderProps) {
         onClick={() => go(1)}
         className={cn(
           "absolute right-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-colors duration-200 md:right-4 md:h-11 md:w-11",
-          "bg-[#9ca3af] hover:bg-[#cc3333]"
+          "bg-[#9ca3af] hover:bg-[#cc3333]",
         )}
         aria-label="Sonraki slide"
       >

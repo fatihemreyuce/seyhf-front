@@ -132,6 +132,53 @@
   .text-glitch:hover {
     color: #ff8c00;
   }
+
+  /* Ortak layout: siyah çizgi hizası — max-w-7xl + padding (değiştirme) */
+  .content-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem; /* 1280px = max-w-7xl */
+    padding-left: 1.5rem; /* 24px */
+    padding-right: 1.5rem;
+  }
+  @media (width >= 640px) {
+    .content-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+  @media (width >= 768px) {
+    .content-container {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+  @media (width >= 1024px) {
+    .content-container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  /* Slider daire / sol hiza için aynı left değerleri */
+  .content-container-edge {
+    left: 1.5rem;
+  }
+  @media (width >= 640px) {
+    .content-container-edge {
+      left: 2rem;
+    }
+  }
+  @media (width >= 768px) {
+    .content-container-edge {
+      left: 2.5rem;
+    }
+  }
+  @media (width >= 1024px) {
+    .content-container-edge {
+      left: 3rem;
+    }
+  }
 }
 
 /* Slider: tüm blok (daire + metin + buton) aşağıdan yukarı — SS gibi */
@@ -205,4 +252,184 @@
   animation: slider-triangle-move 10s linear infinite;
   transform-origin: 50% 50%;
   /* ref: her zaman önde; bazen örtüşme bazen az mesafe */
+}
+
+/* Sheet: overlay + panel giriş animasyonları (her açılışta tekrar oynar) */
+@keyframes sheet-overlay-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-panel-enter-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sheet-panel-enter-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sheet-panel-enter-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheet-panel-enter-bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.sheet-overlay-enter {
+  animation: sheet-overlay-enter 0.3s ease-out forwards;
+}
+
+.sheet-panel-enter-right {
+  animation: sheet-panel-enter-right 0.3s ease-out forwards;
+}
+
+.sheet-panel-enter-left {
+  animation: sheet-panel-enter-left 0.3s ease-out forwards;
+}
+
+.sheet-panel-enter-top {
+  animation: sheet-panel-enter-top 0.3s ease-out forwards;
+}
+
+.sheet-panel-enter-bottom {
+  animation: sheet-panel-enter-bottom 0.3s ease-out forwards;
+}
+
+/* Sheet: kapanış animasyonları */
+@keyframes sheet-overlay-exit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-panel-exit-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sheet-panel-exit-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sheet-panel-exit-top {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes sheet-panel-exit-bottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.sheet-overlay-exit {
+  animation: sheet-overlay-exit 0.3s ease-in forwards;
+}
+
+.sheet-panel-exit-right {
+  animation: sheet-panel-exit-right 0.3s ease-in forwards;
+}
+
+.sheet-panel-exit-left {
+  animation: sheet-panel-exit-left 0.3s ease-in forwards;
+}
+
+.sheet-panel-exit-top {
+  animation: sheet-panel-exit-top 0.3s ease-in forwards;
+}
+
+.sheet-panel-exit-bottom {
+  animation: sheet-panel-exit-bottom 0.3s ease-in forwards;
+}
+
+/* Partners: scroll ile tetiklenen giriş animasyonları (global) */
+@keyframes scroll-in-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-in-from-top {
+  animation: scroll-in-from-top 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-in-from-bottom {
+  animation: scroll-in-from-bottom 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* İçerden dışarı büyüme (scale) */
+@keyframes scroll-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scroll-in-scale {
+  animation: scroll-in-scale 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-origin: center center;
 }

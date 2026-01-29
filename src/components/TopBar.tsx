@@ -3,7 +3,7 @@ import { MapPin, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 export default function TopBar() {
   return (
     <div className="bg-black text-white py-2 sm:py-2.5">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="content-container">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm">
           {/* Left Section - Address */}
           <div className="flex items-center gap-1.5 sm:gap-2">
@@ -15,8 +15,8 @@ export default function TopBar() {
 
           {/* Middle Section - Email */}
           <div className="flex items-center order-3 sm:order-2">
-            <a 
-              href="mailto:hello@creativemela.com" 
+            <a
+              href="mailto:hello@creativemela.com"
               className="text-glitch cursor-pointer text-xs sm:text-sm whitespace-nowrap"
             >
               HELLO.CREATIVEMELA.COM
