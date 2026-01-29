@@ -89,6 +89,45 @@ export async function fetchCirculars(): Promise<CircularResponse[]> {
   }
 }
 
+export async function fetchCircularsPage(
+  page: number,
+  size: number,
+): Promise<Page<CircularResponse>> {
+  try {
+    const res = await fetch(
+      `${API}/api/v1/circulars?page=${page}&size=${size}`,
+      {
+        headers: { Accept: "application/json" },
+        next: { revalidate: 60 },
+      },
+    );
+    if (!res.ok)
+      return {
+        content: [],
+        size,
+        number: page,
+        totalElements: 0,
+        totalPages: 0,
+      };
+    const data = (await res.json()) as Page<CircularResponse>;
+    return {
+      ...data,
+      content: (data.content ?? []).map((c) => ({
+        ...c,
+        fileUrl: normalizeUrl(c.fileUrl),
+      })),
+    };
+  } catch {
+    return {
+      content: [],
+      size,
+      number: page,
+      totalElements: 0,
+      totalPages: 0,
+    };
+  }
+}
+
 // ---- Blogs ----
 
 export interface BlogPost {

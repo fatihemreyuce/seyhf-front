@@ -49,7 +49,7 @@ export default function TopBar() {
             <a
               href="#"
               className="hover:text-red-500 transition-colors shrink-0"
-              aria-label="Twitter"
+              aria-label="LinkedIn"
             >
               <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </a>
