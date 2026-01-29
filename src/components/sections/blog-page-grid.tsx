@@ -20,8 +20,16 @@ function stripHtml(html: string): string {
     .trim();
 }
 
-export function BlogPageCard({ post }: { post: BlogPagePost }) {
+export function BlogPageCard({
+  post,
+  index = 0,
+}: {
+  post: BlogPagePost;
+  index?: number;
+}) {
   const plainDescription = post.description ? stripHtml(post.description) : "";
+  const delayClass =
+    index <= 8 ? `blog-card-enter-delay-${index}` : "blog-card-enter-delay-8";
 
   const fileZone = (
     <div className="relative flex h-full min-h-[180px] w-full flex-col items-center justify-center overflow-hidden bg-[#e0e0e0] sm:min-h-0">
@@ -38,7 +46,9 @@ export function BlogPageCard({ post }: { post: BlogPagePost }) {
   );
 
   return (
-    <Card className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow duration-500 ease-out hover:shadow-md sm:flex-row">
+    <Card
+      className={`group blog-card-enter blog-card-hover-lift ${delayClass} flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:flex-row`}
+    >
       {post.fileUrl ? (
         <a
           href={post.fileUrl}
@@ -69,7 +79,7 @@ export function BlogPageCard({ post }: { post: BlogPagePost }) {
         )}
         <Link
           href={post.href}
-          className="mt-auto inline-block text-sm font-medium text-[#777] transition-colors duration-500 hover:text-(--brand-red)"
+          className="blog-read-more-link mt-auto inline-block text-sm font-medium text-[#777] hover:text-(--brand-red)"
         >
           Read More +
         </Link>

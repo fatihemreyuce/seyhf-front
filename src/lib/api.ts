@@ -89,6 +89,22 @@ export async function fetchCirculars(): Promise<CircularResponse[]> {
   }
 }
 
+export async function fetchCircularById(
+  id: number,
+): Promise<CircularResponse | null> {
+  try {
+    const res = await fetch(`${API}/api/v1/circulars/${id}`, {
+      headers: { Accept: "application/json" },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as CircularResponse;
+    return { ...data, fileUrl: normalizeUrl(data.fileUrl) };
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchCircularsPage(
   page: number,
   size: number,

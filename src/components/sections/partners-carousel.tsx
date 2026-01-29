@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -17,6 +17,7 @@ import service04 from "@/app/assets/images/image-box/service-04.png";
 
 const SERVICE_IMAGES = [service01, service02, service03, service04] as const;
 const CARDS_PER_PAGE = 4;
+const DRAG_THRESHOLD_PX = 50;
 
 export interface PartnersCarouselProps {
   partners: PartnerResponse[];
@@ -25,10 +26,17 @@ export interface PartnersCarouselProps {
 export function PartnersCarousel({ partners }: PartnersCarouselProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const justDraggedRef = useRef(false);
   const [page, setPage] = useState(0);
   const [selectedPartner, setSelectedPartner] =
     useState<PartnerResponse | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [didDrag, setDidDrag] = useState(false);
+
   const totalPages = Math.max(1, Math.ceil(partners.length / CARDS_PER_PAGE));
   const goTo = useCallback(
     (p: number) => {
@@ -52,6 +60,49 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
     router.replace("/", { scroll: false });
   }, [router]);
 
+  const getClientX = (e: React.TouchEvent | React.MouseEvent) =>
+    "touches" in e ? e.touches[0].clientX : e.clientX;
+
+  const handleDragStart = useCallback((clientX: number) => {
+    setIsDragging(true);
+    setDidDrag(false);
+    setDragStartX(clientX);
+    setDragOffset(0);
+  }, []);
+
+  const handleDragMove = useCallback(
+    (clientX: number) => {
+      if (!isDragging) return;
+      setDidDrag(true);
+      setDragOffset(clientX - dragStartX);
+    },
+    [isDragging, dragStartX],
+  );
+
+  const handleDragEnd = useCallback(() => {
+    if (!isDragging) return;
+    justDraggedRef.current = didDrag;
+    const threshold = containerRef.current
+      ? Math.min(DRAG_THRESHOLD_PX, containerRef.current.offsetWidth * 0.15)
+      : DRAG_THRESHOLD_PX;
+    if (dragOffset > threshold && page > 0) goTo(page - 1);
+    else if (dragOffset < -threshold && page < totalPages - 1) goTo(page + 1);
+    setIsDragging(false);
+    setDragOffset(0);
+    setDragStartX(0);
+  }, [isDragging, didDrag, dragOffset, page, totalPages, goTo]);
+
+  const handleOpenDetail = useCallback(
+    (p: PartnerResponse) => {
+      if (justDraggedRef.current) {
+        justDraggedRef.current = false;
+        return;
+      }
+      openDetail(p);
+    },
+    [openDetail],
+  );
+
   useEffect(() => {
     const id = searchParams.get("partner");
     if (!id) {
@@ -69,21 +120,48 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
     }
   }, [searchParams, partners]);
 
+  useEffect(() => {
+    if (!isDragging) return;
+    const onMove = (e: TouchEvent | MouseEvent) =>
+      handleDragMove("touches" in e ? e.touches[0].clientX : e.clientX);
+    const onEnd = () => handleDragEnd();
+    window.addEventListener("touchmove", onMove, { passive: true });
+    window.addEventListener("touchend", onEnd);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd);
+    return () => {
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
+    };
+  }, [isDragging, handleDragMove, handleDragEnd]);
+
   const items = Array.from({ length: totalPages }, (_, i) =>
     partners.slice(i * CARDS_PER_PAGE, (i + 1) * CARDS_PER_PAGE),
   );
   const slidePct = totalPages > 0 ? 100 / totalPages : 100;
   const isEmpty = partners.length === 0;
+  const baseTranslate = totalPages > 0 ? (page / totalPages) * 100 : 0;
+  const trackTransform = `translate3d(calc(-${baseTranslate}% + ${dragOffset}px), 0, 0)`;
 
   return (
     <>
       <AnimateOnScroll variant="from-bottom">
-        <div className="relative -mx-1 overflow-hidden">
+        <div
+          ref={containerRef}
+          className="partners-carousel-drag-area relative -mx-1 overflow-hidden"
+          onTouchStart={(e) => handleDragStart(getClientX(e))}
+          onMouseDown={(e) => handleDragStart(e.clientX)}
+        >
           <div
-            className="flex will-change-transform transition-transform duration-500 ease-out"
+            className={cn(
+              "partners-carousel-track flex will-change-transform",
+              isDragging && "no-transition",
+            )}
             style={{
               width: `${totalPages * 100}%`,
-              transform: `translate3d(-${(page / totalPages) * 100}%, 0, 0)`,
+              transform: trackTransform,
             }}
           >
             {isEmpty ? (
@@ -120,7 +198,7 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
                             SERVICE_IMAGES.length
                         ]
                       }
-                      onSelect={openDetail}
+                      onSelect={handleOpenDetail}
                     />
                   ))}
                 </div>

@@ -47,7 +47,7 @@ export function BlogSearch({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-4 pr-12 text-[#333] placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-1 focus:ring-(--brand-red)"
+          className="blog-search-input w-full rounded-lg border border-gray-200 bg-white py-3 pl-4 pr-12 text-[#333] placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-1 focus:ring-(--brand-red)"
           aria-label="Blog başlığı veya anahtar kelime ara"
         />
         <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
