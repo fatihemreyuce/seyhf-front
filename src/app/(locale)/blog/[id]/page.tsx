@@ -36,7 +36,6 @@ export default async function BlogDetailPage({
       <section className="bg-white">
         <div className="content-container py-10 md:py-14">
           <div className="flex flex-col gap-10 lg:flex-row lg:gap-12">
-            {/* Ana içerik */}
             <article className="min-w-0 flex-1">
               {circular.fileUrl && (
                 <a
@@ -72,8 +71,6 @@ export default async function BlogDetailPage({
                 <p className="text-[#666]">Bu içerik için metin bulunmuyor.</p>
               )}
             </article>
-
-            {/* Sağ sidebar: Search Here */}
             <aside className="w-full shrink-0 lg:w-80">
               <BlogDetailSearch />
             </aside>
