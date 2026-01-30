@@ -23,6 +23,7 @@ export function ServicePageContent({
 }: ServicePageContentProps) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [visibleSections, setVisibleSections] = useState({
     search: false,
     categories: false,
@@ -39,6 +40,15 @@ export function ServicePageContent({
     categories.forEach((cat) => map.set(cat.id, cat));
     return map;
   }, [categories]);
+
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,8 +96,8 @@ export function ServicePageContent({
       });
     }
 
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
+    if (debouncedSearchQuery.trim()) {
+      const q = debouncedSearchQuery.toLowerCase();
       result = result.filter(
         (s) =>
           s.title.toLowerCase().includes(q) ||
@@ -96,7 +106,7 @@ export function ServicePageContent({
     }
 
     return result;
-  }, [services, selectedCategoryId, searchQuery, categories]);
+  }, [services, selectedCategoryId, debouncedSearchQuery, categories]);
 
   return (
     <section className="bg-white">

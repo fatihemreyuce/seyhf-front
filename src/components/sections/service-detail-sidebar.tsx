@@ -15,8 +15,18 @@ export function ServiceDetailSidebar({
   basePath = "",
 }: ServiceDetailSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,7 +46,7 @@ export function ServiceDetailSidebar({
   }, []);
 
   const filteredServices = services.filter((service) =>
-    service.title.toLowerCase().includes(searchQuery.toLowerCase())
+    service.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
   );
 
   return (
