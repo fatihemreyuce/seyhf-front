@@ -1,15 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Lightbulb } from "lucide-react";
+import { ChevronRight, Users } from "lucide-react";
 import bgService from "@/app/assets/images/background-section/bg-service.jpg";
 import markPage from "@/app/assets/images/mark-page/mark-page.png";
 
-interface UsefulInfoDetailHeroProps {
-  title: string;
+interface PartnersPageHeroProps {
   basePath?: string;
 }
 
-export function UsefulInfoDetailHero({ title, basePath = "" }: UsefulInfoDetailHeroProps) {
+export function PartnersPageHero({ basePath = "" }: PartnersPageHeroProps) {
   return (
     <section className="relative overflow-hidden bg-[#282A2E] py-20 md:py-28">
       {/* Background Image */}
@@ -36,10 +35,10 @@ export function UsefulInfoDetailHero({ title, basePath = "" }: UsefulInfoDetailH
 
       {/* Content */}
       <div className="content-container relative z-20">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-3xl text-center">
           {/* Breadcrumb */}
           <nav
-            className="stat-card-enter visible mb-6 flex items-center gap-2 text-sm"
+            className="stat-card-enter visible mb-6 flex items-center justify-center gap-2 text-sm"
             aria-label="Breadcrumb"
           >
             <Link
@@ -49,27 +48,26 @@ export function UsefulInfoDetailHero({ title, basePath = "" }: UsefulInfoDetailH
               Home
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
-            <Link
-              href={`${basePath}/useful-information`}
-              className="text-gray-300 transition-colors hover:text-white"
-            >
-              Useful Information
-            </Link>
-            <ChevronRight className="h-4 w-4 text-gray-500" />
-            <span className="text-white line-clamp-1" aria-current="page">
-              {title}
+            <span className="text-white" aria-current="page">
+              Our Partners
             </span>
           </nav>
 
           {/* Icon */}
-          <div className="stat-card-enter stat-card-delay-1 visible mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/20 backdrop-blur-sm">
-            <Lightbulb className="h-8 w-8 text-white" />
+          <div className="stat-card-enter stat-card-delay-1 visible mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-(--brand-red)/20 backdrop-blur-sm">
+            <Users className="h-10 w-10 text-white" />
           </div>
 
           {/* Title */}
-          <h1 className="stat-card-enter stat-card-delay-2 visible text-3xl font-extrabold leading-tight text-white md:text-4xl lg:text-5xl">
-            {title}
+          <h1 className="stat-card-enter stat-card-delay-2 visible mb-4 text-4xl font-extrabold text-white md:text-5xl">
+            Our Trusted Partners
           </h1>
+
+          {/* Description */}
+          <p className="stat-card-enter stat-card-delay-3 visible text-lg text-gray-300">
+            We collaborate with industry-leading companies to deliver exceptional
+            solutions and services to our clients.
+          </p>
         </div>
       </div>
     </section>

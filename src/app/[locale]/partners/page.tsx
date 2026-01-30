@@ -1,0 +1,28 @@
+import { getPartners } from "@/services/server/partner-service";
+import { PartnersPageHero } from "@/components/sections/partners-page-hero";
+import { PartnersPageContent } from "@/components/sections/partners-page-content";
+
+export default async function PartnersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const basePath = `/${locale}`;
+
+  let partnersData;
+  try {
+    const response = await getPartners(0, 50);
+    partnersData = response.content || [];
+  } catch (error) {
+    console.error("Failed to fetch partners:", error);
+    partnersData = [];
+  }
+
+  return (
+    <main className="min-h-screen bg-white">
+      <PartnersPageHero basePath={basePath} />
+      <PartnersPageContent partners={partnersData} basePath={basePath} />
+    </main>
+  );
+}

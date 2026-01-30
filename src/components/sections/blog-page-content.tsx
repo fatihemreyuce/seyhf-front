@@ -66,7 +66,7 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
 
   return (
     <section className="bg-white">
-      <div className="content-container py-10 md:py-14">
+      <div className="content-container py-16 md:py-20">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
           <div className="min-w-0 flex-1">
             <div className="flex flex-col gap-6">

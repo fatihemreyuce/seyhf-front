@@ -1,47 +1,61 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { fetchPartnerById } from "@/lib/api";
-import { PartnerDetailByRoute } from "./partner-detail-by-route";
-
-import service01 from "@/app/assets/images/image-box/service-01.png";
-import service02 from "@/app/assets/images/image-box/service-02.png";
-import service03 from "@/app/assets/images/image-box/service-03.png";
-import service04 from "@/app/assets/images/image-box/service-04.png";
-
-const FALLBACKS = [service01, service02, service03, service04] as const;
+import { getPartnerById, getPartners } from "@/services/server/partner-service";
+import { PartnerDetailHero } from "@/components/sections/partner-detail-hero";
+import { PartnerDetailContent } from "@/components/sections/partner-detail-content";
+import { PartnerDetailSidebar } from "@/components/sections/partner-detail-sidebar";
 
 export default async function PartnerDetailPage({
   params,
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const { id, locale } = await params;
+  const { locale, id } = await params;
   const basePath = `/${locale}`;
-  const numId = Number(id);
-  if (Number.isNaN(numId) || numId < 1) notFound();
+  const partnerId = parseInt(id, 10);
 
-  const partner = await fetchPartnerById(numId);
-  if (!partner) notFound();
+  if (isNaN(partnerId)) {
+    notFound();
+  }
 
-  const fallbackImg = FALLBACKS[(numId - 1) % FALLBACKS.length];
+  try {
+    const [partner, allPartnersPage] = await Promise.all([
+      getPartnerById(partnerId),
+      getPartners(0, 20),
+    ]);
 
-  return (
-    <main className="relative min-h-screen bg-[#2a2a2a]">
-      <div className="content-container relative py-8">
-        <Link
-          href={basePath}
-          className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Ana sayfaya dön</span>
-        </Link>
-      </div>
-      <PartnerDetailByRoute
-        partner={partner}
-        fallbackImg={fallbackImg}
-        basePath={basePath}
-      />
-    </main>
-  );
+    const allPartners = (allPartnersPage?.content ?? [])
+      .slice()
+      .sort((a, b) => a.orderIndex - b.orderIndex);
+
+    // Filter out current partner from sidebar
+    const otherPartners = allPartners.filter((p) => p.id !== partnerId);
+
+    return (
+      <main className="min-h-screen bg-[#f8f9fa]">
+        <PartnerDetailHero name={partner.name} basePath={basePath} />
+        
+        <section className="bg-white">
+          <div className="content-container py-12 md:py-16">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+              {/* Main Content */}
+              <div className="lg:col-span-8">
+                <PartnerDetailContent partner={partner} />
+              </div>
+
+              {/* Sidebar */}
+              <div className="lg:col-span-4">
+                <PartnerDetailSidebar
+                  partners={otherPartners}
+                  basePath={basePath}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  } catch (error) {
+    console.error("Failed to fetch partner:", error);
+    notFound();
+  }
 }

@@ -21,7 +21,7 @@ export async function PartnersSection() {
         <span className="absolute bottom-[14%] right-[8%] h-2 w-2 rounded-full bg-[#eab308]" />
       </div>
 
-      <div className="content-container relative py-10 md:py-14">
+      <div className="content-container relative py-16 md:py-20">
         <AnimateOnScroll variant="from-top" className="mb-8 text-center">
           <p className="mb-1.5 text-xs font-medium uppercase tracking-wider text-white/70 md:text-sm">
             Our Partners List

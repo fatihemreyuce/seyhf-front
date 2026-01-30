@@ -11,7 +11,7 @@ interface ServiceDetailHeroProps {
 
 export function ServiceDetailHero({ title, basePath = "" }: ServiceDetailHeroProps) {
   return (
-    <section className="relative bg-[#8d929b] py-16 md:py-20 overflow-hidden">
+    <section className="relative bg-[#8d929b] py-20 md:py-28 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image

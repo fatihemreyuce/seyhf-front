@@ -8,7 +8,7 @@ export async function CircularsSection() {
 
   return (
     <section className="relative bg-white">
-      <div className="content-container relative py-10 md:py-14">
+      <div className="content-container relative py-16 md:py-20">
         <AnimateOnScroll variant="from-top" className="mb-10 text-center">
           <p className="mb-1.5 text-xs font-medium uppercase tracking-wider text-gray-500 md:text-sm">
             Our Case Study

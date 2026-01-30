@@ -1,15 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Lightbulb } from "lucide-react";
+import { ChevronRight, Users } from "lucide-react";
 import bgService from "@/app/assets/images/background-section/bg-service.jpg";
 import markPage from "@/app/assets/images/mark-page/mark-page.png";
 
-interface UsefulInfoDetailHeroProps {
-  title: string;
+interface PartnerDetailHeroProps {
+  name: string;
   basePath?: string;
 }
 
-export function UsefulInfoDetailHero({ title, basePath = "" }: UsefulInfoDetailHeroProps) {
+export function PartnerDetailHero({ name, basePath = "" }: PartnerDetailHeroProps) {
   return (
     <section className="relative overflow-hidden bg-[#282A2E] py-20 md:py-28">
       {/* Background Image */}
@@ -50,25 +50,25 @@ export function UsefulInfoDetailHero({ title, basePath = "" }: UsefulInfoDetailH
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <Link
-              href={`${basePath}/useful-information`}
+              href={`${basePath}/partners`}
               className="text-gray-300 transition-colors hover:text-white"
             >
-              Useful Information
+              Partners
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <span className="text-white line-clamp-1" aria-current="page">
-              {title}
+              {name}
             </span>
           </nav>
 
           {/* Icon */}
           <div className="stat-card-enter stat-card-delay-1 visible mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/20 backdrop-blur-sm">
-            <Lightbulb className="h-8 w-8 text-white" />
+            <Users className="h-8 w-8 text-white" />
           </div>
 
           {/* Title */}
           <h1 className="stat-card-enter stat-card-delay-2 visible text-3xl font-extrabold leading-tight text-white md:text-4xl lg:text-5xl">
-            {title}
+            {name}
           </h1>
         </div>
       </div>

@@ -110,7 +110,7 @@ export function ServicePageContent({
 
   return (
     <section className="bg-white">
-      <div className="content-container py-14 md:py-18">
+      <div className="content-container py-16 md:py-20">
         {/* Stats Banner */}
         {stats.length > 0 && (
           <div className="mb-12 grid grid-cols-2 gap-5 md:grid-cols-4">

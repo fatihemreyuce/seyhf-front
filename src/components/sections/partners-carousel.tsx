@@ -2,11 +2,10 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
-import { PartnerDetailSheet } from "./partner-detail-sheet";
 import { cn } from "@/lib/utils";
 import type { PartnerResponse } from "@/types/partner.types";
 
@@ -24,14 +23,9 @@ export interface PartnersCarouselProps {
 }
 
 export function PartnersCarousel({ partners }: PartnersCarouselProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const containerRef = useRef<HTMLDivElement>(null);
   const justDraggedRef = useRef(false);
   const [page, setPage] = useState(0);
-  const [selectedPartner, setSelectedPartner] =
-    useState<PartnerResponse | null>(null);
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -44,21 +38,6 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
     },
     [totalPages],
   );
-
-  const openDetail = useCallback(
-    (p: PartnerResponse) => {
-      setSelectedPartner(p);
-      setSheetOpen(true);
-      router.replace(`/?partner=${p.id}`, { scroll: false });
-    },
-    [router],
-  );
-
-  const closeDetail = useCallback(() => {
-    setSheetOpen(false);
-    setSelectedPartner(null);
-    router.replace("/", { scroll: false });
-  }, [router]);
 
   const getClientX = (e: React.TouchEvent | React.MouseEvent) =>
     "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -91,34 +70,6 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
     setDragOffset(0);
     setDragStartX(0);
   }, [isDragging, didDrag, dragOffset, page, totalPages, goTo]);
-
-  const handleOpenDetail = useCallback(
-    (p: PartnerResponse) => {
-      if (justDraggedRef.current) {
-        justDraggedRef.current = false;
-        return;
-      }
-      openDetail(p);
-    },
-    [openDetail],
-  );
-
-  useEffect(() => {
-    const id = searchParams.get("partner");
-    if (!id) {
-      if (!sheetOpen) return;
-      setSheetOpen(false);
-      setSelectedPartner(null);
-      return;
-    }
-    const numId = Number(id);
-    if (Number.isNaN(numId) || numId < 1) return;
-    const p = partners.find((x) => x.id === numId);
-    if (p) {
-      setSelectedPartner(p);
-      setSheetOpen(true);
-    }
-  }, [searchParams, partners]);
 
   useEffect(() => {
     if (!isDragging) return;
@@ -198,7 +149,7 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
                             SERVICE_IMAGES.length
                         ]
                       }
-                      onSelect={handleOpenDetail}
+                      justDraggedRef={justDraggedRef}
                     />
                   ))}
                 </div>
@@ -223,22 +174,6 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
           ))}
         </div>
       </AnimateOnScroll>
-
-      <PartnerDetailSheet
-        partner={selectedPartner}
-        open={sheetOpen}
-        onOpenChange={(open) => !open && closeDetail()}
-        fallbackImg={
-          selectedPartner
-            ? SERVICE_IMAGES[
-                Math.max(
-                  0,
-                  partners.findIndex((p) => p.id === selectedPartner.id),
-                ) % SERVICE_IMAGES.length
-              ]
-            : service01
-        }
-      />
     </>
   );
 }
@@ -246,19 +181,26 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
 function PartnerCard({
   partner,
   fallbackImg,
-  onSelect,
+  justDraggedRef,
 }: {
   partner: PartnerResponse;
   fallbackImg: (typeof SERVICE_IMAGES)[number];
-  onSelect: (p: PartnerResponse) => void;
+  justDraggedRef: React.MutableRefObject<boolean>;
 }) {
   const imgSrc = partner.logoUrl ?? fallbackImg;
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (justDraggedRef.current) {
+      e.preventDefault();
+      justDraggedRef.current = false;
+    }
+  };
+
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(partner)}
-      className="group block w-full text-left"
+    <Link
+      href={`/partners/${partner.id}`}
+      onClick={handleClick}
+      className="group block w-full"
     >
       <Card className="relative h-full overflow-hidden border-0 bg-white shadow-md transition-shadow hover:shadow-xl">
         <div className="relative aspect-5/3 w-full overflow-hidden bg-gray-200">
@@ -292,6 +234,6 @@ function PartnerCard({
           <ArrowRight className="h-4 w-4 text-gray-500 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:text-white" />
         </CardContent>
       </Card>
-    </button>
+    </Link>
   );
 }

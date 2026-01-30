@@ -13,7 +13,7 @@ export function ServicePageHero({ basePath = "" }: { basePath?: string }) {
 
   return (
     <section
-      className="relative min-h-[260px] overflow-hidden py-16 md:min-h-[320px] md:py-24 lg:min-h-[360px] lg:py-28"
+      className="relative min-h-[260px] overflow-hidden py-20 md:min-h-[320px] md:py-28 lg:min-h-[360px]"
       style={{ backgroundColor: HERO_GRAY }}
     >
       <svg

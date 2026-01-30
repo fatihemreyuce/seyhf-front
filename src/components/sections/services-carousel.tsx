@@ -84,6 +84,7 @@ export function ServicesCarousel({ services }: { services: ServiceResponse[] }) 
         {services.map((service) => (
           <div key={service.id} className="services-scroll-item">
             <ServiceCard
+              id={service.id}
               title={service.title}
               description={service.description}
             />

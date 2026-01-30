@@ -95,7 +95,7 @@ export interface BlogPageGridProps {
 export function BlogPageGrid({ posts }: BlogPageGridProps) {
   return (
     <section className="bg-white">
-      <div className="content-container py-10 md:py-14">
+      <div className="content-container py-16 md:py-20">
         <div className="flex flex-col gap-6">
           {posts.map((post) => (
             <BlogPageCard key={post.id} post={post} />

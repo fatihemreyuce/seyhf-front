@@ -46,7 +46,7 @@ export async function ServicesSection() {
 
   return (
     <section className="bg-white">
-      <div className="content-container py-14 md:py-16">
+      <div className="content-container py-16 md:py-20">
         <div className="mb-10 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#999]">
             Our Services List

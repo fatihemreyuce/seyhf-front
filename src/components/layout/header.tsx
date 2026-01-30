@@ -16,6 +16,7 @@ const navItems = [
   { label: "Hakkımızda", href: "/about" },
   { label: "Hizmetlerimiz", href: "/services" },
   { label: "Blog", href: "/blog" },
+  { label: "Referanslarımız", href: "/references" },
   { label: "Faydalı Bilgiler", href: "/useful-information" },
   { label: "İletişim", href: "/contact" },
 ];
@@ -74,10 +75,13 @@ export default function Header() {
 
   const transparent = !isScrolled;
   const isBlogPage = pathname.startsWith("/blog");
-  const isServiceDetailPage = /\/services\/\d+/.test(pathname);
-  const isGrayHeroPage = isBlogPage || isServiceDetailPage;
-  
-  /* Homepage (2. ss): üstte katı beyaz + siyah menü + renkli logo. Blog/Service Detail: üstte gri + beyaz yazı. */
+  const isServicePage = pathname.startsWith("/services");
+  const isUsefulInfoPage = pathname.startsWith("/useful-information");
+  const isPartnersPage = pathname.startsWith("/partners");
+  const isReferencesPage = pathname.startsWith("/references");
+  const isGrayHeroPage = isBlogPage || isServicePage || isUsefulInfoPage || isPartnersPage || isReferencesPage;
+
+  /* Pages with gray/dark hero: Blog, Services, Useful Information, Partners, References */
   const navTextClass =
     transparent && isGrayHeroPage
       ? "text-white hover:text-white/95"
@@ -102,14 +106,16 @@ export default function Header() {
       <div className="content-container relative z-10">
         <div className="flex h-20 items-center justify-between pt-3 sm:h-24 sm:pt-4 md:h-28 md:pt-4">
           {/* Logo */}
-          <div className="shrink-0">
+          <div className="mr-6 xl:mr-8 shrink-0">
             <Link href="/" className="block">
               <Image
                 src={logoHome2}
                 alt="BIXOS Logo"
                 width={150}
                 height={50}
-                className={`w-24 transition-all duration-300 sm:w-32 md:w-[150px] ${transparent && isBlogPage ? "brightness-0 invert" : ""}`}
+                className={`w-24 transition-all duration-300 sm:w-32 md:w-[150px] ${
+                  transparent && isBlogPage ? "brightness-0 invert" : ""
+                }`}
                 style={{ width: "auto", height: "auto" }}
                 sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 150px"
                 loading="eager"
@@ -119,7 +125,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex flex-1 items-stretch justify-center gap-6 xl:gap-8 self-stretch">
+          <nav className="hidden lg:flex flex-1 items-stretch justify-center gap-4 xl:gap-6 self-stretch">
             {navItems.map((item) => {
               const active = hoveredItem === item.label || isActive(item.href);
               return (
@@ -131,7 +137,9 @@ export default function Header() {
                   onMouseLeave={() => setHoveredItem(null)}
                 >
                   <span
-                    className={`font-extrabold text-sm xl:text-base transition-colors duration-200 ${navTextClass} ${active ? navActiveClass : ""}`}
+                    className={`font-extrabold text-xs xl:text-sm 2xl:text-base transition-colors duration-200 whitespace-nowrap ${navTextClass} ${
+                      active ? navActiveClass : ""
+                    }`}
                   >
                     {item.label}
                   </span>
@@ -151,7 +159,7 @@ export default function Header() {
           {/* Desktop CTA Button */}
           <div className="hidden lg:block shrink-0">
             <Button
-              className="px-6 xl:px-10 py-3 xl:py-5 text-xs xl:text-base"
+              className="px-4 xl:px-6 2xl:px-10 py-2.5 xl:py-3 2xl:py-5 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
               style={{ backgroundColor: BRAND_RED }}
             >
               Get A Quote <span className="ml-1">+</span>
@@ -160,7 +168,11 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden shrink-0 p-2 transition-all duration-300 ${transparent && isBlogPage ? "text-white hover:opacity-90" : "text-[#282A2E] hover:text-(--brand-red)"}`}
+            className={`lg:hidden shrink-0 p-2 transition-all duration-300 ${
+              transparent && isBlogPage
+                ? "text-white hover:opacity-90"
+                : "text-[#282A2E] hover:text-(--brand-red)"
+            }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -205,7 +217,9 @@ export default function Header() {
                   transform: mobileMenuOpen
                     ? "translateY(0)"
                     : "translateY(-10px)",
-                  transition: `all 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${mobileMenuOpen ? `${index * 0.06}s` : "0s"}`,
+                  transition: `all 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${
+                    mobileMenuOpen ? `${index * 0.06}s` : "0s"
+                  }`,
                 }}
                 onMouseEnter={() => setHoveredItem(item.label)}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -230,7 +244,9 @@ export default function Header() {
                 transform: mobileMenuOpen
                   ? "translateY(0)"
                   : "translateY(-10px)",
-                transition: `all 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${mobileMenuOpen ? `${navItems.length * 0.06}s` : "0s"}`,
+                transition: `all 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${
+                  mobileMenuOpen ? `${navItems.length * 0.06}s` : "0s"
+                }`,
               }}
             >
               <Button
