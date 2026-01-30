@@ -5,16 +5,17 @@ import { useState } from "react";
 import { BlogSearch } from "@/components/sections/blog-search";
 
 /** Blog detay sayfasında sağda: "Search Here" — arama yapınca /blog?q=... ile listeye yönlendirir */
-export function BlogDetailSearch() {
+export function BlogDetailSearch({ basePath = "" }: { basePath?: string }) {
   const router = useRouter();
   const [value, setValue] = useState("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const q = value.trim();
+    const blogHref = basePath ? `${basePath}/blog` : "/blog";
     if (q) {
-      router.push(`/blog?q=${encodeURIComponent(q)}`);
+      router.push(`${blogHref}?q=${encodeURIComponent(q)}`);
     } else {
-      router.push("/blog");
+      router.push(blogHref);
     }
   };
 

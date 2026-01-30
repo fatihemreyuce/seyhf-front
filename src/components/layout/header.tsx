@@ -74,14 +74,17 @@ export default function Header() {
 
   const transparent = !isScrolled;
   const isBlogPage = pathname.startsWith("/blog");
-  /* Homepage (2. ss): üstte katı beyaz + siyah menü + renkli logo. Blog: üstte gri + beyaz yazı. */
+  const isServiceDetailPage = /\/services\/\d+/.test(pathname);
+  const isGrayHeroPage = isBlogPage || isServiceDetailPage;
+  
+  /* Homepage (2. ss): üstte katı beyaz + siyah menü + renkli logo. Blog/Service Detail: üstte gri + beyaz yazı. */
   const navTextClass =
-    transparent && isBlogPage
+    transparent && isGrayHeroPage
       ? "text-white hover:text-white/95"
       : "text-[#282A2E] hover:text-[#282A2E]";
   const navActiveClass = "text-[var(--brand-red)]";
   const borderClass = transparent
-    ? isBlogPage
+    ? isGrayHeroPage
       ? "border-white/20"
       : "border-gray-200 bg-white"
     : "border-gray-200/80 bg-white/90 backdrop-blur-md";
@@ -91,7 +94,7 @@ export default function Header() {
       className={`sticky top-0 z-50 border-b transition-all duration-300 ease-out ${borderClass}`}
       style={{
         transform: headerVisible ? "translateY(0)" : "translateY(-100%)",
-        ...(transparent && isBlogPage
+        ...(transparent && isGrayHeroPage
           ? { backgroundColor: BLOG_HEADER_GRAY }
           : {}),
       }}

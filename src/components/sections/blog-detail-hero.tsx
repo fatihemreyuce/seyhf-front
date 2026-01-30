@@ -10,9 +10,12 @@ const HERO_GRAY = "#8d929b";
 
 export interface BlogDetailHeroProps {
   title: string;
+  basePath?: string;
 }
 
-export function BlogDetailHero({ title }: BlogDetailHeroProps) {
+export function BlogDetailHero({ title, basePath = "" }: BlogDetailHeroProps) {
+  const rootHref = basePath ? `${basePath}/` : "/";
+  const blogHref = basePath ? `${basePath}/blog` : "/blog";
   return (
     <section
       className="relative min-h-[260px] overflow-hidden py-16 md:min-h-[320px] md:py-24 lg:min-h-[360px] lg:py-28"
@@ -75,13 +78,13 @@ export function BlogDetailHero({ title }: BlogDetailHeroProps) {
           className="mt-3 flex items-center flex-wrap justify-center gap-x-2 gap-y-1 text-sm text-white md:mt-4 md:text-base"
           aria-label="Breadcrumb"
         >
-          <Link href="/" className="transition-opacity hover:opacity-90">
+          <Link href={rootHref} className="transition-opacity hover:opacity-90">
             Home Page
           </Link>
           <span aria-hidden className="opacity-80">
             &gt;
           </span>
-          <Link href="/blog" className="transition-opacity hover:opacity-90">
+          <Link href={blogHref} className="transition-opacity hover:opacity-90">
             Blog Page
           </Link>
           <span aria-hidden className="opacity-80">

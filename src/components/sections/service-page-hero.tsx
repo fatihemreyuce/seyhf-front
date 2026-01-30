@@ -5,18 +5,17 @@ import ellipse1 from "@/app/assets/images/mark-page/ellipse1.png";
 import Ellipse2 from "@/app/assets/images/mark-page/Ellipse2.png";
 import markPage from "@/app/assets/images/mark-page/mark-page.png";
 
-/** SS’deki gibi: düz gri, kırmızı eğri, iki kesikli daire (assets), sağ üst koyu şekil (assets) */
 const HERO_GRAY = "#8d929b";
 
-export function BlogPageHero({ basePath = "" }: { basePath?: string }) {
+export function ServicePageHero({ basePath = "" }: { basePath?: string }) {
   const rootHref = basePath ? `${basePath}/` : "/";
-  const blogHref = basePath ? `${basePath}/blog` : "/blog";
+  const servicesHref = basePath ? `${basePath}/services` : "/services";
+
   return (
     <section
       className="relative min-h-[260px] overflow-hidden py-16 md:min-h-[320px] md:py-24 lg:min-h-[360px] lg:py-28"
       style={{ backgroundColor: HERO_GRAY }}
     >
-      {/* Kırmızı eğri — sol üstten sağa, yukarı sonra aşağı (SS’deki gibi) */}
       <svg
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 z-1 h-full w-full"
@@ -33,7 +32,6 @@ export function BlogPageHero({ basePath = "" }: { basePath?: string }) {
         />
       </svg>
 
-      {/* Sol üst: iki konsantrik kesikli daire — ellipse1 + Ellipse2 (assets, SS’deki gibi) */}
       <div className="pointer-events-none absolute left-6 top-[18%] z-1 md:left-10 md:top-[15%]">
         <Image
           src={ellipse1}
@@ -53,7 +51,6 @@ export function BlogPageHero({ basePath = "" }: { basePath?: string }) {
         />
       </div>
 
-      {/* Sağ üst: koyu soyut şekil — mark-page.png (assets, SS’deki gibi) */}
       <div className="pointer-events-none absolute right-0 top-0 z-1 opacity-90">
         <Image
           src={markPage}
@@ -64,10 +61,9 @@ export function BlogPageHero({ basePath = "" }: { basePath?: string }) {
         />
       </div>
 
-      {/* İçerik */}
       <div className="content-container relative z-10 flex min-h-[260px] flex-col items-center justify-center text-center md:min-h-[320px] lg:min-h-[360px]">
         <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl xl:text-6xl">
-          Blog Page
+          Services Page
         </h1>
         <nav
           className="mt-3 flex items-center gap-2 text-sm text-white md:mt-4 md:text-base"
@@ -79,8 +75,11 @@ export function BlogPageHero({ basePath = "" }: { basePath?: string }) {
           <span aria-hidden className="opacity-80">
             &gt;
           </span>
-          <Link href={blogHref} className="transition-opacity hover:opacity-90">
-            Blog Page
+          <Link
+            href={servicesHref}
+            className="transition-opacity hover:opacity-90"
+          >
+            Services Page
           </Link>
         </nav>
       </div>
