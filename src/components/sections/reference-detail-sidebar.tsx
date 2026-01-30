@@ -94,22 +94,26 @@ export function ReferenceDetailSidebar({
           <div className="max-h-96 overflow-y-auto p-3">
             <div className="space-y-1">
               {filteredReferences.length > 0 ? (
-                filteredReferences.map((reference) => (
-                  <Link
-                    key={reference.id}
-                    href={`${basePath}/references/${reference.id}`}
-                    className="group flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all hover:border-gray-100 hover:bg-gray-50"
-                  >
-                    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-gray-50">
-                      {reference.logo ? (
-                        <Image
-                          src={reference.logo}
-                          alt={reference.name}
-                          fill
-                          className="object-contain p-1"
-                          unoptimized
-                        />
-                      ) : (
+                filteredReferences.map((reference) => {
+                  // Fix SSL issue with localhost
+                  const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
+                  
+                  return (
+                    <Link
+                      key={reference.id}
+                      href={`${basePath}/references/${reference.id}`}
+                      className="group flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all hover:border-gray-100 hover:bg-gray-50"
+                    >
+                      <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-gray-50">
+                        {logoUrl ? (
+                          <Image
+                            src={logoUrl}
+                            alt={reference.name}
+                            fill
+                            className="object-contain p-1"
+                            unoptimized
+                          />
+                        ) : (
                         <div className="flex h-full w-full items-center justify-center">
                           <Building2 className="h-5 w-5 text-gray-400" />
                         </div>
@@ -118,9 +122,10 @@ export function ReferenceDetailSidebar({
                     <span className="min-w-0 flex-1 text-sm font-medium text-[#666] transition-colors line-clamp-2 group-hover:text-[#111]">
                       {reference.name}
                     </span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-gray-300 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-(--brand-red) group-hover:opacity-100" />
-                  </Link>
-                ))
+                      <ArrowRight className="h-4 w-4 shrink-0 text-gray-300 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-(--brand-red) group-hover:opacity-100" />
+                    </Link>
+                  );
+                })
               ) : (
                 <p className="py-8 text-center text-sm text-[#999]">
                   No references found

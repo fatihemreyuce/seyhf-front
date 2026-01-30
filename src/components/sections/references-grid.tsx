@@ -75,12 +75,9 @@ interface ReferenceCardProps {
 function ReferenceCard({ reference, index, isVisible }: ReferenceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const plainDescription = stripHtml(reference.description);
-
-  // Debug: Logo URL kontrolü
-  if (index === 0) {
-    console.log('Reference Logo:', reference.logo);
-    console.log('Reference Data:', reference);
-  }
+  
+  // Fix SSL issue with localhost
+  const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
 
   return (
     <div
@@ -106,18 +103,14 @@ function ReferenceCard({ reference, index, isVisible }: ReferenceCardProps) {
           {/* Logo Container */}
           <div className="mb-6 flex items-center justify-center">
             <div className="relative h-24 w-full overflow-hidden rounded-xl bg-gray-50 p-4 transition-all duration-700 group-hover:bg-white group-hover:shadow-md">
-              {reference.logo ? (
+              {logoUrl ? (
                 <div className="relative h-full w-full">
                   <Image
-                    src={reference.logo}
+                    src={logoUrl}
                     alt={reference.name}
                     fill
                     className="object-contain transition-transform duration-700 group-hover:scale-110"
                     unoptimized
-                    onError={(e) => {
-                      console.error('Image Load Error:', reference.logo);
-                      console.error('Error Event:', e);
-                    }}
                   />
                 </div>
               ) : (
@@ -148,18 +141,20 @@ function ReferenceCard({ reference, index, isVisible }: ReferenceCardProps) {
             
             {/* Visit Website (external link) */}
             {reference.websiteUrl && (
-              <a
-                href={reference.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.open(reference.websiteUrl, '_blank', 'noopener,noreferrer');
+                }}
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-400 transition-all duration-500 hover:bg-(--brand-red) hover:text-white ${
                   isHovered ? "rotate-12 scale-110" : ""
                 }`}
                 aria-label="Visit Website"
               >
                 <Globe className="h-4 w-4" />
-              </a>
+              </button>
             )}
           </div>
         </div>

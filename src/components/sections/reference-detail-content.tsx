@@ -37,6 +37,9 @@ export function ReferenceDetailContent({
   }, []);
 
   const plainDescription = stripHtml(reference.description);
+  
+  // Fix SSL issue with localhost
+  const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
 
   return (
     <div ref={contentRef} className="space-y-8">
@@ -54,10 +57,10 @@ export function ReferenceDetailContent({
             </div>
           </div>
           <div className="flex items-center justify-center bg-gray-50 p-12 md:p-16">
-            {reference.logo ? (
+            {logoUrl ? (
               <div className="relative h-48 w-full max-w-md">
                 <Image
-                  src={reference.logo}
+                  src={logoUrl}
                   alt={reference.name}
                   fill
                   className="object-contain"

@@ -114,36 +114,40 @@ export function ReferencesPageContent({
             ref={gridRef}
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            {sortedReferences.map((reference, index) => (
-              <div
-                key={reference.id}
-                className={`stat-card-enter stat-card-delay-${index % 4} group ${
-                  visibleSections.grid ? "visible" : ""
-                }`}
-              >
-                <Link
-                  href={`${basePath}/references/${reference.id}`}
-                  className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-(--brand-red)/30 hover:shadow-xl"
+            {sortedReferences.map((reference, index) => {
+              // Fix SSL issue with localhost
+              const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
+              
+              return (
+                <div
+                  key={reference.id}
+                  className={`stat-card-enter stat-card-delay-${index % 4} group ${
+                    visibleSections.grid ? "visible" : ""
+                  }`}
                 >
-                  {/* Background gradient on hover */}
-                  <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <Link
+                    href={`${basePath}/references/${reference.id}`}
+                    className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-(--brand-red)/30 hover:shadow-xl"
+                  >
+                    {/* Background gradient on hover */}
+                    <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                  {/* Content */}
-                  <div className="relative z-10 flex h-full flex-col p-6">
-                    {/* Logo */}
-                    <div className="mb-5 flex items-center justify-center">
-                      <div className="relative h-24 w-full overflow-hidden rounded-xl bg-gray-50 p-4 transition-all duration-500 group-hover:bg-white group-hover:shadow-md">
-                        {reference.logo ? (
-                          <div className="relative h-full w-full">
-                            <Image
-                              src={reference.logo}
-                              alt={reference.name}
-                              fill
-                              className="object-contain transition-transform duration-500 group-hover:scale-110"
-                              unoptimized
-                            />
-                          </div>
-                        ) : (
+                    {/* Content */}
+                    <div className="relative z-10 flex h-full flex-col p-6">
+                      {/* Logo */}
+                      <div className="mb-5 flex items-center justify-center">
+                        <div className="relative h-24 w-full overflow-hidden rounded-xl bg-gray-50 p-4 transition-all duration-500 group-hover:bg-white group-hover:shadow-md">
+                          {logoUrl ? (
+                            <div className="relative h-full w-full">
+                              <Image
+                                src={logoUrl}
+                                alt={reference.name}
+                                fill
+                                className="object-contain transition-transform duration-500 group-hover:scale-110"
+                                unoptimized
+                              />
+                            </div>
+                          ) : (
                           <div className="flex h-full w-full items-center justify-center">
                             <Building2 className="h-12 w-12 text-gray-300 transition-colors duration-500 group-hover:text-(--brand-red)" />
                           </div>
@@ -173,7 +177,8 @@ export function ReferencesPageContent({
                   <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-500 group-hover:w-full" />
                 </Link>
               </div>
-            ))}
+            );
+            })}
           </div>
         ) : (
           <div className="rounded-2xl border border-gray-100 bg-gray-50 py-20 text-center">

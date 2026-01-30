@@ -8,7 +8,7 @@ export interface ReferenceRequest {
 
 export interface ReferenceResponse {
   id: number;
-  logo: string | null;
+  logoUrl: string | null;
   name: string;
   description: string;
   websiteUrl: string;
