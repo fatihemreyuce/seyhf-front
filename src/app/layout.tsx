@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import ConditionalTopBar from "@/components/layout/conditional-top-bar";
 import { RouteLoadingOverlay } from "@/components/loading/route-loading";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ScrollToTop />
         <ConditionalTopBar />
         <Header />
         <RouteLoadingOverlay />

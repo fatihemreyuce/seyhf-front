@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { PageLoading } from "@/components/loading/page-loading";
 
-const ROUTE_LOADING_DELAY_MS = 150;
-const ROUTE_LOADING_MS = 600;
+const ROUTE_LOADING_DELAY_MS = 100;
+const ROUTE_LOADING_MS = 2500;
 
 /** Route değişince global loading overlay gösterir */
 export function RouteLoadingOverlay() {
@@ -19,6 +19,7 @@ export function RouteLoadingOverlay() {
       isFirst.current = false;
       return;
     }
+    
     const showT = setTimeout(() => setLoading(true), ROUTE_LOADING_DELAY_MS);
     const hideT = setTimeout(() => setLoading(false), ROUTE_LOADING_MS);
     return () => {

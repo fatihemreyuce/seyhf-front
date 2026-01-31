@@ -1,15 +1,8 @@
 import { notFound } from "next/navigation";
 import { BlogDetailHero } from "@/components/sections/blog-detail-hero";
-import { BlogDetailSearch } from "@/components/sections/blog-detail-search";
-import { fetchCircularById } from "@/lib/api";
-import { FileDown } from "lucide-react";
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+import { BlogDetailContent } from "@/components/sections/blog-detail-content";
+import { BlogDetailSidebar } from "@/components/sections/blog-detail-sidebar";
+import { fetchCircularById, fetchCirculars } from "@/lib/api";
 
 export default async function BlogDetailPage({
   params,
@@ -22,57 +15,35 @@ export default async function BlogDetailPage({
     notFound();
   }
 
-  const circular = await fetchCircularById(numericId);
+  const [circular, allCirculars] = await Promise.all([
+    fetchCircularById(numericId),
+    fetchCirculars(),
+  ]);
+
   if (!circular) {
     notFound();
   }
 
-  const plainDescription = stripHtml(circular.description ?? "");
+  // Filter out current blog and limit to 10 items
+  const relatedBlogs = allCirculars
+    .filter((blog) => blog.id !== numericId)
+    .slice(0, 10);
 
   return (
-    <main className="min-h-screen bg-[#8d929b]">
-      <BlogDetailHero title={circular.title} />
+    <main className="min-h-screen bg-[#f8f9fa]">
+      <BlogDetailHero title={circular.title} basePath="" />
 
-      <section className="bg-white">
-        <div className="content-container py-10 md:py-14">
-          <div className="flex flex-col gap-10 lg:flex-row lg:gap-12">
+      <section className="bg-[#f8f9fa]">
+        <div className="content-container py-12 md:py-16">
+          <div className="flex flex-col gap-8 lg:flex-row">
+            {/* Main Content */}
             <article className="min-w-0 flex-1">
-              {circular.fileUrl && (
-                <a
-                  href={circular.fileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group mb-10 flex items-start gap-5 rounded-2xl border border-gray-100 bg-linear-to-br from-gray-50 to-white p-6 shadow-sm transition-all duration-300 hover:border-(--brand-red)/20 hover:shadow-md hover:shadow-(--brand-red)/5"
-                >
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-gray-100 transition-colors group-hover:bg-(--brand-red) group-hover:text-white">
-                    <FileDown
-                      className="h-7 w-7 text-[#4C505A] transition-colors group-hover:text-white"
-                      aria-hidden
-                    />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <span className="block text-base font-semibold text-[#282A2E] transition-colors group-hover:text-(--brand-red)">
-                      Dosyayı indir / aç
-                    </span>
-                    <p className="mt-0.5 text-sm text-[#666]">
-                      PDF veya ek dosya
-                    </p>
-                  </div>
-                </a>
-              )}
-              {plainDescription && (
-                <div className="prose prose-lg max-w-none text-[#333] prose-p:leading-[1.8] prose-p:text-[#444]">
-                  <div className="whitespace-pre-wrap leading-relaxed">
-                    {plainDescription}
-                  </div>
-                </div>
-              )}
-              {!plainDescription && !circular.fileUrl && (
-                <p className="text-[#666]">Bu içerik için metin bulunmuyor.</p>
-              )}
+              <BlogDetailContent blog={circular} />
             </article>
-            <aside className="w-full shrink-0 lg:w-80">
-              <BlogDetailSearch />
+
+            {/* Sidebar */}
+            <aside className="w-full shrink-0 lg:w-80 xl:w-96">
+              <BlogDetailSidebar blogs={relatedBlogs} basePath="" />
             </aside>
           </div>
         </div>
