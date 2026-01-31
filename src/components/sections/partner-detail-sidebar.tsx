@@ -20,11 +20,11 @@ export function PartnerDetailSidebar({
   const [isVisible, setIsVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -46,9 +46,24 @@ export function PartnerDetailSidebar({
     return () => observer.disconnect();
   }, []);
 
-  const filteredPartners = partners.filter((partner) =>
-    partner.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-  );
+  const [animatedPartners, setAnimatedPartners] = useState(partners);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      const filtered = partners.filter((partner) =>
+        partner.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+      );
+      setAnimatedPartners(filtered);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [debouncedSearchQuery, partners]);
+
+  const filteredPartners = animatedPartners;
 
   return (
     <div ref={sidebarRef} className="space-y-6">
@@ -92,13 +107,21 @@ export function PartnerDetailSidebar({
           </div>
 
           <div className="max-h-96 overflow-y-auto p-3">
-            <div className="space-y-1">
+            <div 
+              className={`space-y-1 transition-all duration-500 ${
+                isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
               {filteredPartners.length > 0 ? (
-                filteredPartners.map((partner) => (
+                filteredPartners.map((partner, index) => (
                   <Link
                     key={partner.id}
                     href={`${basePath}/partners/${partner.id}`}
-                    className="group flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all hover:border-gray-100 hover:bg-gray-50"
+                    className="blog-item-enter group flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all hover:border-gray-100 hover:bg-gray-50"
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animationFillMode: "both",
+                    }}
                   >
                     <div className="relative h-10 w-10 shrink-0">
                       {partner.logoUrl ? (
@@ -122,9 +145,9 @@ export function PartnerDetailSidebar({
                   </Link>
                 ))
               ) : (
-                <p className="py-8 text-center text-sm text-[#999]">
+                <div className="blog-item-enter py-8 text-center text-sm text-[#999]">
                   No partners found
-                </p>
+                </div>
               )}
             </div>
           </div>

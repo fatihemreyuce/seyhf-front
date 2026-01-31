@@ -24,6 +24,8 @@ export function ServicePageContent({
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [animatedServices, setAnimatedServices] = useState(services);
+  const [isSearching, setIsSearching] = useState(false);
   const [visibleSections, setVisibleSections] = useState({
     search: false,
     categories: false,
@@ -41,11 +43,11 @@ export function ServicePageContent({
     return map;
   }, [categories]);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -107,6 +109,17 @@ export function ServicePageContent({
 
     return result;
   }, [services, selectedCategoryId, debouncedSearchQuery, categories]);
+
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      setAnimatedServices(filteredServices);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [filteredServices]);
 
   return (
     <section className="bg-white">
@@ -180,12 +193,14 @@ export function ServicePageContent({
         </div>
 
         {/* Services Grid */}
-        {filteredServices.length > 0 ? (
+        {animatedServices.length > 0 ? (
           <div
             ref={servicesRef}
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 transition-all duration-500 ${
+              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
           >
-            {filteredServices.map((service: ServiceResponse, index: number) => (
+            {animatedServices.map((service: ServiceResponse, index: number) => (
               <div
                 key={service.id}
                 className={`stat-card-enter stat-card-delay-${index % 4} ${

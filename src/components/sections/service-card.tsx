@@ -37,11 +37,11 @@ export function ServiceCard({ id, title, description, href, basePath = "" }: Ser
       <h3 className="mb-4 text-lg font-bold leading-snug text-[#282A2E] transition-colors duration-300 group-hover:text-(--brand-red)">
         {title}
       </h3>
-      <p className="text-sm leading-relaxed text-[#777] line-clamp-3">
+      <p className="mb-6 flex-1 text-sm leading-relaxed text-[#777] line-clamp-3">
         {plainDescription}
       </p>
 
-      <ArrowRight className="mt-7 h-5 w-5 text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-(--brand-red)" />
+      <ArrowRight className="h-5 w-5 text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-(--brand-red)" />
 
       <span className="service-card-line" aria-hidden />
     </Link>

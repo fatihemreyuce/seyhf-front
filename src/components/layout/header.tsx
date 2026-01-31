@@ -157,9 +157,9 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA Button */}
-          <div className="hidden lg:block shrink-0">
+          <div className="hidden lg:block shrink-0 ml-6 xl:ml-10">
             <Button
-              className="px-4 xl:px-6 2xl:px-10 py-2.5 xl:py-3 2xl:py-5 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
+              className="cursor-pointer px-4 xl:px-6 2xl:px-10 py-2.5 xl:py-3 2xl:py-5 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
               style={{ backgroundColor: BRAND_RED }}
             >
               Get A Quote <span className="ml-1">+</span>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FileText } from "lucide-react";
+import { FileText, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export interface BlogPagePost {
@@ -73,15 +73,16 @@ export function BlogPageCard({
           {post.title}
         </h3>
         {plainDescription && (
-          <p className="mb-4 text-[#666] line-clamp-2 text-sm leading-relaxed md:text-base">
+          <p className="mb-6 text-[#666] line-clamp-2 text-sm leading-relaxed md:text-base">
             {plainDescription}
           </p>
         )}
         <Link
           href={post.href}
-          className="blog-read-more-link mt-auto inline-block text-sm font-medium text-[#777] hover:text-(--brand-red)"
+          className="group mt-auto inline-flex items-center gap-2 rounded-lg bg-gray-50 px-5 py-2.5 text-sm font-semibold text-[#333] transition-all duration-300 hover:bg-(--brand-red) hover:text-white hover:shadow-md"
         >
-          Read More +
+          <span>Read Article</span>
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </Card>

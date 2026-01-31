@@ -21,6 +21,8 @@ export function ReferencesPageContent({
 }: ReferencesPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [animatedReferences, setAnimatedReferences] = useState(references);
+  const [isSearching, setIsSearching] = useState(false);
   const [visibleSections, setVisibleSections] = useState({
     search: false,
     grid: false,
@@ -29,11 +31,11 @@ export function ReferencesPageContent({
   const searchRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -76,6 +78,17 @@ export function ReferencesPageContent({
     return [...filteredReferences].sort((a, b) => a.orderIndex - b.orderIndex);
   }, [filteredReferences]);
 
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      setAnimatedReferences(sortedReferences);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [sortedReferences]);
+
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="content-container">
@@ -84,7 +97,7 @@ export function ReferencesPageContent({
           <div className="flex items-center gap-2">
             <Award className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              Showing {sortedReferences.length} of {references.length} references
+              Showing {animatedReferences.length} of {references.length} references
             </span>
           </div>
         </div>
@@ -109,12 +122,14 @@ export function ReferencesPageContent({
         </div>
 
         {/* Grid */}
-        {sortedReferences.length > 0 ? (
+        {animatedReferences.length > 0 ? (
           <div
             ref={gridRef}
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 transition-all duration-500 ${
+              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
           >
-            {sortedReferences.map((reference, index) => {
+            {animatedReferences.map((reference, index) => {
               // Fix SSL issue with localhost
               const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
               

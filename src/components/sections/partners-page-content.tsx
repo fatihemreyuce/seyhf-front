@@ -14,6 +14,8 @@ interface PartnersPageContentProps {
 export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [animatedPartners, setAnimatedPartners] = useState(partners);
+  const [isSearching, setIsSearching] = useState(false);
   const [visibleSections, setVisibleSections] = useState({
     search: false,
     grid: false,
@@ -22,11 +24,11 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
   const searchRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -67,6 +69,17 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
     return [...filteredPartners].sort((a, b) => a.orderIndex - b.orderIndex);
   }, [filteredPartners]);
 
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      setAnimatedPartners(sortedPartners);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [sortedPartners]);
+
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="content-container">
@@ -75,7 +88,7 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
           <div className="flex items-center gap-2">
             <Building2 className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              Showing {sortedPartners.length} of {partners.length} partners
+              Showing {animatedPartners.length} of {partners.length} partners
             </span>
           </div>
         </div>
@@ -100,12 +113,14 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
         </div>
 
         {/* Grid */}
-        {sortedPartners.length > 0 ? (
+        {animatedPartners.length > 0 ? (
           <div
             ref={gridRef}
-            className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+            className={`grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 transition-all duration-500 ${
+              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
           >
-            {sortedPartners.map((partner, index) => (
+            {animatedPartners.map((partner, index) => (
               <div
                 key={partner.id}
                 className={`stat-card-enter stat-card-delay-${index % 4} group ${

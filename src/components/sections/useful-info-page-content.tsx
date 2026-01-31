@@ -21,6 +21,8 @@ function stripHtml(html: string): string {
 export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const [animatedData, setAnimatedData] = useState(data);
+  const [isSearching, setIsSearching] = useState(false);
   const [visibleSections, setVisibleSections] = useState({
     search: false,
     grid: false,
@@ -29,11 +31,11 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
   const searchRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -72,6 +74,17 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
     );
   }, [data, debouncedSearchQuery]);
 
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      setAnimatedData(filteredData);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [filteredData]);
+
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="content-container">
@@ -80,7 +93,7 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
           <div className="flex items-center gap-2">
             <Filter className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              Showing {filteredData.length} of {data.length} resources
+              Showing {animatedData.length} of {data.length} resources
             </span>
           </div>
         </div>
@@ -105,12 +118,14 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
         </div>
 
         {/* Grid */}
-        {filteredData.length > 0 ? (
+        {animatedData.length > 0 ? (
           <div
             ref={gridRef}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+            className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ${
+              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
           >
-            {filteredData.map((item, index) => {
+            {animatedData.map((item, index) => {
               const Icon = iconMap[index % iconMap.length];
               const plainExcerpt = stripHtml(item.excerpt);
               const plainDescription = stripHtml(item.description);

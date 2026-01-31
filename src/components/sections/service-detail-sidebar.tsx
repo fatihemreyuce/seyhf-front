@@ -19,11 +19,11 @@ export function ServiceDetailSidebar({
   const [isVisible, setIsVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -45,9 +45,24 @@ export function ServiceDetailSidebar({
     return () => observer.disconnect();
   }, []);
 
-  const filteredServices = services.filter((service) =>
-    service.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-  );
+  const [animatedServices, setAnimatedServices] = useState(services);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      const filtered = services.filter((service) =>
+        service.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+      );
+      setAnimatedServices(filtered);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [debouncedSearchQuery, services]);
+
+  const filteredServices = animatedServices;
 
   return (
     <div ref={sidebarRef} className="space-y-6">
@@ -80,13 +95,21 @@ export function ServiceDetailSidebar({
             </span>
           </h3>
 
-          <div className="space-y-2">
+          <div 
+            className={`space-y-2 transition-all duration-500 ${
+              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
+          >
             {filteredServices.length > 0 ? (
-              filteredServices.map((service) => (
+              filteredServices.map((service, index) => (
                 <Link
                   key={service.id}
                   href={`${basePath}/services/${service.id}`}
-                  className="group flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-2.5 text-sm text-[#555] transition-all hover:border-gray-100 hover:bg-gray-50"
+                  className="blog-item-enter group flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-2.5 text-sm text-[#555] transition-all hover:border-gray-100 hover:bg-gray-50"
+                  style={{
+                    animationDelay: `${index * 50}ms`,
+                    animationFillMode: "both",
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     <FileText className="h-4 w-4 shrink-0 text-gray-400 transition-colors group-hover:text-(--brand-red)" />
@@ -98,9 +121,9 @@ export function ServiceDetailSidebar({
                 </Link>
               ))
             ) : (
-              <p className="py-4 text-center text-sm text-[#999]">
+              <div className="blog-item-enter py-4 text-center text-sm text-[#999]">
                 No services found
-              </p>
+              </div>
             )}
           </div>
         </div>

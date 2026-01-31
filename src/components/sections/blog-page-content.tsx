@@ -7,7 +7,7 @@ import {
 } from "@/components/sections/blog-page-grid";
 import { BlogSearch } from "@/components/sections/blog-search";
 
-const SEARCH_DEBOUNCE_MS = 350;
+const SEARCH_DEBOUNCE_MS = 800;
 
 export interface BlogPageContentProps {
   posts: BlogPagePost[];
@@ -29,6 +29,8 @@ function filterPostsByKeyword(
 export function BlogPageContent({ posts }: BlogPageContentProps) {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
+  const [animatedPosts, setAnimatedPosts] = useState(posts);
+  const [isSearching, setIsSearching] = useState(false);
   const [visibleIndices, setVisibleIndices] = useState<Set<number>>(new Set());
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -37,6 +39,7 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
     [posts, debouncedKeyword],
   );
 
+  // Debounce search query with longer delay
   useEffect(() => {
     const t = setTimeout(
       () => setDebouncedKeyword(keyword),
@@ -44,6 +47,17 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
     );
     return () => clearTimeout(t);
   }, [keyword]);
+
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      setAnimatedPosts(filteredPosts);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [filteredPosts]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,22 +70,26 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
       },
       { rootMargin: "0px 0px -40px 0px", threshold: 0.1 },
     );
-    const n = filteredPosts.length;
+    const n = animatedPosts.length;
     for (let i = 0; i < n; i++) {
       const el = refs.current[i];
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, [filteredPosts.length]);
+  }, [animatedPosts.length]);
 
   return (
     <section className="bg-white">
       <div className="content-container py-16 md:py-20">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
           <div className="min-w-0 flex-1">
-            <div className="flex flex-col gap-6">
-              {filteredPosts.length > 0 ? (
-                filteredPosts.map((post, index) => (
+            <div 
+              className={`flex flex-col gap-6 transition-all duration-500 ${
+                isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
+              {animatedPosts.length > 0 ? (
+                animatedPosts.map((post, index) => (
                   <div
                     key={post.id}
                     ref={(el) => {

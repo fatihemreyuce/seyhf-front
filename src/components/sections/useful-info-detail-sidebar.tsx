@@ -19,11 +19,11 @@ export function UsefulInfoDetailSidebar({
   const [isVisible, setIsVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -45,9 +45,24 @@ export function UsefulInfoDetailSidebar({
     return () => observer.disconnect();
   }, []);
 
-  const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-  );
+  const [animatedItems, setAnimatedItems] = useState(items);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      const filtered = items.filter((item) =>
+        item.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+      );
+      setAnimatedItems(filtered);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [debouncedSearchQuery, items]);
+
+  const filteredItems = animatedItems;
 
   return (
     <div ref={sidebarRef} className="space-y-6">
@@ -91,13 +106,21 @@ export function UsefulInfoDetailSidebar({
           </div>
 
           <div className="max-h-96 overflow-y-auto p-3">
-            <div className="space-y-1">
+            <div 
+              className={`space-y-1 transition-all duration-500 ${
+                isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
               {filteredItems.length > 0 ? (
-                filteredItems.map((item) => (
+                filteredItems.map((item, index) => (
                   <Link
                     key={item.id}
                     href={`${basePath}/useful-information/${item.id}`}
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-transparent px-3 py-3 text-sm transition-all hover:border-gray-100 hover:bg-gray-50"
+                    className="blog-item-enter group flex items-center justify-between gap-3 rounded-xl border border-transparent px-3 py-3 text-sm transition-all hover:border-gray-100 hover:bg-gray-50"
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animationFillMode: "both",
+                    }}
                   >
                     <div className="flex min-w-0 items-center gap-3">
                       <FileText className="h-4 w-4 shrink-0 text-gray-400 transition-colors group-hover:text-(--brand-red)" />
@@ -109,9 +132,9 @@ export function UsefulInfoDetailSidebar({
                   </Link>
                 ))
               ) : (
-                <p className="py-8 text-center text-sm text-[#999]">
+                <div className="blog-item-enter py-8 text-center text-sm text-[#999]">
                   No resources found
-                </p>
+                </div>
               )}
             </div>
           </div>

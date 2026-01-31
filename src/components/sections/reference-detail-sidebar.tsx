@@ -20,11 +20,11 @@ export function ReferenceDetailSidebar({
   const [isVisible, setIsVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Debounce search query
+  // Debounce search query with longer delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
@@ -46,9 +46,24 @@ export function ReferenceDetailSidebar({
     return () => observer.disconnect();
   }, []);
 
-  const filteredReferences = references.filter((reference) =>
-    reference.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-  );
+  const [animatedReferences, setAnimatedReferences] = useState(references);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Animated filter with smooth transition
+  useEffect(() => {
+    setIsSearching(true);
+    const timer = setTimeout(() => {
+      const filtered = references.filter((reference) =>
+        reference.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+      );
+      setAnimatedReferences(filtered);
+      setTimeout(() => setIsSearching(false), 100);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [debouncedSearchQuery, references]);
+
+  const filteredReferences = animatedReferences;
 
   return (
     <div ref={sidebarRef} className="space-y-6">
@@ -92,9 +107,13 @@ export function ReferenceDetailSidebar({
           </div>
 
           <div className="max-h-96 overflow-y-auto p-3">
-            <div className="space-y-1">
+            <div 
+              className={`space-y-1 transition-all duration-500 ${
+                isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
               {filteredReferences.length > 0 ? (
-                filteredReferences.map((reference) => {
+                filteredReferences.map((reference, index) => {
                   // Fix SSL issue with localhost
                   const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
                   
@@ -102,7 +121,11 @@ export function ReferenceDetailSidebar({
                     <Link
                       key={reference.id}
                       href={`${basePath}/references/${reference.id}`}
-                      className="group flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all hover:border-gray-100 hover:bg-gray-50"
+                      className="blog-item-enter group flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all hover:border-gray-100 hover:bg-gray-50"
+                      style={{
+                        animationDelay: `${index * 50}ms`,
+                        animationFillMode: "both",
+                      }}
                     >
                       <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-gray-50">
                         {logoUrl ? (
@@ -127,9 +150,9 @@ export function ReferenceDetailSidebar({
                   );
                 })
               ) : (
-                <p className="py-8 text-center text-sm text-[#999]">
+                <div className="blog-item-enter py-8 text-center text-sm text-[#999]">
                   No references found
-                </p>
+                </div>
               )}
             </div>
           </div>

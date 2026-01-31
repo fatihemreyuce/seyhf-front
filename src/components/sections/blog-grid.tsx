@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FileText } from "lucide-react";
+import { FileText, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,7 @@ export function BlogGrid({ posts }: { posts: BlogCardItem[] }) {
 
 function BlogCard({ post }: { post: BlogCardItem }) {
   const pdfZone = (
-    <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden bg-gray-200">
+    <div className="relative flex aspect-4/3 w-full flex-col items-center justify-center overflow-hidden bg-gray-200">
       <span
         aria-hidden
         className="absolute inset-0 bg-[#EFE0E0] transition-[clip-path] duration-700 ease-out [clip-path:inset(50%_50%_50%_50%)] group-hover:[clip-path:inset(0%_0%_0%_0%)]"
@@ -60,14 +60,20 @@ function BlogCard({ post }: { post: BlogCardItem }) {
       ) : (
         pdfZone
       )}
-      <Link href={post.href} className="block space-y-1.5 p-3">
-        <h3 className="text-base font-bold leading-snug text-[#282A2E] transition-colors duration-500 group-hover:text-[#ED3237]">
-          {post.title}
-        </h3>
-        <span className="inline-block text-sm font-medium text-[#282A2E] transition-colors duration-500 group-hover:text-[#ED3237]">
-          Read More +
-        </span>
-      </Link>
+      <div className="flex flex-col p-4">
+        <Link href={post.href} className="mb-4">
+          <h3 className="text-base font-bold leading-snug text-[#282A2E] transition-colors duration-500 group-hover:text-[#ED3237]">
+            {post.title}
+          </h3>
+        </Link>
+        <Link
+          href={post.href}
+          className="group/btn inline-flex items-center gap-2 self-start rounded-lg bg-gray-50 px-4 py-2 text-sm font-semibold text-[#333] transition-all duration-300 hover:bg-(--brand-red) hover:text-white hover:shadow-md"
+        >
+          <span>Read Article</span>
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+        </Link>
+      </div>
     </Card>
   );
 }
