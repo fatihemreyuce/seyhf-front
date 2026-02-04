@@ -67,20 +67,20 @@ export function BlogPageHero({ basePath = "" }: { basePath?: string }) {
       {/* İçerik */}
       <div className="content-container relative z-10 flex min-h-[260px] flex-col items-center justify-center text-center md:min-h-[320px] lg:min-h-[360px]">
         <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl xl:text-6xl">
-          Blog Page
+          Blog
         </h1>
         <nav
           className="mt-3 flex items-center gap-2 text-sm text-white md:mt-4 md:text-base"
           aria-label="Breadcrumb"
         >
           <Link href={rootHref} className="transition-opacity hover:opacity-90">
-            Home Page
+            Ana Sayfa
           </Link>
           <span aria-hidden className="opacity-80">
             &gt;
           </span>
           <Link href={blogHref} className="transition-opacity hover:opacity-90">
-            Blog Page
+            Blog
           </Link>
         </nav>
       </div>

@@ -7,10 +7,7 @@ import markPage from "@/app/assets/images/mark-page/mark-page.png";
 
 const HERO_GRAY = "#8d929b";
 
-export function ServicePageHero({ basePath = "" }: { basePath?: string }) {
-  const rootHref = basePath ? `${basePath}/` : "/";
-  const servicesHref = basePath ? `${basePath}/services` : "/services";
-
+export function AboutPageHero() {
   return (
     <section
       className="relative min-h-[260px] overflow-hidden py-20 md:min-h-[320px] md:py-28 lg:min-h-[360px]"
@@ -63,24 +60,19 @@ export function ServicePageHero({ basePath = "" }: { basePath?: string }) {
 
       <div className="content-container relative z-10 flex min-h-[260px] flex-col items-center justify-center text-center md:min-h-[320px] lg:min-h-[360px]">
         <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl xl:text-6xl">
-          Hizmetlerimiz
+          Hakkımızda
         </h1>
         <nav
           className="mt-3 flex items-center gap-2 text-sm text-white md:mt-4 md:text-base"
           aria-label="Breadcrumb"
         >
-          <Link href={rootHref} className="transition-opacity hover:opacity-90">
+          <Link href="/" className="transition-opacity hover:opacity-90">
             Ana Sayfa
           </Link>
           <span aria-hidden className="opacity-80">
             &gt;
           </span>
-          <Link
-            href={servicesHref}
-            className="transition-opacity hover:opacity-90"
-          >
-            Hizmetlerimiz
-          </Link>
+          <span className="opacity-95">Hakkımızda</span>
         </nav>
       </div>
     </section>

@@ -27,18 +27,10 @@ export const fetchServer = async <T, U>(
 		headers.set("X-Client-Version", env.NEXT_PUBLIC_APP_VERSION);
 		headers.set("bypass-tunnel-reminder", "true");
 
-		// Attach locale from options or next-intl (optional)
-		try {
-			let locale = options.locale;
-			if (!locale) {
-				const { getLocale } = await import("next-intl/server");
-				locale = await getLocale();
-			}
-			if (locale) {
-				headers.set("X-Locale", locale);
-			}
-		} catch {
-			// next-intl not installed or locale detection failed
+		// Attach locale from options when provided
+		const locale = options.locale;
+		if (locale) {
+			headers.set("X-Locale", locale);
 		}
 
 		// Default to GET if method not provided

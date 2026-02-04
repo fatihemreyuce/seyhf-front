@@ -25,12 +25,12 @@ export async function UsefulInformationSection() {
           <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/10">
             <Lightbulb className="h-8 w-8 text-(--brand-red)" />
           </div>
-          <h2 className="mb-4 text-3xl font-extrabold text-[#111] md:text-4xl">
-            Useful Information
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-[#666]">
-            Discover helpful resources, guides, and documents to enhance your knowledge
-          </p>
+                <h2 className="mb-4 text-3xl font-extrabold text-text-primary md:text-4xl">
+                  Faydalı Bilgiler
+                </h2>
+                <p className="mx-auto max-w-2xl text-lg text-text-light">
+                  Bilginizi artırmak için faydalı kaynakları, kılavuzları ve belgeleri keşfedin
+                </p>
         </div>
 
         {/* Grid */}

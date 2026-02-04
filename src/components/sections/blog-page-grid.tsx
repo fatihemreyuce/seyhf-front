@@ -32,14 +32,14 @@ export function BlogPageCard({
     index <= 8 ? `blog-card-enter-delay-${index}` : "blog-card-enter-delay-8";
 
   const fileZone = (
-    <div className="relative flex h-full min-h-[180px] w-full flex-col items-center justify-center overflow-hidden bg-[#e0e0e0] sm:min-h-0">
+    <div className="relative flex h-full min-h-[180px] w-full flex-col items-center justify-center overflow-hidden bg-gray-100 sm:min-h-0">
       {/* Hover: içeriden dışarı kare şeklinde büyüyen animasyon */}
       <span
         aria-hidden
-        className="absolute inset-0 bg-[#EFE0E0] transition-[clip-path] duration-500 ease-out [clip-path:inset(50%_50%_50%_50%)] group-hover:[clip-path:inset(0%_0%_0%_0%)]"
+        className="absolute inset-0 bg-gray-200 transition-[clip-path] duration-500 ease-out [clip-path:inset(50%_50%_50%_50%)] group-hover:[clip-path:inset(0%_0%_0%_0%)]"
       />
-      <FileText className="relative z-10 h-14 w-14 text-gray-500 transition-colors duration-500 group-hover:text-[#c4a0a0] sm:h-16 sm:w-16" />
-      <span className="relative z-10 mt-2 text-xs font-medium uppercase tracking-wider text-gray-500 transition-colors duration-500 group-hover:text-[#b09090]">
+      <FileText className="relative z-10 h-14 w-14 text-gray-500 transition-colors duration-500 group-hover:text-gray-700 sm:h-16 sm:w-16" />
+      <span className="relative z-10 mt-2 text-xs font-medium uppercase tracking-wider text-gray-500 transition-colors duration-500 group-hover:text-gray-700">
         PDF
       </span>
     </div>
@@ -69,19 +69,19 @@ export function BlogPageCard({
       )}
 
       <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
-        <h3 className="mb-3 text-lg font-bold leading-snug text-[#333] transition-colors duration-500 group-hover:text-[#ED3237] line-clamp-2 md:text-xl">
+        <h3 className="mb-3 text-lg font-bold leading-snug text-text-tertiary transition-colors duration-500 group-hover:text-brand-red line-clamp-2 md:text-xl">
           {post.title}
         </h3>
         {plainDescription && (
-          <p className="mb-6 text-[#666] line-clamp-2 text-sm leading-relaxed md:text-base">
+          <p className="mb-6 text-text-light line-clamp-2 text-sm leading-relaxed md:text-base">
             {plainDescription}
           </p>
         )}
         <Link
           href={post.href}
-          className="group mt-auto inline-flex items-center gap-2 rounded-lg bg-gray-50 px-5 py-2.5 text-sm font-semibold text-[#333] transition-all duration-300 hover:bg-(--brand-red) hover:text-white hover:shadow-md"
+          className="group mt-auto inline-flex items-center gap-2 rounded-lg bg-white border-2 border-gray-200 px-5 py-2.5 text-sm font-semibold text-text-tertiary transition-all duration-300 hover:bg-brand-red hover:border-brand-red hover:text-white hover:shadow-lg"
         >
-          <span>Read Article</span>
+          <span>Makaleyi Oku</span>
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>

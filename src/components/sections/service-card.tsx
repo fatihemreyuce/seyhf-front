@@ -34,10 +34,10 @@ export function ServiceCard({ id, title, description, href, basePath = "" }: Ser
         <div className="h-12 w-12 rounded-lg bg-white/40" />
       </div>
 
-      <h3 className="mb-4 text-lg font-bold leading-snug text-[#282A2E] transition-colors duration-300 group-hover:text-(--brand-red)">
+      <h3 className="mb-4 text-lg font-bold leading-snug text-text-secondary transition-colors duration-300 group-hover:text-(--brand-red)">
         {title}
       </h3>
-      <p className="mb-6 flex-1 text-sm leading-relaxed text-[#777] line-clamp-3">
+      <p className="mb-6 flex-1 text-sm leading-relaxed text-text-lighter line-clamp-3">
         {plainDescription}
       </p>
 

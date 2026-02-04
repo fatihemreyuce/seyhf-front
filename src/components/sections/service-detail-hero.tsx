@@ -41,14 +41,14 @@ export function ServiceDetailHero({ title, basePath = "" }: ServiceDetailHeroPro
             className="flex items-center gap-1 text-white/80 transition-colors hover:text-white"
           >
             <Home className="h-4 w-4" />
-            <span>Home</span>
+            <span>Ana Sayfa</span>
           </Link>
           <ChevronRight className="h-4 w-4 text-white/60" />
           <Link
             href={`${basePath}/services`}
             className="text-white/80 transition-colors hover:text-white"
           >
-            Services
+            Hizmetlerimiz
           </Link>
           <ChevronRight className="h-4 w-4 text-white/60" />
           <span className="font-medium text-white">{title}</span>

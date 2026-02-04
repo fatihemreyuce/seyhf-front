@@ -93,7 +93,7 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
           <div className="flex items-center gap-2">
             <Filter className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              Showing {animatedData.length} of {data.length} resources
+              {data.length} kaynaktan {animatedData.length} tanesi gösteriliyor
             </span>
           </div>
         </div>
@@ -108,7 +108,7 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
           <div className="relative mx-auto max-w-2xl">
             <input
               type="search"
-              placeholder="Search by title, description, or keywords..."
+              placeholder="Başlık, açıklama veya anahtar kelimelere göre ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
@@ -172,7 +172,7 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
                       {item.fileUrl && (
                         <div className="mt-4 inline-flex items-center gap-2 self-start rounded-lg bg-gray-50 px-3 py-1.5 text-xs font-medium text-[#666]">
                           <FileText className="h-3.5 w-3.5" />
-                          <span>Document Available</span>
+                          <span>Döküman Mevcut</span>
                         </div>
                       )}
 

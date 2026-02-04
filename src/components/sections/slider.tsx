@@ -88,9 +88,9 @@ export function Slider({ slides }: SliderProps) {
 
       {/* İçerik wrapper: content-container (siyah çizgi) */}
       <div className="content-container relative z-10 flex h-full min-h-0 flex-col justify-center">
-        {/* Kırmızı daire: content-container-edge ile hizalı */}
+        {/* Mavi daire: content-container-edge ile hizalı */}
         <div
-          className="content-container-edge absolute top-1/2 z-0 h-[min(70vw,380px)] w-[min(70vw,380px)] -translate-x-[30%] -translate-y-1/2 rounded-full bg-[#cc3333] opacity-70 md:-translate-x-[28%]"
+          className="content-container-edge absolute top-1/2 z-0 h-[min(70vw,380px)] w-[min(70vw,380px)] -translate-x-[30%] -translate-y-1/2 rounded-full bg-[#1D4ED8] opacity-70 md:-translate-x-[28%]"
           aria-hidden
         />
         <div
@@ -113,14 +113,14 @@ export function Slider({ slides }: SliderProps) {
               href="/contact"
               className="group relative inline-flex overflow-hidden rounded-lg border-2 border-white bg-transparent px-6 py-3 text-base font-bold text-white transition-colors duration-300"
             >
-              <span className="relative z-10">Get In Touch +</span>
+              <span className="relative z-10">İletişime Geç +</span>
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 bg-[#ED3237] origin-center scale-x-0 transition-transform duration-350 ease-out group-hover:scale-x-100"
+                className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 bg-[#2563EB] origin-center scale-x-0 transition-transform duration-350 ease-out group-hover:scale-x-100"
               />
             </Link>
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#cc3333]">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8]">
                 <Headphones className="h-5 w-5 text-white" aria-hidden />
               </span>
               <span className="text-white">+55 (121) 234 444</span>
@@ -148,7 +148,7 @@ export function Slider({ slides }: SliderProps) {
         onClick={() => go(-1)}
         className={cn(
           "absolute left-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-colors duration-200 md:left-4 md:h-11 md:w-11",
-          "bg-[#9ca3af] hover:bg-[#cc3333]",
+          "bg-[#9ca3af] hover:bg-[#1D4ED8]",
         )}
         aria-label="Önceki slide"
       >
@@ -159,7 +159,7 @@ export function Slider({ slides }: SliderProps) {
         onClick={() => go(1)}
         className={cn(
           "absolute right-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-colors duration-200 md:right-4 md:h-11 md:w-11",
-          "bg-[#9ca3af] hover:bg-[#cc3333]",
+          "bg-[#9ca3af] hover:bg-[#1D4ED8]",
         )}
         aria-label="Sonraki slide"
       >

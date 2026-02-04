@@ -45,11 +45,11 @@ export function ReferencesPageHero({ basePath = "" }: ReferencesPageHeroProps) {
               href={basePath || "/"}
               className="text-gray-300 transition-colors hover:text-white"
             >
-              Home
+              Ana Sayfa
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <span className="text-white" aria-current="page">
-              References
+              Referanslar
             </span>
           </nav>
 
@@ -60,13 +60,12 @@ export function ReferencesPageHero({ basePath = "" }: ReferencesPageHeroProps) {
 
           {/* Title */}
           <h1 className="stat-card-enter stat-card-delay-2 visible mb-4 text-4xl font-extrabold text-white md:text-5xl">
-            Our Trusted References
+            Güvenilir Referanslarımız
           </h1>
 
           {/* Description */}
           <p className="stat-card-enter stat-card-delay-3 visible text-lg text-gray-300">
-            Discover the companies and organizations that trust us to deliver
-            exceptional solutions and services
+            Olağanüstü çözümler ve hizmetler sunmak için bize güvenen şirketleri ve kuruluşları keşfedin
           </p>
         </div>
       </div>

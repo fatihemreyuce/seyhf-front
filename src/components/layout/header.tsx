@@ -12,7 +12,7 @@ const BRAND_RED = "var(--brand-red)";
 const BLOG_HEADER_GRAY = "#8d929b";
 
 const navItems = [
-  { label: "Anasayfa", href: "/" },
+  { label: "Ana Sayfa", href: "/" },
   { label: "Hakkımızda", href: "/about" },
   { label: "Hizmetlerimiz", href: "/services" },
   { label: "Blog", href: "/blog" },
@@ -79,7 +79,12 @@ export default function Header() {
   const isUsefulInfoPage = pathname.startsWith("/useful-information");
   const isPartnersPage = pathname.startsWith("/partners");
   const isReferencesPage = pathname.startsWith("/references");
-  const isGrayHeroPage = isBlogPage || isServicePage || isUsefulInfoPage || isPartnersPage || isReferencesPage;
+  const isGrayHeroPage =
+    isBlogPage ||
+    isServicePage ||
+    isUsefulInfoPage ||
+    isPartnersPage ||
+    isReferencesPage;
 
   /* Pages with gray/dark hero: Blog, Services, Useful Information, Partners, References */
   const navTextClass =
@@ -162,7 +167,7 @@ export default function Header() {
               className="cursor-pointer px-4 xl:px-6 2xl:px-10 py-2.5 xl:py-3 2xl:py-5 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
               style={{ backgroundColor: BRAND_RED }}
             >
-              Get A Quote <span className="ml-1">+</span>
+              Teklif Al <span className="ml-1">+</span>
             </Button>
           </div>
 
@@ -174,7 +179,7 @@ export default function Header() {
                 : "text-[#282A2E] hover:text-(--brand-red)"
             }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label="Menüyü Aç/Kapat"
           >
             <div className="relative w-6 h-6">
               <Menu
@@ -249,11 +254,8 @@ export default function Header() {
                 }`,
               }}
             >
-              <Button
-                className="w-full px-6 py-4"
-                style={{ backgroundColor: BRAND_RED }}
-              >
-                Get A Quote <span className="ml-1">+</span>
+              <Button className="w-full bg-gray-900 text-white px-6 py-4 transition-colors duration-300 hover:bg-brand-red hover:text-white">
+                Teklif Al <span className="ml-1">+</span>
               </Button>
             </div>
           </nav>

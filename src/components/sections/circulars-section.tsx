@@ -13,10 +13,10 @@ export async function CircularsSection() {
           <p className="mb-1.5 text-xs font-medium uppercase tracking-wider text-gray-500 md:text-sm">
             Our Case Study
           </p>
-          <h2 className="text-2xl font-bold uppercase tracking-tight text-[#282A2E] md:text-3xl lg:text-4xl">
-            OUR RECENT <span className="text-[#ED3237]">[</span>
-            <span className="text-[#ED3237]">CIRCULARS</span>
-            <span className="text-[#ED3237]">]</span> SHOWCASE
+          <h2 className="text-2xl font-bold uppercase tracking-tight text-text-secondary md:text-3xl lg:text-4xl">
+            OUR RECENT <span className="text-brand-red">[</span>
+            <span className="text-brand-red">CIRCULARS</span>
+            <span className="text-brand-red">]</span> SHOWCASE
           </h2>
         </AnimateOnScroll>
 

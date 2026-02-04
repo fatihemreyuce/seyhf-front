@@ -102,7 +102,7 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
                   </div>
                 ))
               ) : (
-                <p className="rounded-xl border border-gray-200 bg-gray-50 py-12 text-center text-[#666]">
+                <p className="rounded-xl border border-gray-200 bg-gray-50 py-12 text-center text-text-light">
                   Arama kriterinize uygun blog bulunamadı.
                 </p>
               )}

@@ -31,14 +31,14 @@ function PlaceholderCard() {
   return (
     <Card className="grid aspect-3/4 grid-rows-[2fr_1fr] overflow-hidden rounded-t-2xl rounded-b-none border border-gray-200 bg-gray-200 shadow-md">
       <div className="flex min-h-0 flex-col items-center justify-center px-4 pt-4">
-        <div className="flex w-full flex-1 flex-col items-center justify-center rounded-t-xl bg-[#F8E8E8]/60 px-3 pt-3">
+        <div className="flex w-full flex-1 flex-col items-center justify-center rounded-t-xl bg-gray-100 px-3 pt-3">
           <FileText className="h-14 w-14 text-gray-400 sm:h-16 sm:w-16" />
           <span className="mt-2 text-xs font-medium uppercase tracking-wider text-gray-400">
             PDF
           </span>
         </div>
       </div>
-      <div className="relative -mt-8 rounded-t-2xl bg-[#FF3333] px-4 pb-4 pt-10">
+      <div className="relative -mt-8 rounded-t-2xl bg-gray-400 px-4 pb-4 pt-10">
         <span className="text-xs font-normal text-white">Genelge</span>
         <h3 className="mt-1 text-base font-bold leading-tight text-white md:text-lg">
           —
@@ -59,13 +59,13 @@ function CircularCard({ circular }: { circular: CircularResponse }) {
       )}
     >
       <div className="relative flex min-h-0 flex-col items-center justify-center px-4 pt-4">
-        <div className="relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-t-xl bg-[#F8E8E8]/60 px-3 pt-3">
+        <div className="relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-t-xl bg-gray-100 px-3 pt-3">
           <span
             aria-hidden
-            className="absolute inset-0 bg-[#EFE0E0] [clip-path:circle(0%_at_50%_50%)] [transition:clip-path_0.5s_ease-out] group-hover:[clip-path:circle(150%_at_50%_50%)]"
+            className="absolute inset-0 bg-gray-200 [clip-path:circle(0%_at_50%_50%)] [transition:clip-path_0.5s_ease-out] group-hover:[clip-path:circle(150%_at_50%_50%)]"
           />
-          <FileText className="relative z-10 h-14 w-14 text-gray-400 transition-colors duration-500 group-hover:text-[#c4a0a0] sm:h-16 sm:w-16" />
-          <span className="relative z-10 mt-2 text-xs font-medium uppercase tracking-wider text-gray-400 transition-colors duration-500 group-hover:text-[#b09090]">
+          <FileText className="relative z-10 h-14 w-14 text-gray-400 transition-colors duration-500 group-hover:text-gray-700 sm:h-16 sm:w-16" />
+          <span className="relative z-10 mt-2 text-xs font-medium uppercase tracking-wider text-gray-400 transition-colors duration-500 group-hover:text-gray-700">
             PDF
           </span>
           {fileUrl ? (
@@ -79,7 +79,7 @@ function CircularCard({ circular }: { circular: CircularResponse }) {
           ) : null}
         </div>
       </div>
-      <div className="relative -mt-8 rounded-t-2xl bg-[#FF3333] px-4 pb-4 pt-10 transition-colors duration-500 group-hover:bg-[#ee2d2d]">
+      <div className="relative -mt-8 rounded-t-2xl bg-[#2563EB] px-4 pb-4 pt-10 transition-colors duration-500 group-hover:bg-[#1D4ED8]">
         <span className="text-xs font-normal text-white">Genelge</span>
         <h3 className="mt-1 text-base font-bold leading-tight text-white md:text-lg">
           {circular.title}

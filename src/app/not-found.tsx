@@ -27,14 +27,14 @@ export default function NotFound() {
 
           {/* Title */}
           <h2 className="mb-4 text-3xl font-bold text-[#111] md:text-4xl">
-            Page Not Found
+            Sayfa Bulunamadı
           </h2>
 
           {/* Description */}
           <p className="mb-8 text-lg text-[#666]">
-            Oops! The page you're looking for doesn't exist or has been moved.
+            Aradığınız sayfa mevcut değil veya taşınmış olabilir.
             <br className="hidden sm:inline" />
-            Don't worry, let's get you back on track.
+            Endişelenmeyin, sizi doğru yola yönlendirelim.
           </p>
 
           {/* Action Button */}
@@ -44,7 +44,7 @@ export default function NotFound() {
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-red) px-8 py-3.5 text-lg font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
             >
               <Home className="h-6 w-6 transition-transform group-hover:-translate-y-0.5" />
-              Back to Home
+              Ana Sayfaya Dön
             </Link>
           </div>
         </div>

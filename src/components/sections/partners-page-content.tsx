@@ -88,7 +88,7 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
           <div className="flex items-center gap-2">
             <Building2 className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              Showing {animatedPartners.length} of {partners.length} partners
+              {partners.length} partnerden {animatedPartners.length} tanesi gösteriliyor
             </span>
           </div>
         </div>
@@ -103,7 +103,7 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
           <div className="relative mx-auto max-w-2xl">
             <input
               type="search"
-              placeholder="Search partners by name..."
+              placeholder="Partner adına göre ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"

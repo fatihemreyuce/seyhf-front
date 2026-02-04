@@ -73,11 +73,11 @@ export function ServiceDetailSidebar({
         }`}
       >
         <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-          <h3 className="mb-4 text-lg font-bold text-[#111]">Search Services</h3>
+          <h3 className="mb-4 text-lg font-bold text-[#111]">Hizmet Ara</h3>
           <div className="relative">
             <input
               type="search"
-              placeholder="Search here..."
+              placeholder="Buradan arayın..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-4 pr-11 text-sm text-[#333] transition-colors placeholder:text-gray-400 focus:border-(--brand-red) focus:bg-white focus:outline-none focus:ring-2 focus:ring-(--brand-red)/20"
@@ -89,7 +89,7 @@ export function ServiceDetailSidebar({
         {/* Services List */}
         <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
           <h3 className="mb-4 text-lg font-bold text-[#111]">
-            All Services
+            Tüm Hizmetler
             <span className="ml-2 text-sm font-normal text-[#666]">
               ({filteredServices.length})
             </span>
@@ -122,7 +122,7 @@ export function ServiceDetailSidebar({
               ))
             ) : (
               <div className="blog-item-enter py-4 text-center text-sm text-[#999]">
-                No services found
+                Hizmet bulunamadı
               </div>
             )}
           </div>
@@ -131,16 +131,16 @@ export function ServiceDetailSidebar({
         {/* CTA Card */}
         <div className="rounded-2xl border border-(--brand-red)/20 bg-linear-to-br from-(--brand-red)/5 to-(--brand-red)/10 p-6">
           <h4 className="mb-2 text-lg font-bold text-[#111]">
-            Need Custom Solution?
+            Özel Çözüme İhtiyacınız Var mı?
           </h4>
           <p className="mb-4 text-sm text-[#666]">
-            Get in touch with our team for tailored services.
+            Özel çözümler için ekibimizle iletişime geçin.
           </p>
           <Link
             href={`${basePath}/contact`}
             className="block w-full rounded-lg bg-(--brand-red) px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
           >
-            Contact Us
+            İletişime Geç
           </Link>
         </div>
       </div>

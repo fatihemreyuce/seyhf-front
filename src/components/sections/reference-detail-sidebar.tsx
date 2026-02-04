@@ -77,14 +77,14 @@ export function ReferenceDetailSidebar({
           <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-5">
             <h3 className="flex items-center gap-2 text-lg font-bold text-[#111]">
               <Search className="h-5 w-5 text-(--brand-red)" />
-              Search References
+              Referans Ara
             </h3>
           </div>
           <div className="p-5">
             <div className="relative">
               <input
                 type="search"
-                placeholder="Search here..."
+                placeholder="Buradan arayın..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 py-3 pl-4 pr-11 text-sm text-[#333] transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:bg-white focus:outline-none focus:ring-2 focus:ring-(--brand-red)/20"
@@ -99,7 +99,7 @@ export function ReferenceDetailSidebar({
           <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-5">
             <h3 className="flex items-center gap-2 text-lg font-bold text-[#111]">
               <Award className="h-5 w-5 text-(--brand-red)" />
-              Other References
+              Diğer Referanslar
               <span className="ml-auto text-sm font-normal text-[#666]">
                 ({filteredReferences.length})
               </span>
@@ -151,7 +151,7 @@ export function ReferenceDetailSidebar({
                 })
               ) : (
                 <div className="blog-item-enter py-8 text-center text-sm text-[#999]">
-                  No references found
+                  Referans bulunamadı
                 </div>
               )}
             </div>
@@ -165,16 +165,16 @@ export function ReferenceDetailSidebar({
               <Mail className="h-6 w-6 text-(--brand-red)" />
             </div>
             <h4 className="mb-2 text-lg font-bold text-[#111]">
-              Become a Reference
+              Referans Olun
             </h4>
             <p className="mb-4 text-sm leading-relaxed text-[#666]">
-              Join our list of satisfied clients and showcase your success story
+              Memnun müşterilerimizin listesine katılın ve başarı hikayenizi sergileyin
             </p>
             <Link
               href={`${basePath}/contact`}
               className="block w-full rounded-xl bg-(--brand-red) px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
             >
-              Contact Us
+              İletişime Geç
             </Link>
           </div>
         </div>

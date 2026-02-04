@@ -47,7 +47,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed - using Next.js native scroll handling */
 }
 
 :root {
@@ -83,8 +83,8 @@ html {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* Marka / rank rengi (referans: header & CTA kırmızısı) */
-  --brand-red: #e73a3a;
+  /* Marka / rank rengi (referans: header & CTA mavisi) */
+  --brand-red: #2b61d6;
 }
 
 .dark {
@@ -502,6 +502,28 @@ html {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 }
 
+/* Blog kartı: PDF placeholder alanı — hafif nabız animasyonu */
+@keyframes blog-placeholder-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+.blog-placeholder-animate {
+  animation: blog-placeholder-pulse 3s ease-in-out infinite;
+}
+
+.blog-placeholder-animate .blog-placeholder-icon-wrap {
+  animation: blog-placeholder-pulse 2.5s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
 /* Search sidebar: sağdan hafif kayarak + fade in */
 @keyframes blog-search-sidebar-enter {
   from {
@@ -572,6 +594,41 @@ html {
 .blog-read-more-link:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* Blog kartı: Makaleyi Oku butonu — kart hover'da mavi dolgu (header alt çizgi gibi animasyon) */
+.blog-card-read-btn {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-card-read-btn .blog-card-read-btn-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--brand-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .blog-card-read-btn .blog-card-read-btn-fill {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.group:hover .blog-card-read-btn {
+  border-color: var(--brand-red);
+}
+
+.blog-card-read-btn .blog-card-read-btn-text {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .blog-card-read-btn .blog-card-read-btn-text {
+  color: white;
 }
 
 /* ========== Blog sidebar item animations ========== */

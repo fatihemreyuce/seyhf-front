@@ -30,7 +30,7 @@ function SearchIcon() {
 export function BlogSearch({
   value,
   onChange,
-  placeholder = "Enter Your Keyword...",
+  placeholder = "Anahtar Kelime Girin...",
 }: BlogSearchProps) {
   return (
     <div className="rounded-lg bg-[#f0f0f0] p-4 md:p-5">
@@ -38,7 +38,7 @@ export function BlogSearch({
         htmlFor="blog-search"
         className="mb-3 block text-base font-bold text-[#282A2E]"
       >
-        Search Here
+        Buradan Ara
       </label>
       <div className="relative">
         <input

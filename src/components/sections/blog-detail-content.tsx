@@ -60,14 +60,14 @@ export function BlogDetailContent({ blog }: BlogDetailContentProps) {
                 <div className="mb-2 flex items-center gap-2">
                   <FileCheck2 className="h-5 w-5 text-(--brand-red)" />
                   <span className="text-sm font-semibold uppercase tracking-wide text-(--brand-red)">
-                    Document Available
+                    Döküman Mevcut
                   </span>
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-[#111] transition-colors duration-300 group-hover:text-(--brand-red)">
-                  Download or View File
+                  Dosyayı İndir veya Görüntüle
                 </h3>
                 <p className="text-sm text-[#666]">
-                  Click to download the PDF or related document
+                  PDF veya ilgili belgeyi indirmek için tıklayın
                 </p>
               </div>
 
@@ -91,7 +91,7 @@ export function BlogDetailContent({ blog }: BlogDetailContentProps) {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--brand-red)/10">
                 <BookOpen className="h-5 w-5 text-(--brand-red)" />
               </div>
-              <h2 className="text-xl font-bold text-[#111]">Article Title</h2>
+              <h2 className="text-xl font-bold text-[#111]">Makale Başlığı</h2>
             </div>
           </div>
           <div className="p-6">
@@ -115,7 +115,7 @@ export function BlogDetailContent({ blog }: BlogDetailContentProps) {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100">
                   <FileText className="h-5 w-5 text-[#555]" />
                 </div>
-                <h2 className="text-xl font-bold text-[#111]">Content</h2>
+                <h2 className="text-xl font-bold text-[#111]">İçerik</h2>
               </div>
             </div>
             <div className="p-6 md:p-8">
@@ -139,7 +139,7 @@ export function BlogDetailContent({ blog }: BlogDetailContentProps) {
           <div className="rounded-2xl border border-gray-200 bg-gray-50 p-8 text-center">
             <Sparkles className="mx-auto mb-4 h-12 w-12 text-gray-400" />
             <p className="text-lg text-[#666]">
-              No content available for this article.
+              Bu makale için içerik bulunmamaktadır.
             </p>
           </div>
         </div>

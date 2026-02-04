@@ -40,19 +40,18 @@ export async function ReferencesSection() {
           
           <div className="mx-auto mb-3 flex items-center justify-center gap-2">
             <Sparkles className="h-4 w-4 text-(--brand-red)" />
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#999]">
-              Our Success Stories
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-text-subtle">
+              Başarı Hikayelerimiz
             </p>
-            <Sparkles className="h-4 w-4 text-(--brand-red)" />
+            <Sparkles className="h-4 w-4 text-brand-red" />
           </div>
 
-          <h2 className="mb-4 text-3xl font-extrabold text-[#111] md:text-4xl lg:text-5xl">
-            Trusted <span className="text-(--brand-red)">References</span>
+          <h2 className="mb-4 text-3xl font-extrabold text-text-primary md:text-4xl lg:text-5xl">
+            Güvenilir <span className="text-brand-red">Referanslar</span>
           </h2>
           
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[#666]">
-            Discover the companies and organizations that trust us to deliver
-            exceptional solutions and services
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-text-light">
+            Bize olağanüstü çözümler ve hizmetler sunmak için güvenen şirketleri ve kuruluşları keşfedin
           </p>
         </div>
 

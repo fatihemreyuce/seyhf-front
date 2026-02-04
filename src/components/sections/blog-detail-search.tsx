@@ -24,7 +24,7 @@ export function BlogDetailSearch({ basePath = "" }: { basePath?: string }) {
       <BlogSearch
         value={value}
         onChange={setValue}
-        placeholder="Enter Your Keyword..."
+        placeholder="Anahtar Kelime Girin..."
       />
       <button
         type="submit"

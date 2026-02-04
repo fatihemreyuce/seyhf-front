@@ -76,14 +76,14 @@ export function BlogDetailSidebar({
           <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-5">
             <h3 className="flex items-center gap-2 text-lg font-bold text-[#111]">
               <Search className="h-5 w-5 text-(--brand-red)" />
-              Search Articles
+              Makale Ara
             </h3>
           </div>
           <div className="p-5">
             <div className="relative">
               <input
                 type="search"
-                placeholder="Search here..."
+                placeholder="Buradan arayın..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 py-3 pl-4 pr-11 text-sm text-[#333] transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:bg-white focus:outline-none focus:ring-2 focus:ring-(--brand-red)/20"
@@ -98,7 +98,7 @@ export function BlogDetailSidebar({
           <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-5">
             <h3 className="flex items-center gap-2 text-lg font-bold text-[#111]">
               <BookOpen className="h-5 w-5 text-(--brand-red)" />
-              Related Articles
+              İlgili Makaleler
               <span className="ml-auto text-sm font-normal text-[#666]">
                 ({filteredBlogs.length})
               </span>
@@ -133,7 +133,7 @@ export function BlogDetailSidebar({
                 ))
               ) : (
                 <div className="blog-item-enter py-8 text-center text-sm text-[#999]">
-                  No articles found
+                  Makale bulunamadı
                 </div>
               )}
             </div>
@@ -147,16 +147,16 @@ export function BlogDetailSidebar({
               <Mail className="h-6 w-6 text-(--brand-red)" />
             </div>
             <h4 className="mb-2 text-lg font-bold text-[#111]">
-              Stay Updated
+              Güncel Kalın
             </h4>
             <p className="mb-4 text-sm leading-relaxed text-[#666]">
-              Want to receive the latest news and updates? Get in touch with us to stay informed.
+              En son haberleri ve güncellemeleri almak ister misiniz? Bilgi sahibi olmak için bizimle iletişime geçin.
             </p>
             <Link
               href={`${basePath}/contact`}
               className="block w-full rounded-xl bg-(--brand-red) px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
             >
-              Contact Us
+              İletişime Geç
             </Link>
           </div>
         </div>
@@ -165,7 +165,7 @@ export function BlogDetailSidebar({
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
           <div className="p-5">
             <h4 className="mb-4 text-sm font-bold uppercase tracking-wide text-[#999]">
-              Quick Contact
+              Hızlı İletişim
             </h4>
             <div className="space-y-3">
               <a

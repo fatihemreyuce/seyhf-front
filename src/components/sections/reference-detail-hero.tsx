@@ -49,14 +49,14 @@ export function ReferenceDetailHero({
               href={basePath || "/"}
               className="text-gray-300 transition-colors hover:text-white"
             >
-              Home
+              Ana Sayfa
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <Link
               href={`${basePath}/references`}
               className="text-gray-300 transition-colors hover:text-white"
             >
-              References
+              Referanslar
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <span className="text-white line-clamp-1" aria-current="page">

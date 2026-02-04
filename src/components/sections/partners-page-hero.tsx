@@ -45,11 +45,11 @@ export function PartnersPageHero({ basePath = "" }: PartnersPageHeroProps) {
               href={basePath || "/"}
               className="text-gray-300 transition-colors hover:text-white"
             >
-              Home
+              Ana Sayfa
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <span className="text-white" aria-current="page">
-              Our Partners
+              Partnerlerimiz
             </span>
           </nav>
 
@@ -60,13 +60,12 @@ export function PartnersPageHero({ basePath = "" }: PartnersPageHeroProps) {
 
           {/* Title */}
           <h1 className="stat-card-enter stat-card-delay-2 visible mb-4 text-4xl font-extrabold text-white md:text-5xl">
-            Our Trusted Partners
+            Güvenilir Partnerlerimiz
           </h1>
 
           {/* Description */}
           <p className="stat-card-enter stat-card-delay-3 visible text-lg text-gray-300">
-            We collaborate with industry-leading companies to deliver exceptional
-            solutions and services to our clients.
+            Müşterilerimize olağanüstü çözümler ve hizmetler sunmak için sektörün önde gelen şirketleriyle işbirliği yapıyoruz.
           </p>
         </div>
       </div>

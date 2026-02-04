@@ -61,14 +61,14 @@ export function UsefulInfoDetailContent({ info }: UsefulInfoDetailContentProps) 
                 <div className="mb-2 flex items-center gap-2">
                   <FileCheck2 className="h-5 w-5 text-(--brand-red)" />
                   <span className="text-sm font-semibold uppercase tracking-wide text-(--brand-red)">
-                    Document Available
+                    Döküman Mevcut
                   </span>
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-[#111] transition-colors duration-300 group-hover:text-(--brand-red)">
-                  Download or View File
+                  Dosyayı İndir veya Görüntüle
                 </h3>
                 <p className="text-sm text-[#666]">
-                  Click to download the PDF or related document
+                  PDF veya ilgili belgeyi indirmek için tıklayın
                 </p>
               </div>
 
@@ -92,7 +92,7 @@ export function UsefulInfoDetailContent({ info }: UsefulInfoDetailContentProps) 
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--brand-red)/10">
                 <Sparkles className="h-5 w-5 text-(--brand-red)" />
               </div>
-              <h2 className="text-xl font-bold text-[#111]">Overview</h2>
+                <h2 className="text-xl font-bold text-[#111]">Genel Bakış</h2>
             </div>
           </div>
           <div className="p-6">
@@ -115,7 +115,7 @@ export function UsefulInfoDetailContent({ info }: UsefulInfoDetailContentProps) 
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100">
                 <FileText className="h-5 w-5 text-[#555]" />
               </div>
-              <h2 className="text-xl font-bold text-[#111]">Detailed Information</h2>
+                <h2 className="text-xl font-bold text-[#111]">Detaylı Bilgi</h2>
             </div>
           </div>
           <div className="p-6 md:p-8">

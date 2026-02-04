@@ -53,7 +53,7 @@ export function ReferenceDetailContent({
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--brand-red)/10">
                 <Award className="h-5 w-5 text-(--brand-red)" />
               </div>
-              <h2 className="text-xl font-bold text-[#111]">Company Logo</h2>
+                <h2 className="text-xl font-bold text-[#111]">Şirket Logosu</h2>
             </div>
           </div>
           <div className="flex items-center justify-center bg-gray-50 p-12 md:p-16">
@@ -88,7 +88,7 @@ export function ReferenceDetailContent({
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100">
                 <FileText className="h-5 w-5 text-[#555]" />
               </div>
-              <h2 className="text-xl font-bold text-[#111]">About {reference.name}</h2>
+              <h2 className="text-xl font-bold text-text-primary">{reference.name} Hakkında</h2>
             </div>
           </div>
           <div className="p-6 md:p-8">
@@ -121,7 +121,7 @@ export function ReferenceDetailContent({
                 <div className="mb-2 flex items-center gap-2">
                   <ExternalLink className="h-5 w-5 text-(--brand-red)" />
                   <span className="text-sm font-semibold uppercase tracking-wide text-(--brand-red)">
-                    Visit Website
+                    Web Sitesini Ziyaret Et
                   </span>
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-[#111] transition-colors duration-300 group-hover:text-(--brand-red)">

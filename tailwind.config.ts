@@ -16,6 +16,54 @@ const config = {
       '2xl': '1536px',
     },
     extend: {
+      colors: {
+        // Brand Colors - Mavi Tonları
+        brand: {
+          red: '#2563EB', // Ana mavi (eski kırmızı yerine)
+          'red-hover': '#1D4ED8', // Koyu mavi hover
+          'red-light': '#3B82F6', // Açık mavi
+        },
+        
+        // Text Colors - Mavi Uyumlu Tonlar
+        text: {
+          primary: '#0F172A', // Lacivert-siyah
+          secondary: '#1E293B', // Koyu lacivert
+          tertiary: '#334155', // Orta lacivert
+          muted: '#475569', // Soluk lacivert
+          light: '#64748B', // Açık lacivert
+          lighter: '#94A3B8', // Daha açık gri-mavi
+          subtle: '#CBD5E1', // İnce mavi-gri
+          'search-icon': '#3B4A5C', // Mavi-gri arama ikonu
+        },
+        
+        // Background Colors - Mavi Tonlu Arka Planlar
+        background: {
+          primary: '#FFFFFF', // Beyaz
+          secondary: '#F8FAFC', // Çok açık mavi-gri
+          tertiary: '#F1F5F9', // Açık mavi-gri
+          dark: '#1E293B', // Koyu lacivert
+        },
+        
+        // Hero & Section Colors - Mavi Tonları
+        hero: {
+          gray: '#64748B', // Mavi-gri hero tonu
+        },
+        
+        // UI Colors - Mavi-Gri Tonları
+        gray: {
+          50: '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
+          950: '#020617',
+        },
+      },
       keyframes: {
         "button-inner-expand": {
           "0%": {

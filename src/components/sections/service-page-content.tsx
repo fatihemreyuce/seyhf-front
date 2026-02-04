@@ -148,7 +148,7 @@ export function ServicePageContent({
           >
             <input
               type="search"
-              placeholder="Search services by title or description..."
+              placeholder="Başlık veya açıklamaya göre hizmet ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-full border border-gray-200 bg-white py-3 pl-5 pr-12 text-sm text-[#333] shadow-sm placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-2 focus:ring-(--brand-red)/20"
@@ -172,7 +172,7 @@ export function ServicePageContent({
                     : "border-gray-200 bg-white text-[#666] hover:border-gray-300"
                 }`}
               >
-                All Services
+                Tüm Hizmetler
               </button>
               {categories.map((cat: ServiceCategoryResponse) => (
                 <button
@@ -219,7 +219,7 @@ export function ServicePageContent({
         ) : (
           <div className="rounded-2xl border border-gray-100 bg-gray-50 py-16 text-center">
             <p className="text-[#666]">
-              No services found matching your criteria.
+              Kriterlere uygun hizmet bulunamadı.
             </p>
             <button
               type="button"
@@ -229,7 +229,7 @@ export function ServicePageContent({
               }}
               className="mt-4 text-sm font-medium text-(--brand-red) hover:underline"
             >
-              Clear filters
+              Filtreleri temizle
             </button>
           </div>
         )}

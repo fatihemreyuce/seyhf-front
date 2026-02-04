@@ -45,11 +45,11 @@ export function UsefulInfoPageHero({ basePath = "" }: UsefulInfoPageHeroProps) {
               href={basePath || "/"}
               className="text-gray-300 transition-colors hover:text-white"
             >
-              Home
+              Ana Sayfa
             </Link>
             <ChevronRight className="h-4 w-4 text-gray-500" />
             <span className="text-white" aria-current="page">
-              Useful Information
+              Faydalı Bilgiler
             </span>
           </nav>
 
@@ -60,13 +60,12 @@ export function UsefulInfoPageHero({ basePath = "" }: UsefulInfoPageHeroProps) {
 
           {/* Title */}
           <h1 className="stat-card-enter stat-card-delay-2 visible mb-4 text-4xl font-extrabold text-white md:text-5xl">
-            Useful Information
+            Faydalı Bilgiler
           </h1>
 
           {/* Description */}
           <p className="stat-card-enter stat-card-delay-3 visible text-lg text-gray-300">
-            Explore our collection of helpful resources, guides, and documents
-            designed to enhance your knowledge and support your needs.
+            Bilginizi artırmak ve ihtiyaçlarınızı desteklemek için hazırlanmış faydalı kaynaklarımızı, kılavuzlarımızı ve belgelerimizi keşfedin.
           </p>
         </div>
       </div>

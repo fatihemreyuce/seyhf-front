@@ -136,7 +136,7 @@ function ReferenceCard({ reference, index, isVisible }: ReferenceCardProps) {
             {/* View Details (goes to detail page - default Link behavior) */}
             <div className="flex items-center gap-2 text-xs text-[#999] transition-colors duration-500 group-hover:text-(--brand-red)">
               <Eye className="h-3.5 w-3.5" />
-              <span className="font-medium">View Details</span>
+                    <span className="font-medium">Detayları Gör</span>
             </div>
             
             {/* Visit Website (external link) */}

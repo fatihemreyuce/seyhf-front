@@ -79,13 +79,13 @@ export function BlogDetailHero({ title, basePath = "" }: BlogDetailHeroProps) {
           aria-label="Breadcrumb"
         >
           <Link href={rootHref} className="transition-opacity hover:opacity-90">
-            Home Page
+            Ana Sayfa
           </Link>
           <span aria-hidden className="opacity-80">
             &gt;
           </span>
           <Link href={blogHref} className="transition-opacity hover:opacity-90">
-            Blog Page
+            Blog
           </Link>
           <span aria-hidden className="opacity-80">
             &gt;

@@ -97,7 +97,7 @@ export function ReferencesPageContent({
           <div className="flex items-center gap-2">
             <Award className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              Showing {animatedReferences.length} of {references.length} references
+              {references.length} referanstan {animatedReferences.length} tanesi gösteriliyor
             </span>
           </div>
         </div>
@@ -112,7 +112,7 @@ export function ReferencesPageContent({
           <div className="relative mx-auto max-w-2xl">
             <input
               type="search"
-              placeholder="Search references by name or description..."
+              placeholder="Referans adı veya açıklamasına göre ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
@@ -183,7 +183,7 @@ export function ReferencesPageContent({
                     {/* Footer */}
                     <div className="flex items-center justify-center gap-2 border-t border-gray-100 pt-4 text-xs text-[#999] transition-colors duration-300 group-hover:border-(--brand-red)/20 group-hover:text-(--brand-red)">
                       <Globe className="h-3.5 w-3.5" />
-                      <span className="font-medium">View Details</span>
+                      <span className="font-medium">Detayları Gör</span>
                       <ExternalLink className="h-3.5 w-3.5" />
                     </div>
                   </div>
