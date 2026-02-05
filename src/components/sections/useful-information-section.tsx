@@ -4,7 +4,7 @@ import { Lightbulb } from "lucide-react";
 
 export async function UsefulInformationSection() {
   let usefulInfoData;
-  
+
   try {
     const response = await getUsefulInformation(0, 6);
     usefulInfoData = response.content || [];
@@ -25,22 +25,19 @@ export async function UsefulInformationSection() {
           <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/10">
             <Lightbulb className="h-8 w-8 text-(--brand-red)" />
           </div>
-                <h2 className="mb-4 text-3xl font-extrabold text-text-primary md:text-4xl">
-                  Faydalı Bilgiler
-                </h2>
-                <p className="mx-auto max-w-2xl text-lg text-text-light">
-                  Bilginizi artırmak için faydalı kaynakları, kılavuzları ve belgeleri keşfedin
-                </p>
+          <h2 className="mb-4 text-3xl font-extrabold text-text-primary md:text-4xl">
+            Faydalı Bilgiler
+          </h2>
+          <p className="mx-auto max-w-2xl text-lg text-text-light">
+            Bilginizi artırmak için faydalı kaynakları, kılavuzları ve belgeleri
+            keşfedin
+          </p>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {usefulInfoData.map((info, index) => (
-            <UsefulInformationCard
-              key={info.id}
-              info={info}
-              index={index}
-            />
+            <UsefulInformationCard key={info.id} info={info} index={index} />
           ))}
         </div>
       </div>

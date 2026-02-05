@@ -95,7 +95,7 @@ export function ServiceDetailSidebar({
             </span>
           </h3>
 
-          <div 
+          <div
             className={`space-y-2 transition-all duration-500 ${
               isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
             }`}

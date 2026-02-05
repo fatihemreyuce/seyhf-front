@@ -2,7 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search, ArrowRight, FileText, Mail, Phone, BookOpen } from "lucide-react";
+import {
+  Search,
+  ArrowRight,
+  FileText,
+  Mail,
+  Phone,
+  BookOpen,
+} from "lucide-react";
 import type { CircularResponse } from "@/types/circular.types";
 
 interface BlogDetailSidebarProps {
@@ -106,7 +113,7 @@ export function BlogDetailSidebar({
           </div>
 
           <div className="max-h-96 overflow-y-auto p-3">
-            <div 
+            <div
               className={`space-y-1 transition-all duration-500 ${
                 isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
               }`}
@@ -146,11 +153,10 @@ export function BlogDetailSidebar({
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-(--brand-red)/10">
               <Mail className="h-6 w-6 text-(--brand-red)" />
             </div>
-            <h4 className="mb-2 text-lg font-bold text-[#111]">
-              Güncel Kalın
-            </h4>
+            <h4 className="mb-2 text-lg font-bold text-[#111]">Güncel Kalın</h4>
             <p className="mb-4 text-sm leading-relaxed text-[#666]">
-              En son haberleri ve güncellemeleri almak ister misiniz? Bilgi sahibi olmak için bizimle iletişime geçin.
+              En son haberleri ve güncellemeleri almak ister misiniz? Bilgi
+              sahibi olmak için bizimle iletişime geçin.
             </p>
             <Link
               href={`${basePath}/contact`}

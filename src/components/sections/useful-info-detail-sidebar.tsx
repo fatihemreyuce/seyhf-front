@@ -106,7 +106,7 @@ export function UsefulInfoDetailSidebar({
           </div>
 
           <div className="max-h-96 overflow-y-auto p-3">
-            <div 
+            <div
               className={`space-y-1 transition-all duration-500 ${
                 isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
               }`}
@@ -150,7 +150,8 @@ export function UsefulInfoDetailSidebar({
               Daha Fazla Yardıma İhtiyacınız mı Var?
             </h4>
             <p className="mb-4 text-sm leading-relaxed text-[#666]">
-              Aradığınızı bulamadınız mı? Kişiselleştirilmiş yardım için ekibimizle iletişime geçin.
+              Aradığınızı bulamadınız mı? Kişiselleştirilmiş yardım için
+              ekibimizle iletişime geçin.
             </p>
             <Link
               href={`${basePath}/contact`}

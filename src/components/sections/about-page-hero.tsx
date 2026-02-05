@@ -10,7 +10,7 @@ const HERO_GRAY = "#8d929b";
 export function AboutPageHero() {
   return (
     <section
-      className="relative min-h-[260px] overflow-hidden py-20 md:min-h-[320px] md:py-28 lg:min-h-[360px]"
+      className="relative min-h-[220px] overflow-hidden py-14 xs:min-h-[260px] xs:py-20 md:min-h-[320px] md:py-28 lg:min-h-[360px]"
       style={{ backgroundColor: HERO_GRAY }}
     >
       <svg
@@ -54,12 +54,12 @@ export function AboutPageHero() {
           alt=""
           width={420}
           height={320}
-          className="h-64 w-80 object-contain object-top-right md:h-80 md:w-96 lg:h-96 lg:w-md"
+          className="h-48 w-64 object-contain object-top-right xs:h-56 xs:w-72 sm:h-64 sm:w-80 md:h-80 md:w-96 lg:h-96 lg:w-[28rem]"
         />
       </div>
 
-      <div className="content-container relative z-10 flex min-h-[260px] flex-col items-center justify-center text-center md:min-h-[320px] lg:min-h-[360px]">
-        <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl xl:text-6xl">
+      <div className="content-container relative z-10 flex min-h-[220px] flex-col items-center justify-center text-center xs:min-h-[260px] md:min-h-[320px] lg:min-h-[360px]">
+        <h1 className="text-2xl font-bold tracking-tight text-white xs:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Hakkımızda
         </h1>
         <nav

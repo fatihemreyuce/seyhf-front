@@ -439,6 +439,66 @@ html {
   transform-origin: center center;
 }
 
+/* About section: ikon hafif yukarı-aşağı float */
+@keyframes about-icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.about-icon-float {
+  animation: about-icon-float 4s ease-in-out infinite;
+}
+
+/* FAQ section: ikon float + item giriş */
+@keyframes faq-icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.faq-icon-float {
+  animation: faq-icon-float 4s ease-in-out infinite;
+}
+
+@keyframes faq-item-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-item-animate {
+  animation: faq-item-fade-in 0.5s ease-out forwards;
+}
+
+/* Contact CTA: ikon float */
+@keyframes contact-cta-icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.contact-cta-icon-float {
+  animation: contact-cta-icon-float 4s ease-in-out infinite;
+}
+
 /* ========== Blog sayfası animasyonları (global) ========== */
 
 /* Blog kartı: scroll ile görünür olduğunda aşağıdan yukarı + fade in */

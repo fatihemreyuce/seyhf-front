@@ -1,111 +1,98 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Info,
+  Sparkles,
+  BookOpen,
+  Target,
+  ArrowRight,
+  Quote,
+} from "lucide-react";
 import { getHomepageAbout } from "@/services/server/homepage-about-service";
-import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, Target, Sparkles } from "lucide-react";
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+import type { HomepageAboutResponse } from "@/types/homepage.about.types";
+import { stripHtml } from "@/lib/utils";
 
 export async function HomepageAboutSection() {
-  let data = null;
+  let aboutData: HomepageAboutResponse | null = null;
+
   try {
     const page = await getHomepageAbout(0, 1);
-    data = page?.content?.[0] ?? null;
+    const first = page?.content?.[0];
+    if (first) aboutData = first;
   } catch (error) {
-    console.error("Homepage about fetch error:", error);
+    console.error("Failed to fetch homepage about:", error);
   }
 
-  if (!data) {
+  if (!aboutData) {
     return null;
   }
 
-  const hasLeft = !!(data.leftTitle || data.leftDescription);
-  const hasRight = !!(data.rightTitle || data.rightDescription);
-  if (!hasLeft && !hasRight) return null;
+  const { leftTitle, leftDescription, rightTitle, rightDescription } =
+    aboutData;
 
   return (
-    <section
-      className="relative overflow-hidden bg-linear-to-b from-gray-50 to-white py-16 md:py-20 lg:py-24"
-      aria-labelledby="homepage-about-heading"
-    >
+    <section className="bg-linear-to-b from-gray-50/50 to-white py-16 md:py-20">
       <div className="content-container">
-        <AnimateOnScroll variant="from-top" className="mb-14 text-center">
-          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/10">
-            <Sparkles className="h-8 w-8 text-(--brand-red)" aria-hidden />
+        <div className="mb-10 text-center">
+          <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/10">
+            <Info className="h-8 w-8 text-(--brand-red)" />
           </div>
-          <p
-            id="homepage-about-heading"
-            className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-(--brand-red) md:text-sm"
-          >
+          <p className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-text-subtle">
+            <Sparkles className="h-4 w-4 text-(--brand-red)" aria-hidden />
             Hakkımızda
+            <Sparkles className="h-4 w-4 text-(--brand-red)" aria-hidden />
           </p>
-          <h2 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl md:text-4xl">
-            Bizi <span className="text-(--brand-red)">Tanıyın</span>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-text-primary md:text-4xl">
+            BİZ KİMİZ?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-text-muted md:text-base">
-            Misyonumuz ve vizyonumuzla sizleri tanıştırmak istiyoruz.
-          </p>
-        </AnimateOnScroll>
+        </div>
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-          {hasLeft && (
-            <AnimateOnScroll variant="from-bottom">
-              <Card className="group relative h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-(--brand-red)/20 hover:shadow-xl">
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-0 z-1 h-full w-0.5 origin-top scale-y-0 bg-(--brand-red) transition-transform duration-300 group-hover:scale-y-100"
-                />
-                <CardHeader className="pb-2 pt-6 sm:pt-8">
-                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-(--brand-red)/20 bg-(--brand-red)/5 text-(--brand-red) transition-all duration-300 group-hover:bg-(--brand-red)/10 group-hover:border-(--brand-red)/30">
-                    <Building2 className="h-7 w-7" aria-hidden />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-text-primary sm:text-2xl">
-                    {stripHtml(data.leftTitle || "Biz Kimiz")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pb-8">
-                  <p className="text-base leading-relaxed text-text-muted">
-                    {data.leftDescription
-                      ? stripHtml(data.leftDescription)
-                      : ""}
-                  </p>
-                </CardContent>
-              </Card>
-            </AnimateOnScroll>
-          )}
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
+          <div className="group relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:border-(--brand-red)/20 md:p-8">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-(--brand-red)/10 text-(--brand-red) transition-colors group-hover:bg-(--brand-red)/15">
+              <BookOpen className="h-6 w-6" aria-hidden />
+            </div>
+            <h3 className="flex items-center gap-2 text-xl font-bold text-text-primary md:text-2xl">
+              {stripHtml(leftTitle)}
+            </h3>
+            <p className="mt-4 flex gap-2 text-lg leading-relaxed text-text-light">
+              <Quote
+                className="mt-1 h-5 w-5 shrink-0 text-(--brand-red)/50"
+                aria-hidden
+              />
+              <span>{stripHtml(leftDescription)}</span>
+            </p>
+          </div>
+          <div className="group relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:border-(--brand-red)/20 md:p-8">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-(--brand-red)/10 text-(--brand-red) transition-colors group-hover:bg-(--brand-red)/15">
+              <Target className="h-6 w-6" aria-hidden />
+            </div>
+            <h3 className="flex items-center gap-2 text-xl font-bold text-text-primary md:text-2xl">
+              {stripHtml(rightTitle)}
+            </h3>
+            <p className="mt-4 flex gap-2 text-lg leading-relaxed text-text-light">
+              <Quote
+                className="mt-1 h-5 w-5 shrink-0 text-(--brand-red)/50"
+                aria-hidden
+              />
+              <span>{stripHtml(rightDescription)}</span>
+            </p>
+          </div>
+        </div>
 
-          {hasRight && (
-            <AnimateOnScroll
-              variant="from-bottom"
-              className={hasLeft ? "" : "lg:col-start-1"}
+        <div className="mt-10 text-center">
+          <Button asChild className="mt-8 gap-2">
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2"
             >
-              <Card className="group relative h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-(--brand-red)/20 hover:shadow-xl">
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-0 z-1 h-full w-0.5 origin-top scale-y-0 bg-(--brand-red) transition-transform duration-300 group-hover:scale-y-100"
-                />
-                <CardHeader className="pb-2 pt-6 sm:pt-8">
-                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-(--brand-red)/20 bg-(--brand-red)/5 text-(--brand-red) transition-all duration-300 group-hover:bg-(--brand-red)/10 group-hover:border-(--brand-red)/30">
-                    <Target className="h-7 w-7" aria-hidden />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-text-primary sm:text-2xl">
-                    {stripHtml(data.rightTitle || "Vizyonumuz")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pb-8">
-                  <p className="text-base leading-relaxed text-text-muted">
-                    {data.rightDescription
-                      ? stripHtml(data.rightDescription)
-                      : ""}
-                  </p>
-                </CardContent>
-              </Card>
-            </AnimateOnScroll>
-          )}
+              Hakkımızda
+              <ArrowRight
+                className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                aria-hidden
+              />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

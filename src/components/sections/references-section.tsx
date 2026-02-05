@@ -22,7 +22,10 @@ export async function ReferencesSection() {
   return (
     <section className="relative overflow-hidden bg-linear-to-b from-white via-gray-50/30 to-white py-16 md:py-20">
       {/* Decorative Elements */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden
+      >
         <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-(--brand-red)/5 blur-3xl" />
         <div className="absolute -left-32 bottom-20 h-96 w-96 rounded-full bg-gray-400/10 blur-3xl" />
         <span className="absolute left-[8%] top-[15%] h-2 w-2 animate-pulse rounded-full bg-(--brand-red)/40" />
@@ -37,7 +40,7 @@ export async function ReferencesSection() {
           <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-linear-to-br from-(--brand-red)/10 via-(--brand-red)/5 to-transparent shadow-lg">
             <Award className="h-10 w-10 text-(--brand-red)" />
           </div>
-          
+
           <div className="mx-auto mb-3 flex items-center justify-center gap-2">
             <Sparkles className="h-4 w-4 text-(--brand-red)" />
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-text-subtle">
@@ -49,9 +52,10 @@ export async function ReferencesSection() {
           <h2 className="mb-4 text-3xl font-extrabold text-text-primary md:text-4xl lg:text-5xl">
             Güvenilir <span className="text-brand-red">Referanslar</span>
           </h2>
-          
+
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-text-light">
-            Bize olağanüstü çözümler ve hizmetler sunmak için güvenen şirketleri ve kuruluşları keşfedin
+            Bize olağanüstü çözümler ve hizmetler sunmak için güvenen şirketleri
+            ve kuruluşları keşfedin
           </p>
         </div>
 

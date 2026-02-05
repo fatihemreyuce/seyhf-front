@@ -54,7 +54,9 @@ export function ReferenceDetailSidebar({
     setIsSearching(true);
     const timer = setTimeout(() => {
       const filtered = references.filter((reference) =>
-        reference.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+        reference.name
+          .toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase())
       );
       setAnimatedReferences(filtered);
       setTimeout(() => setIsSearching(false), 100);
@@ -107,7 +109,7 @@ export function ReferenceDetailSidebar({
           </div>
 
           <div className="max-h-96 overflow-y-auto p-3">
-            <div 
+            <div
               className={`space-y-1 transition-all duration-500 ${
                 isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
               }`}
@@ -115,8 +117,12 @@ export function ReferenceDetailSidebar({
               {filteredReferences.length > 0 ? (
                 filteredReferences.map((reference, index) => {
                   // Fix SSL issue with localhost
-                  const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
-                  
+                  const logoUrl =
+                    reference.logoUrl?.replace(
+                      /^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/,
+                      "http://$1$2"
+                    ) || null;
+
                   return (
                     <Link
                       key={reference.id}
@@ -137,14 +143,14 @@ export function ReferenceDetailSidebar({
                             unoptimized
                           />
                         ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <Building2 className="h-5 w-5 text-gray-400" />
-                        </div>
-                      )}
-                    </div>
-                    <span className="min-w-0 flex-1 text-sm font-medium text-[#666] transition-colors line-clamp-2 group-hover:text-[#111]">
-                      {reference.name}
-                    </span>
+                          <div className="flex h-full w-full items-center justify-center">
+                            <Building2 className="h-5 w-5 text-gray-400" />
+                          </div>
+                        )}
+                      </div>
+                      <span className="min-w-0 flex-1 text-sm font-medium text-[#666] transition-colors line-clamp-2 group-hover:text-[#111]">
+                        {reference.name}
+                      </span>
                       <ArrowRight className="h-4 w-4 shrink-0 text-gray-300 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-(--brand-red) group-hover:opacity-100" />
                     </Link>
                   );
@@ -168,7 +174,8 @@ export function ReferenceDetailSidebar({
               Referans Olun
             </h4>
             <p className="mb-4 text-sm leading-relaxed text-[#666]">
-              Memnun müşterilerimizin listesine katılın ve başarı hikayenizi sergileyin
+              Memnun müşterilerimizin listesine katılın ve başarı hikayenizi
+              sergileyin
             </p>
             <Link
               href={`${basePath}/contact`}

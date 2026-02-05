@@ -3,8 +3,10 @@ import { HomepageAboutSection } from "@/components/sections/homepage-about-secti
 import { ServicesSection } from "@/components/sections/services-section";
 import { PartnersSection } from "@/components/sections/partners-section";
 import { BlogSection } from "@/components/sections/blog-section";
+import { HomepageFaqSection } from "@/components/sections/homepage-faq-section";
 import { UsefulInformationSection } from "@/components/sections/useful-information-section";
 import { ReferencesSection } from "@/components/sections/references-section";
+import { HomepageContactSection } from "@/components/sections/homepage-contact-section";
 
 export default function Home() {
   return (
@@ -14,8 +16,10 @@ export default function Home() {
       <ServicesSection />
       <PartnersSection />
       <BlogSection />
+      <HomepageFaqSection />
       <UsefulInformationSection />
       <ReferencesSection />
+      <HomepageContactSection />
     </main>
   );
 }
