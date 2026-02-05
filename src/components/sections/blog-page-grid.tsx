@@ -1,8 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, ArrowRight } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import {
+  FileText,
+  BookOpen,
+  Newspaper,
+  FileCheck,
+  ArrowRight,
+  Download,
+} from "lucide-react";
+import { stripHtml } from "@/lib/utils";
 
 export interface BlogPagePost {
   id: number;
@@ -12,80 +19,79 @@ export interface BlogPagePost {
   href: string;
 }
 
-/** HTML etiketlerini kaldırıp düz metin döndürür */
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+const iconMap = [FileText, BookOpen, Newspaper, FileCheck, FileText, BookOpen];
 
-export function BlogPageCard({
-  post,
-  index = 0,
-}: {
+interface BlogPageCardProps {
   post: BlogPagePost;
   index?: number;
-}) {
-  const plainDescription = post.description ? stripHtml(post.description) : "";
-  const delayClass =
-    index <= 8 ? `blog-card-enter-delay-${index}` : "blog-card-enter-delay-8";
+}
 
-  const fileZone = (
-    <div className="relative flex h-full min-h-[180px] w-full flex-col items-center justify-center overflow-hidden bg-gray-100 sm:min-h-0">
-      {/* Hover: içeriden dışarı kare şeklinde büyüyen animasyon */}
-      <span
-        aria-hidden
-        className="absolute inset-0 bg-gray-200 transition-[clip-path] duration-500 ease-out [clip-path:inset(50%_50%_50%_50%)] group-hover:[clip-path:inset(0%_0%_0%_0%)]"
-      />
-      <FileText className="relative z-10 h-14 w-14 text-gray-500 transition-colors duration-500 group-hover:text-gray-700 sm:h-16 sm:w-16" />
-      <span className="relative z-10 mt-2 text-xs font-medium uppercase tracking-wider text-gray-500 transition-colors duration-500 group-hover:text-gray-700">
-        PDF
-      </span>
-    </div>
-  );
+export function BlogPageCard({ post, index = 0 }: BlogPageCardProps) {
+  const Icon = iconMap[index % iconMap.length];
+  const plainDescription = post.description ? stripHtml(post.description) : "";
+
+  const cardClasses =
+    "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-gray-200 hover:shadow-xl";
 
   return (
-    <Card
-      className={`group blog-card-enter blog-card-hover-lift ${delayClass} flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:flex-row`}
-    >
-      {post.fileUrl ? (
-        <a
-          href={post.fileUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex self-stretch sm:min-w-[300px] sm:max-w-[440px]"
-          title="Dosyayı İndir"
-        >
-          {fileZone}
-        </a>
-      ) : (
-        <Link
-          href={post.href}
-          className="flex self-stretch sm:min-w-[300px] sm:max-w-[440px]"
-        >
-          {fileZone}
-        </Link>
-      )}
+    <div className={cardClasses}>
+      {/* Tıklanınca detaya gider */}
+      <Link
+        href={post.href}
+        className="absolute inset-0 z-10"
+        aria-hidden
+      />
+      {/* Hover gradient */}
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="relative z-20 flex h-full flex-col pointer-events-none">
+        {/* Icon & Badge */}
+        <div className="mb-6 flex items-start justify-between">
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-gray-100 to-gray-200 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:from-(--brand-red)/20 group-hover:to-(--brand-red)/10">
+            <Icon className="h-8 w-8 text-[#555] transition-colors duration-300 group-hover:text-(--brand-red)" />
+          </div>
+          {post.fileUrl && (
+            <div className="inline-flex items-center gap-1.5 rounded-lg bg-gray-50 px-3 py-1.5 text-xs font-medium text-[#666]">
+              <Download className="h-3.5 w-3.5" />
+              <span>PDF</span>
+            </div>
+          )}
+        </div>
 
-      <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
-        <h3 className="mb-3 text-lg font-bold leading-snug text-text-tertiary transition-colors duration-500 group-hover:text-brand-red line-clamp-2 md:text-xl">
+        {/* Title */}
+        <h3 className="mb-3 text-xl font-bold text-[#111] transition-colors duration-300 group-hover:text-(--brand-red) line-clamp-2">
           {post.title}
         </h3>
+
+        {/* Description */}
         {plainDescription && (
-          <p className="mb-6 text-text-light line-clamp-2 text-sm leading-relaxed md:text-base">
+          <p className="mb-4 text-sm leading-relaxed text-[#666] line-clamp-3">
             {plainDescription}
           </p>
         )}
-        <Link
-          href={post.href}
-          className="group mt-auto inline-flex items-center gap-2 rounded-lg bg-white border-2 border-gray-200 px-5 py-2.5 text-sm font-semibold text-text-tertiary transition-all duration-300 hover:bg-brand-red hover:border-brand-red hover:text-white hover:shadow-lg"
-        >
-          <span>Makaleyi Oku</span>
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </Link>
+
+        {/* CTA */}
+        <div className="mt-auto flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-red) transition-all duration-300 group-hover:gap-3">
+            Makaleyi Oku
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+          {post.fileUrl && (
+            <a
+              href={post.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pointer-events-auto relative z-30 inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-[#555] transition-colors hover:border-(--brand-red) hover:bg-(--brand-red)/5 hover:text-(--brand-red)"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Download className="h-3.5 w-3.5" />
+              Dosyayı İndir
+            </a>
+          )}
+        </div>
       </div>
-    </Card>
+      {/* Bottom line */}
+      <div className="pointer-events-none absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-300 group-hover:w-full" />
+    </div>
   );
 }
 
@@ -95,14 +101,10 @@ export interface BlogPageGridProps {
 
 export function BlogPageGrid({ posts }: BlogPageGridProps) {
   return (
-    <section className="bg-white">
-      <div className="content-container py-16 md:py-20">
-        <div className="flex flex-col gap-6">
-          {posts.map((post) => (
-            <BlogPageCard key={post.id} post={post} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post, index) => (
+        <BlogPageCard key={post.id} post={post} index={index} />
+      ))}
+    </div>
   );
 }

@@ -1,10 +1,11 @@
+import { cache } from "react";
 import { ReferenceResponse } from "@/types/references.types";
 import { Page } from "@/types/pagination.types";
 import { fetchServer } from "@/utils/fetch-server";
 
 const REFERENCES_BASE_URL = "/api/v1/references";
 
-export const getReferences = async (
+export const getReferences = cache(async (
   page: number,
   size: number
 ): Promise<Page<ReferenceResponse>> => {
@@ -12,7 +13,7 @@ export const getReferences = async (
     `${REFERENCES_BASE_URL}?page=${page}&size=${size}`
   );
   return response;
-};
+});
 
 export const getReferenceById = async (
   id: number

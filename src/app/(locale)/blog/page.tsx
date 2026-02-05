@@ -25,7 +25,7 @@ export default async function BlogPage() {
         })) as BlogPagePost[]);
 
   return (
-    <main className="min-h-screen bg-[#8d929b]">
+    <main className="min-h-screen bg-white">
       <BlogPageHero />
       <BlogPageContent posts={posts} />
     </main>

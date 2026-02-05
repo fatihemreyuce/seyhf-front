@@ -1,10 +1,11 @@
+import { cache } from "react";
 import { ServiceResponse } from "@/types/service.types";
 import { Page } from "@/types/pagination.types";
 import { fetchServer } from "@/utils/fetch-server";
 
 const SERVICE_BASE_URL = "/api/v1/services";
 
-export const getServices = async (
+export const getServices = cache(async (
   page: number,
   size: number,
 ): Promise<Page<ServiceResponse>> => {
@@ -12,7 +13,7 @@ export const getServices = async (
     `${SERVICE_BASE_URL}?page=${page}&size=${size}`,
   );
   return response;
-};
+});
 
 export const getServiceById = async (id: number): Promise<ServiceResponse> => {
   const response = await fetchServer<void, ServiceResponse>(

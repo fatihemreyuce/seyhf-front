@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import {
   BlogPageCard,
   type BlogPagePost,
 } from "@/components/sections/blog-page-grid";
-import { BlogSearch } from "@/components/sections/blog-search";
-
-const SEARCH_DEBOUNCE_MS = 800;
+import { Search, Filter } from "lucide-react";
 
 export interface BlogPageContentProps {
   posts: BlogPagePost[];
@@ -15,7 +13,7 @@ export interface BlogPageContentProps {
 
 function filterPostsByKeyword(
   posts: BlogPagePost[],
-  keyword: string,
+  keyword: string
 ): BlogPagePost[] {
   const q = keyword.trim().toLowerCase();
   if (!q) return posts;
@@ -27,35 +25,36 @@ function filterPostsByKeyword(
 }
 
 export function BlogPageContent({ posts }: BlogPageContentProps) {
-  const [keyword, setKeyword] = useState("");
-  const [debouncedKeyword, setDebouncedKeyword] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [animatedPosts, setAnimatedPosts] = useState(posts);
   const [isSearching, setIsSearching] = useState(false);
-  const [visibleIndices, setVisibleIndices] = useState<Set<number>>(new Set());
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const [visibleSections, setVisibleSections] = useState({
+    search: false,
+    grid: false,
+  });
+
+  const searchRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const filteredPosts = useMemo(
-    () => filterPostsByKeyword(posts, debouncedKeyword),
-    [posts, debouncedKeyword],
+    () => filterPostsByKeyword(posts, debouncedSearchQuery),
+    [posts, debouncedSearchQuery]
   );
 
-  // Debounce search query with longer delay
   useEffect(() => {
-    const t = setTimeout(
-      () => setDebouncedKeyword(keyword),
-      SEARCH_DEBOUNCE_MS,
-    );
-    return () => clearTimeout(t);
-  }, [keyword]);
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
-  // Animated filter with smooth transition
   useEffect(() => {
     setIsSearching(true);
     const timer = setTimeout(() => {
       setAnimatedPosts(filteredPosts);
       setTimeout(() => setIsSearching(false), 100);
-    }, 400);
-
+    }, 300);
     return () => clearTimeout(timer);
   }, [filteredPosts]);
 
@@ -63,55 +62,96 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const index = entry.target.getAttribute("data-blog-index");
-          if (entry.isIntersecting && index != null)
-            setVisibleIndices((prev) => new Set([...prev, Number(index)]));
+          if (entry.isIntersecting) {
+            if (entry.target === searchRef.current) {
+              setVisibleSections((prev) => ({ ...prev, search: true }));
+            } else if (entry.target === gridRef.current) {
+              setVisibleSections((prev) => ({ ...prev, grid: true }));
+            }
+          }
         });
       },
-      { rootMargin: "0px 0px -40px 0px", threshold: 0.1 },
+      { threshold: 0.2, rootMargin: "-50px" }
     );
-    const n = animatedPosts.length;
-    for (let i = 0; i < n; i++) {
-      const el = refs.current[i];
-      if (el) observer.observe(el);
-    }
+
+    if (searchRef.current) observer.observe(searchRef.current);
+    if (gridRef.current) observer.observe(gridRef.current);
+
     return () => observer.disconnect();
-  }, [animatedPosts.length]);
+  }, []);
 
   return (
-    <section className="bg-white">
-      <div className="content-container py-16 md:py-20">
-        <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
-          <div className="min-w-0 flex-1">
-            <div 
-              className={`flex flex-col gap-6 transition-all duration-500 ${
-                isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
-              }`}
-            >
-              {animatedPosts.length > 0 ? (
-                animatedPosts.map((post, index) => (
-                  <div
-                    key={post.id}
-                    ref={(el) => {
-                      refs.current[index] = el;
-                    }}
-                    data-blog-index={index}
-                    className={`blog-card-scroll-wrapper ${visibleIndices.has(index) ? "in-view" : ""}`}
-                  >
-                    <BlogPageCard post={post} index={index} />
-                  </div>
-                ))
-              ) : (
-                <p className="rounded-xl border border-gray-200 bg-gray-50 py-12 text-center text-text-light">
-                  Arama kriterinize uygun blog bulunamadı.
-                </p>
-              )}
-            </div>
+    <section className="bg-white py-16 md:py-20">
+      <div className="content-container">
+        {/* Stats Bar */}
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gray-100 bg-gray-50/50 px-6 py-4">
+          <div className="flex items-center gap-2">
+            <Filter className="h-5 w-5 text-(--brand-red)" />
+            <span className="text-sm font-semibold text-[#666]">
+              {posts.length} yazıdan {animatedPosts.length} tanesi gösteriliyor
+            </span>
           </div>
-          <aside className="blog-search-sidebar-enter w-full shrink-0 lg:w-80">
-            <BlogSearch value={keyword} onChange={setKeyword} />
-          </aside>
         </div>
+
+        {/* Search Bar */}
+        <div
+          ref={searchRef}
+          className={`stat-card-enter mb-12 ${
+            visibleSections.search ? "visible" : ""
+          }`}
+        >
+          <div className="relative mx-auto max-w-2xl">
+            <input
+              type="search"
+              placeholder="Başlık veya açıklamaya göre ara..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
+              aria-label="Blog arama"
+            />
+            <Search className="pointer-events-none absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-400" />
+          </div>
+        </div>
+
+        {/* Grid */}
+        {animatedPosts.length > 0 ? (
+          <div
+            ref={gridRef}
+            className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ${
+              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
+          >
+            {animatedPosts.map((post, index) => (
+              <div
+                key={post.id}
+                className={`stat-card-enter stat-card-delay-${index % 3} ${
+                  visibleSections.grid ? "visible" : ""
+                }`}
+              >
+                <BlogPageCard post={post} index={index} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-gray-100 bg-gray-50 py-20 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-200">
+              <Search className="h-8 w-8 text-gray-400" />
+            </div>
+            <h3 className="mb-2 text-xl font-bold text-[#333]">
+              Sonuç bulunamadı
+            </h3>
+            <p className="mb-6 text-[#666]">
+              Arama kriterinize uygun yazı bulunamadı. Farklı anahtar kelimeler deneyin.
+            </p>
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="rounded-xl bg-(--brand-red) px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
+            >
+              Aramayı Temizle
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

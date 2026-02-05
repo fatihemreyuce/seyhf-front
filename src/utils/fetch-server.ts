@@ -81,6 +81,11 @@ export const fetchServer = async <T, U>(
 		const apiUrl = url.startsWith("/api/v1") ? url : `/api/v1${url}`;
 		const requestUrl = `${env.NEXT_PUBLIC_API_URL}${apiUrl}`;
 
+		// Cache GET requests to reduce rate limit hits (revalidate every 60s)
+		if (!requestOptions.method || requestOptions.method.toUpperCase() === "GET") {
+			(requestOptions as RequestInit & { next?: { revalidate: number } }).next = { revalidate: 60 };
+		}
+
 		// Make request
 		const response = await fetch(requestUrl, requestOptions);
 

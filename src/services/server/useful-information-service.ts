@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { UsefulInformationResponse } from "@/types/useful.information";
 import { Page } from "@/types/pagination.types";
 import { fetchServer } from "@/utils/fetch-server";
@@ -13,7 +14,7 @@ function normalizeUrl(url: string | undefined): string | undefined {
   );
 }
 
-export const getUsefulInformation = async (
+export const getUsefulInformation = cache(async (
   page: number,
   size: number,
 ): Promise<Page<UsefulInformationResponse>> => {
@@ -29,7 +30,7 @@ export const getUsefulInformation = async (
       fileUrl: normalizeUrl(item.fileUrl),
     })),
   };
-};
+});
 
 export const getUsefulInformationById = async (
   id: number,

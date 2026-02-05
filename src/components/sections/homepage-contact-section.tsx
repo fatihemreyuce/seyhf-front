@@ -6,7 +6,6 @@ import {
   Mail,
   Clock,
   Send,
-  ArrowRight,
   Headphones,
   CheckCircle2,
 } from "lucide-react";
@@ -86,7 +85,7 @@ export function HomepageContactSection() {
                 />
                 Ücretsiz danışmanlık
               </p>
-              <Button asChild className="w-full gap-2 sm:w-auto">
+              <Button asChild className="w-full gap-2 sm:w-auto py-5 xs:py-6">
                 <Link
                   href="/contact"
                   className="group inline-flex items-center gap-2"
@@ -98,16 +97,6 @@ export function HomepageContactSection() {
                   />
                 </Link>
               </Button>
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-(--brand-red) transition-colors hover:text-(--brand-red)/80"
-              >
-                Forma git
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                  aria-hidden
-                />
-              </Link>
             </div>
           </div>
         </div>

@@ -111,7 +111,7 @@ export function Slider({ slides }: SliderProps) {
           <div className="flex flex-col gap-3 pt-2 xs:flex-row xs:flex-wrap xs:items-center xs:gap-4">
             <Link
               href="/contact"
-              className="group relative inline-flex min-h-touch min-w-[140px] items-center justify-center overflow-hidden rounded-lg border-2 border-white bg-transparent px-5 py-2.5 text-sm font-bold text-white transition-colors duration-300 xs:px-6 xs:py-3 xs:text-base"
+              className="group relative inline-flex min-h-touch min-w-[140px] items-center justify-center overflow-hidden rounded-lg border-2 border-white bg-transparent px-5 py-5 text-sm font-bold text-white transition-colors duration-300 xs:px-6 xs:py-6 xs:text-base"
             >
               <span className="relative z-10">İletişime Geç +</span>
               <span

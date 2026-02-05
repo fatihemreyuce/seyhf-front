@@ -165,7 +165,7 @@ export default function Header() {
           <div className="hidden lg:block shrink-0 ml-6 xl:ml-10">
             <Link href="/contact">
               <Button
-                className="cursor-pointer px-4 xl:px-6 2xl:px-10 py-2.5 xl:py-3 2xl:py-5 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
+                className="cursor-pointer px-4 xl:px-6 2xl:px-10 py-5 xl:py-5 2xl:py-6 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
                 style={{ backgroundColor: BRAND_RED }}
               >
                 Teklif Al <span className="ml-1">+</span>
@@ -257,7 +257,7 @@ export default function Header() {
               }}
             >
               <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full bg-gray-900 text-white px-6 py-4 transition-colors duration-300 hover:bg-brand-red hover:text-white">
+                <Button className="w-full bg-gray-900 text-white px-6 py-5 xs:py-6 transition-colors duration-300 hover:bg-brand-red hover:text-white">
                   Teklif Al <span className="ml-1">+</span>
                 </Button>
               </Link>

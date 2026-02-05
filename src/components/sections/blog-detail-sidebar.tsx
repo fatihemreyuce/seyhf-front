@@ -160,7 +160,7 @@ export function BlogDetailSidebar({
             </p>
             <Link
               href={`${basePath}/contact`}
-              className="block w-full rounded-xl bg-(--brand-red) px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
+              className="block w-full rounded-xl bg-(--brand-red) px-4 py-5 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md xs:py-6"
             >
               İletişime Geç
             </Link>

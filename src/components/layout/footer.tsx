@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getSettings } from "@/services/server/settings-service";
-import type { SettingsResponse } from "@/types/settings.types";
 import {
   Mail,
   Phone,
@@ -28,29 +26,21 @@ const FOOTER_LINKS_2 = [
   { label: "İletişim", href: "/contact" },
 ];
 
-const PLACEHOLDER_SETTINGS = {
-  phoneNumber: "+90 (212) 555 00 00",
-  email: "info@example.com",
-  address: "Örnek Mah. Örnek Sk. No:1, İstanbul",
-  instagramUrl: "#",
-  linkedinUrl: "#",
-} as const;
+export interface FooterProps {
+  phoneNumber: string;
+  email: string;
+  address: string;
+  instagramUrl: string;
+  linkedinUrl: string;
+}
 
-export default async function Footer() {
-  let settings: SettingsResponse | null = null;
-  try {
-    const page = await getSettings("", 0, 1, "id,asc");
-    settings = page?.content?.[0] ?? null;
-  } catch {
-    settings = null;
-  }
-
-  const phone = settings?.phoneNumber ?? PLACEHOLDER_SETTINGS.phoneNumber;
-  const email = settings?.email ?? PLACEHOLDER_SETTINGS.email;
-  const address = settings?.address ?? PLACEHOLDER_SETTINGS.address;
-  const instagramUrl =
-    settings?.instagramUrl ?? PLACEHOLDER_SETTINGS.instagramUrl;
-  const linkedinUrl = settings?.linkedinUrl ?? PLACEHOLDER_SETTINGS.linkedinUrl;
+export default function Footer({
+  phoneNumber,
+  email,
+  address,
+  instagramUrl,
+  linkedinUrl,
+}: FooterProps) {
   return (
     <footer className="border-t border-white/10 bg-gray-900 text-white">
       <div className="content-container py-12 md:py-16 lg:py-20">
@@ -144,14 +134,14 @@ export default async function Footer() {
               </li>
               <li>
                 <a
-                  href={`tel:${phone.replace(/\s/g, "")}`}
+                  href={`tel:${phoneNumber.replace(/\s/g, "")}`}
                   className="flex items-center gap-2 transition-colors hover:text-(--brand-red)"
                 >
                   <Phone
                     className="h-4 w-4 shrink-0 text-(--brand-red)"
                     aria-hidden
                   />
-                  {phone}
+                  {phoneNumber}
                 </a>
               </li>
             </ul>
