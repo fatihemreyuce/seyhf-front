@@ -222,9 +222,9 @@ const config = {
         "shape-fade-in":
           "shape-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards",
         "accordion-down":
-          "accordion-down 2.6s cubic-bezier(0.33, 1, 0.68, 1) forwards",
+          "accordion-down 2s cubic-bezier(0.33, 1, 0.68, 1) forwards",
         "accordion-up":
-          "accordion-up 1.8s cubic-bezier(0.33, 1, 0.68, 1) forwards",
+          "accordion-up 1.5s cubic-bezier(0.33, 1, 0.68, 1) forwards",
       },
     },
   },

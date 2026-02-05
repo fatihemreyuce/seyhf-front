@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import ConditionalTopBar from "@/components/layout/conditional-top-bar";
 import { RouteLoadingOverlay } from "@/components/loading/route-loading";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Header />
         <RouteLoadingOverlay />
         {children}
+        <Footer />
       </body>
     </html>
   );
