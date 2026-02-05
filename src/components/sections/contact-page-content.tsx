@@ -41,7 +41,7 @@ export function ContactPageContent() {
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
           {/* Sol: İletişim bilgileri */}
           <aside className="lg:col-span-5">
-            <div className="sticky top-24 rounded-2xl border border-gray-200/90 bg-white p-6 shadow-sm md:p-8">
+            <div className="rounded-2xl border lg:sticky lg:top-24 border-gray-200/90 bg-white p-6 shadow-sm md:p-8">
               <div className="mb-6 flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-red/10 text-brand-red">
                   <MessageCircle className="h-5 w-5" aria-hidden />

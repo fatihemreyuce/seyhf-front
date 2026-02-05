@@ -125,8 +125,15 @@ html {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    min-height: 100%;
+    min-height: 100dvh;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-full;
+    min-height: 100dvh;
+    min-height: 100vh;
   }
 }
 
@@ -184,6 +191,13 @@ html {
     .content-container-edge {
       left: 3rem;
     }
+  }
+
+  /* Mobil: ikon + metin hizası (ikon alta düşmesin) */
+  .icon-text-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 }
 
@@ -835,6 +849,17 @@ html {
 .stat-card-enter {
   opacity: 0;
   transform: translateY(40px);
+}
+
+/* Mobil: içerik hemen görünsün (observer gecikmesi boş ekran yaratmasın) */
+@media (width < 768px) {
+  .stat-card-enter {
+    opacity: 1;
+    transform: none;
+  }
+  .stat-card-enter.visible {
+    animation: none;
+  }
 }
 
 .stat-card-enter.visible {

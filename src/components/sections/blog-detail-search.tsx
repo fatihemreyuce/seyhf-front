@@ -20,7 +20,7 @@ export function BlogDetailSearch({ basePath = "" }: { basePath?: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="sticky top-24">
+    <form onSubmit={handleSubmit} className="lg:sticky lg:top-24">
       <BlogSearch
         value={value}
         onChange={setValue}

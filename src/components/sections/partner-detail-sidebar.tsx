@@ -69,7 +69,7 @@ export function PartnerDetailSidebar({
     <div ref={sidebarRef} className="space-y-6">
       {/* Search Box */}
       <div
-        className={`stat-card-enter sticky top-24 space-y-6 ${
+        className={`stat-card-enter space-y-6 lg:sticky lg:top-24 ${
           isVisible ? "visible" : ""
         }`}
       >

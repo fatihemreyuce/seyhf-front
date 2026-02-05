@@ -26,7 +26,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button ref={ref} className={baseClassName} {...props}>
-        <span className="relative z-10">{children}</span>
+        <span className="relative z-10 inline-flex items-center justify-center gap-2">
+          {children}
+        </span>
         <span
           aria-hidden="true"
           className={cn(
