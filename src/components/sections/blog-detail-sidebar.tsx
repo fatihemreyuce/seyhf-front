@@ -43,7 +43,7 @@ export function BlogDetailSidebar({
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (sidebarRef.current) {
@@ -61,7 +61,7 @@ export function BlogDetailSidebar({
     setIsSearching(true);
     const timer = setTimeout(() => {
       const filtered = blogs.filter((blog) =>
-        blog.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+        blog.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
       );
       setAnimatedBlogs(filtered);
       setTimeout(() => setIsSearching(false), 100);
@@ -84,7 +84,7 @@ export function BlogDetailSidebar({
           <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-5">
             <h3 className="flex items-center gap-2 text-lg font-bold text-[#111]">
               <Search className="h-5 w-5 text-(--brand-red)" />
-              Makale Ara
+              Blog Ara
             </h3>
           </div>
           <div className="p-5">
@@ -106,7 +106,7 @@ export function BlogDetailSidebar({
           <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-5">
             <h3 className="flex items-center gap-2 text-lg font-bold text-[#111]">
               <BookOpen className="h-5 w-5 text-(--brand-red)" />
-              İlgili Makaleler
+              İlgili Bloglar
               <span className="ml-auto text-sm font-normal text-[#666]">
                 ({filteredBlogs.length})
               </span>
@@ -115,13 +115,18 @@ export function BlogDetailSidebar({
 
           <div className="relative min-h-[120px] max-h-96 overflow-y-auto p-3">
             {isSearching && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center py-8" aria-hidden>
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center py-8"
+                aria-hidden
+              >
                 <Loader2 className="h-8 w-8 animate-spin text-brand-red" />
               </div>
             )}
             <div
               className={`space-y-1 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
               {filteredBlogs.length > 0 ? (
@@ -146,7 +151,7 @@ export function BlogDetailSidebar({
                 ))
               ) : (
                 <div className="blog-item-enter py-8 text-center text-sm text-[#999]">
-                  Makale bulunamadı
+                  Blog bulunamadı
                 </div>
               )}
             </div>

@@ -227,11 +227,11 @@ function PartnerCard({
           aria-hidden
           className="pointer-events-none absolute inset-0 z-10 origin-left scale-x-0 bg-(--brand-red)/80 transition-transform duration-500 ease-out group-hover:scale-x-100"
         />
-        <CardContent className="relative z-20 flex flex-col items-center gap-1 p-3 text-center">
+        <CardContent className="relative z-20 flex flex-row items-center justify-center gap-2 p-3 text-center">
           <p className="text-sm font-semibold text-gray-900 transition-colors duration-500 group-hover:text-white">
             {partner.name}
           </p>
-          <ArrowRight className="h-4 w-4 text-gray-500 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:text-white" />
+          <ArrowRight className="h-4 w-4 shrink-0 text-gray-500 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:text-white" />
         </CardContent>
       </Card>
     </Link>

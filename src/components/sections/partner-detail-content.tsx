@@ -39,14 +39,6 @@ export function PartnerDetailContent({ partner }: PartnerDetailContentProps) {
         }`}
       >
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-          <div className="border-b border-gray-100 bg-linear-to-r from-(--brand-red)/5 to-transparent p-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--brand-red)/10">
-                <Building2 className="h-5 w-5 text-(--brand-red)" />
-              </div>
-              <h2 className="text-xl font-bold text-[#111]">Partner Logo</h2>
-            </div>
-          </div>
           <div className="flex items-center justify-center bg-gray-50 p-12 md:p-16">
             {partner.logoUrl ? (
               <div className="relative h-48 w-full max-w-md">

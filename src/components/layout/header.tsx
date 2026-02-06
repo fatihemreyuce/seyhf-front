@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logoHome2 from "@/app/assets/images/logo/logo-home2.png";
 
@@ -34,10 +34,7 @@ export default function Header({ logoUrl }: HeaderProps = {}) {
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -54,34 +51,6 @@ export default function Header({ logoUrl }: HeaderProps = {}) {
     return () => window.removeEventListener("scroll", updateScroll);
   }, []);
 
-  useEffect(() => {
-    lastScrollY.current = window.scrollY ?? document.documentElement.scrollTop;
-    const onScroll = () => {
-      if (ticking.current) return;
-      ticking.current = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY ?? document.documentElement.scrollTop;
-        if (y <= 24) {
-          setHeaderVisible(true);
-          lastScrollY.current = y;
-          ticking.current = false;
-          return;
-        }
-        const delta = y - lastScrollY.current;
-        if (Math.abs(delta) < 10) {
-          ticking.current = false;
-          return;
-        }
-        if (delta > 0) setHeaderVisible(false);
-        else setHeaderVisible(true);
-        lastScrollY.current = y;
-        ticking.current = false;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const transparent = !isScrolled;
   const navTextClass = "text-(--collbrai-dark) hover:text-(--brand-red)";
   const navActiveClass = "text-[var(--brand-red)]";
@@ -92,9 +61,6 @@ export default function Header({ logoUrl }: HeaderProps = {}) {
   return (
     <header
       className={`sticky top-0 z-50 border-b transition-all duration-300 ease-out ${borderClass}`}
-      style={{
-        transform: headerVisible ? "translateY(0)" : "translateY(-100%)",
-      }}
     >
       <div className="content-container relative z-10">
         <div className="flex h-20 items-center justify-between pt-3 sm:h-24 sm:pt-4 md:h-28 md:pt-4">

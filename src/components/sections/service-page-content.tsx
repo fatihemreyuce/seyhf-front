@@ -21,7 +21,9 @@ export function ServicePageContent({
   stats = [],
   basePath = "",
 }: ServicePageContentProps) {
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null,
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [animatedServices, setAnimatedServices] = useState(services);
@@ -68,7 +70,7 @@ export function ServicePageContent({
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (searchRef.current) observer.observe(searchRef.current);
@@ -86,15 +88,19 @@ export function ServicePageContent({
       result = result.filter((s) => {
         // Strategy 1: Direct string comparison
         if (s.categoryId.toString() === selectedCategoryId) return true;
-        
+
         // Strategy 2: Parse category ID as number
         const categoryIdAsNumber = parseInt(selectedCategoryId, 10);
-        if (!isNaN(categoryIdAsNumber) && s.categoryId === categoryIdAsNumber) return true;
-        
+        if (!isNaN(categoryIdAsNumber) && s.categoryId === categoryIdAsNumber)
+          return true;
+
         // Strategy 3: Check if categoryId matches the index/position in categories array
-        const categoryIndex = categories.findIndex(c => c.id === selectedCategoryId);
-        if (categoryIndex >= 0 && s.categoryId === categoryIndex + 1) return true;
-        
+        const categoryIndex = categories.findIndex(
+          (c) => c.id === selectedCategoryId,
+        );
+        if (categoryIndex >= 0 && s.categoryId === categoryIndex + 1)
+          return true;
+
         return false;
       });
     }
@@ -104,7 +110,7 @@ export function ServicePageContent({
       result = result.filter(
         (s) =>
           s.title.toLowerCase().includes(q) ||
-          s.description.toLowerCase().includes(q)
+          s.description.toLowerCase().includes(q),
       );
     }
 
@@ -126,14 +132,16 @@ export function ServicePageContent({
     label,
     isActive,
     onClick,
-  }: { label: string; isActive: boolean; onClick: () => void }) => (
+  }: {
+    label: string;
+    isActive: boolean;
+    onClick: () => void;
+  }) => (
     <button
       type="button"
       onClick={onClick}
       className={`w-full rounded-xl px-4 py-3 text-left text-sm font-medium transition-colors duration-300 ease-out ${
-        isActive
-          ? "bg-brand-red text-white shadow-sm"
-          : "text-text-secondary"
+        isActive ? "bg-brand-red text-white shadow-sm" : "text-text-secondary"
       }`}
     >
       {label}
@@ -170,14 +178,16 @@ export function ServicePageContent({
         {/* Stats Banner */}
         {stats.length > 0 && (
           <div className="mb-12 grid grid-cols-2 gap-5 md:grid-cols-4">
-            {stats.slice(0, 4).map((stat: ServiceStatsResponse, index: number) => (
-              <AnimatedStatCard
-                key={stat.id}
-                value={stat.numberValue}
-                title={stat.title}
-                index={index}
-              />
-            ))}
+            {stats
+              .slice(0, 4)
+              .map((stat: ServiceStatsResponse, index: number) => (
+                <AnimatedStatCard
+                  key={stat.id}
+                  value={stat.numberValue}
+                  title={stat.title}
+                  index={index}
+                />
+              ))}
           </div>
         )}
 
@@ -196,7 +206,8 @@ export function ServicePageContent({
                     <LayoutList className="h-4 w-4 text-gray-500" />
                     {selectedCategoryId === null
                       ? "Tüm Hizmetler"
-                      : categoryMap.get(selectedCategoryId)?.name ?? "Kategori seçin"}
+                      : (categoryMap.get(selectedCategoryId)?.name ??
+                        "Kategori seçin")}
                   </span>
                   <span
                     className={`text-xs text-gray-500 transition-transform ${mobileCategoriesOpen ? "rotate-180" : ""}`}
@@ -206,7 +217,9 @@ export function ServicePageContent({
                 </button>
                 {mobileCategoriesOpen && (
                   <div className="mt-3 max-h-64 overflow-y-auto rounded-xl border border-gray-100 bg-gray-50 p-3">
-                    <CategorySidebar onSelect={() => setMobileCategoriesOpen(false)} />
+                    <CategorySidebar
+                      onSelect={() => setMobileCategoriesOpen(false)}
+                    />
                   </div>
                 )}
               </div>
@@ -246,31 +259,38 @@ export function ServicePageContent({
             {/* Services Grid */}
             <div ref={servicesRef} className="relative min-h-[200px]">
               {isSearching && (
-                <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 backdrop-blur-sm" aria-hidden>
+                <div
+                  className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 backdrop-blur-sm"
+                  aria-hidden
+                >
                   <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
                 </div>
               )}
               {animatedServices.length > 0 ? (
                 <div
                   className={`grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 transition-all duration-500 ${
-                    isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                    isSearching
+                      ? "pointer-events-none scale-95 opacity-0"
+                      : "scale-100 opacity-100"
                   }`}
                 >
-                  {animatedServices.map((service: ServiceResponse, index: number) => (
-                    <div
-                      key={service.id}
-                      className={`stat-card-enter stat-card-delay-${index % 4} ${
-                        visibleSections.services ? "visible" : ""
-                      }`}
-                    >
-                      <ServiceCard
-                        id={service.id}
-                        title={service.title}
-                        description={service.description}
-                        basePath={basePath}
-                      />
-                    </div>
-                  ))}
+                  {animatedServices.map(
+                    (service: ServiceResponse, index: number) => (
+                      <div
+                        key={service.id}
+                        className={`stat-card-enter stat-card-delay-${index % 4} ${
+                          visibleSections.services ? "visible" : ""
+                        }`}
+                      >
+                        <ServiceCard
+                          id={service.id}
+                          title={service.title}
+                          description={service.description}
+                          basePath={basePath}
+                        />
+                      </div>
+                    ),
+                  )}
                 </div>
               ) : (
                 <div

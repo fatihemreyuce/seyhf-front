@@ -48,11 +48,8 @@ export async function ServicesSection() {
     <section className="bg-white">
       <div className="content-container py-16 md:py-20">
         <div className="mb-10 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-subtle">
-            Hizmet Listemiz
-          </p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-text-primary md:text-4xl">
-            SUNDUĞUMUZ <span className="text-brand-red">[HİZMETLER]</span>
+          <h2 className="text-3xl font-extrabold tracking-tight text-text-primary md:text-4xl">
+            SUNDUĞUMUZ <span className="text-brand-red">HİZMETLER</span>
           </h2>
         </div>
 

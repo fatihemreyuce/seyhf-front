@@ -1,16 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { UsefulInformationResponse } from "@/types/useful.information";
-import { 
-  FileText, 
-  BookOpen, 
-  Info, 
-  Sparkles,
-  FileCheck,
-  FileSpreadsheet
-} from "lucide-react";
+import { FileText, ArrowRight } from "lucide-react";
+import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
+import { cn } from "@/lib/utils";
 
 interface UsefulInformationCardProps {
   info: UsefulInformationResponse;
@@ -18,101 +13,107 @@ interface UsefulInformationCardProps {
   basePath?: string;
 }
 
-// Icon mapper for variety
-const iconMap = [FileText, BookOpen, Info, Sparkles, FileCheck, FileSpreadsheet];
-
-// Strip HTML tags from text
 function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
 export function UsefulInformationCard({ info, index, basePath = "" }: UsefulInformationCardProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          setIsVisible(true);
-          hasAnimated.current = true;
-        }
-      },
-      { threshold: 0.2, rootMargin: "-50px" }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
-
-  const Icon = iconMap[index % iconMap.length];
   const plainExcerpt = stripHtml(info.excerpt);
-  const plainDescription = stripHtml(info.description);
+  const plainDesc = stripHtml(info.description);
+  const excerpt = plainExcerpt || (plainDesc ? plainDesc.slice(0, 120) + (plainDesc.length > 120 ? "…" : "") : null);
+  const href = `${basePath}/useful-information/${info.id}`;
+
+  const imageZone = info.fileUrl ? (
+    <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+      <Image
+        src={info.fileUrl}
+        alt={info.title}
+        fill
+        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        unoptimized={info.fileUrl.startsWith("http")}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+    </div>
+  ) : (
+    <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center overflow-hidden bg-linear-to-br from-gray-50 via-gray-100 to-gray-200/90">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.4]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0 0 0 / 0.06) 1px, transparent 0)`,
+          backgroundSize: "20px 20px",
+        }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 bg-brand-red/10 opacity-0 transition-opacity duration-400 group-hover:opacity-100"
+      />
+      <div className="relative z-10 flex flex-col items-center gap-3">
+        <div className="rounded-2xl border border-gray-200/60 bg-white/95 p-5 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-brand-red/20 group-hover:shadow-md">
+          <FileText
+            className="h-11 w-11 text-gray-400 transition-colors duration-300 group-hover:text-brand-red sm:h-12 sm:w-12"
+            strokeWidth={1.25}
+          />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div
-      ref={cardRef}
-      className={`stat-card-enter stat-card-delay-${index % 3} group ${
-        isVisible ? "visible" : ""
-      }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <Link
-        href={`${basePath}/useful-information/${info.id}`}
-        className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl hover:border-gray-200"
+    <AnimateOnScroll variant="from-bottom">
+      <article
+        className={cn(
+          "group blog-card-hover-lift relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm",
+          "transition-all duration-300 hover:border-brand-red/20 hover:shadow-xl"
+        )}
       >
-        {/* Background gradient on hover */}
-        <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+        <span
+          aria-hidden
+          className="absolute left-0 right-0 top-0 z-[1] h-0.5 origin-center scale-x-0 bg-brand-red transition-transform duration-300 group-hover:scale-x-100"
+        />
 
-        {/* Content */}
-        <div className="relative z-10 flex h-full flex-col">
-          {/* Icon */}
-          <div className="mb-6">
-            <div 
-              className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-gray-100 to-gray-200 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 group-hover:from-(--brand-red)/20 group-hover:to-(--brand-red)/10 ${
-                isHovered ? "shadow-lg" : ""
-              }`}
-            >
-              <Icon 
-                className={`h-8 w-8 text-[#555] transition-all duration-700 group-hover:text-(--brand-red) ${
-                  isHovered ? "scale-110" : ""
-                }`} 
-              />
-            </div>
-          </div>
+        {info.fileUrl ? (
+          <Link
+            href={href}
+            className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-inset"
+            aria-label={info.title}
+          >
+            {imageZone}
+          </Link>
+        ) : (
+          <Link href={href} className="block" aria-label={info.title}>
+            {imageZone}
+          </Link>
+        )}
 
-          {/* Title */}
-          <h3 className="mb-3 text-xl font-bold text-[#111] transition-colors duration-500 group-hover:text-(--brand-red)">
-            {info.title}
-          </h3>
+        <div className="relative flex flex-1 flex-col p-5 sm:p-6">
+          <Link
+            href={href}
+            className="mb-3 block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg -m-1 p-1"
+          >
+            <h3 className="text-base font-bold leading-snug text-text-primary line-clamp-2 transition-colors duration-300 group-hover:text-brand-red sm:text-lg">
+              {info.title}
+            </h3>
+          </Link>
+          {excerpt && (
+            <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-text-muted">
+              {excerpt}
+            </p>
+          )}
 
-          {/* Excerpt */}
-          <p className="mb-4 text-sm leading-relaxed text-[#666]">
-            {plainExcerpt}
-          </p>
-
-          {/* Description */}
-          <p className="grow text-xs leading-relaxed text-[#999] line-clamp-3">
-            {plainDescription}
-          </p>
-
-          {/* Decorative corner element */}
-          <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-linear-to-br from-(--brand-red)/10 to-(--brand-red)/5 opacity-0 blur-2xl transition-all duration-700 group-hover:translate-x-6 group-hover:-translate-y-6 group-hover:opacity-100" />
+          <Link
+            href={href}
+            className="mt-auto inline-flex w-fit items-center gap-2 rounded-lg bg-gray-50 px-4 py-2.5 text-sm font-semibold text-text-secondary transition-colors group-hover:bg-brand-red group-hover:text-white"
+          >
+            Detayı Görüntüle
+            <ArrowRight
+              className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
         </div>
-
-        {/* Bottom animated line */}
-        <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-700 group-hover:w-full" />
-      </Link>
-    </div>
+      </article>
+    </AnimateOnScroll>
   );
 }

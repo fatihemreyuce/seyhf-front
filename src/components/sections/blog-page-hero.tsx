@@ -32,7 +32,7 @@ export function BlogPageHero({ basePath = "" }: BlogPageHeroProps) {
           Blog
         </h1>
         <p className="mt-1 text-sm text-white/70">
-          Güncel yazılarımızı, makalelerimizi ve sirkülerlerimizi keşfedin
+          Güncel yazılarımızı, bloglarımızı ve sirkülerlerimizi keşfedin
         </p>
         <nav
           className="mt-5 flex items-center justify-start gap-2 text-sm text-white/80"

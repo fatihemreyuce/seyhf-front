@@ -3,7 +3,14 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ArrowRight, Building2, Mail, Award, Loader2 } from "lucide-react";
+import {
+  Search,
+  ArrowRight,
+  Building2,
+  Mail,
+  Award,
+  Loader2,
+} from "lucide-react";
 import type { ReferenceResponse } from "@/types/references.types";
 
 interface ReferenceDetailSidebarProps {
@@ -36,7 +43,7 @@ export function ReferenceDetailSidebar({
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (sidebarRef.current) {
@@ -56,7 +63,7 @@ export function ReferenceDetailSidebar({
       const filtered = references.filter((reference) =>
         reference.name
           .toLowerCase()
-          .includes(debouncedSearchQuery.toLowerCase())
+          .includes(debouncedSearchQuery.toLowerCase()),
       );
       setAnimatedReferences(filtered);
       setTimeout(() => setIsSearching(false), 100);
@@ -110,13 +117,18 @@ export function ReferenceDetailSidebar({
 
           <div className="relative min-h-[120px] max-h-96 overflow-y-auto p-3">
             {isSearching && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center py-8" aria-hidden>
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center py-8"
+                aria-hidden
+              >
                 <Loader2 className="h-8 w-8 animate-spin text-brand-red" />
               </div>
             )}
             <div
               className={`space-y-1 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
               {filteredReferences.length > 0 ? (
@@ -125,7 +137,7 @@ export function ReferenceDetailSidebar({
                   const logoUrl =
                     reference.logoUrl?.replace(
                       /^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/,
-                      "http://$1$2"
+                      "http://$1$2",
                     ) || null;
 
                   return (

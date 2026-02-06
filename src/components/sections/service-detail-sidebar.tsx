@@ -35,7 +35,7 @@ export function ServiceDetailSidebar({
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (sidebarRef.current) {
@@ -53,7 +53,9 @@ export function ServiceDetailSidebar({
     setIsSearching(true);
     const timer = setTimeout(() => {
       const filtered = services.filter((service) =>
-        service.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+        service.title
+          .toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase()),
       );
       setAnimatedServices(filtered);
       setTimeout(() => setIsSearching(false), 100);
@@ -97,40 +99,45 @@ export function ServiceDetailSidebar({
 
           <div className="relative min-h-[120px]">
             {isSearching && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center py-8" aria-hidden>
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center py-8"
+                aria-hidden
+              >
                 <Loader2 className="h-8 w-8 animate-spin text-brand-red" />
               </div>
             )}
             <div
               className={`space-y-2 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
-            {filteredServices.length > 0 ? (
-              filteredServices.map((service, index) => (
-                <Link
-                  key={service.id}
-                  href={`${basePath}/services/${service.id}`}
-                  className="blog-item-enter group flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-2.5 text-sm text-[#555] transition-all hover:border-gray-100 hover:bg-gray-50"
-                  style={{
-                    animationDelay: `${index * 50}ms`,
-                    animationFillMode: "both",
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-4 w-4 shrink-0 text-gray-400 transition-colors group-hover:text-(--brand-red)" />
-                    <span className="line-clamp-1 transition-colors group-hover:text-[#111]">
-                      {service.title}
-                    </span>
-                  </div>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-gray-300 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-(--brand-red) group-hover:opacity-100" />
-                </Link>
-              ))
-            ) : (
-              <div className="blog-item-enter py-4 text-center text-sm text-[#999]">
-                Hizmet bulunamadı
-              </div>
-            )}
+              {filteredServices.length > 0 ? (
+                filteredServices.map((service, index) => (
+                  <Link
+                    key={service.id}
+                    href={`${basePath}/services/${service.id}`}
+                    className="blog-item-enter group flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-2.5 text-sm text-[#555] transition-all hover:border-gray-100 hover:bg-gray-50"
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animationFillMode: "both",
+                    }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <FileText className="h-4 w-4 shrink-0 text-gray-400 transition-colors group-hover:text-(--brand-red)" />
+                      <span className="line-clamp-1 transition-colors group-hover:text-[#111]">
+                        {service.title}
+                      </span>
+                    </div>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-gray-300 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-(--brand-red) group-hover:opacity-100" />
+                  </Link>
+                ))
+              ) : (
+                <div className="blog-item-enter py-4 text-center text-sm text-[#999]">
+                  Hizmet bulunamadı
+                </div>
+              )}
             </div>
           </div>
         </div>

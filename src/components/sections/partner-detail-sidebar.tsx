@@ -36,7 +36,7 @@ export function PartnerDetailSidebar({
           setIsVisible(true);
         }
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (sidebarRef.current) {
@@ -54,7 +54,7 @@ export function PartnerDetailSidebar({
     setIsSearching(true);
     const timer = setTimeout(() => {
       const filtered = partners.filter((partner) =>
-        partner.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+        partner.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
       );
       setAnimatedPartners(filtered);
       setTimeout(() => setIsSearching(false), 100);
@@ -108,13 +108,18 @@ export function PartnerDetailSidebar({
 
           <div className="relative min-h-[120px] max-h-96 overflow-y-auto p-3">
             {isSearching && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center py-8" aria-hidden>
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center py-8"
+                aria-hidden
+              >
                 <Loader2 className="h-8 w-8 animate-spin text-brand-red" />
               </div>
             )}
             <div
               className={`space-y-1 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
               {filteredPartners.length > 0 ? (

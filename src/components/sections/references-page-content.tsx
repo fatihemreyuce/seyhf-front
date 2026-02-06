@@ -4,7 +4,14 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { ReferenceResponse } from "@/types/references.types";
-import { Search, Award, Building2, ExternalLink, Globe, Loader2 } from "lucide-react";
+import {
+  Search,
+  Award,
+  Building2,
+  ExternalLink,
+  Globe,
+  Loader2,
+} from "lucide-react";
 
 interface ReferencesPageContentProps {
   references: ReferenceResponse[];
@@ -12,7 +19,10 @@ interface ReferencesPageContentProps {
 }
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function ReferencesPageContent({
@@ -53,7 +63,7 @@ export function ReferencesPageContent({
           }
         });
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (searchRef.current) observer.observe(searchRef.current);
@@ -69,7 +79,7 @@ export function ReferencesPageContent({
     return references.filter(
       (reference) =>
         reference.name.toLowerCase().includes(query) ||
-        reference.description.toLowerCase().includes(query)
+        reference.description.toLowerCase().includes(query),
     );
   }, [references, debouncedSearchQuery]);
 
@@ -97,7 +107,8 @@ export function ReferencesPageContent({
           <div className="flex items-center gap-2">
             <Award className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              {references.length} referanstan {animatedReferences.length} tanesi gösteriliyor
+              {references.length} referanstan {animatedReferences.length} tanesi
+              gösteriliyor
             </span>
           </div>
         </div>
@@ -124,81 +135,90 @@ export function ReferencesPageContent({
         {/* Grid */}
         <div ref={gridRef} className="relative min-h-[200px]">
           {isSearching && (
-            <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm" aria-hidden>
+            <div
+              className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm"
+              aria-hidden
+            >
               <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
             </div>
           )}
           {animatedReferences.length > 0 ? (
             <div
               className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
-            {animatedReferences.map((reference, index) => {
-              // Fix SSL issue with localhost
-              const logoUrl = reference.logoUrl?.replace(/^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, "http://$1$2") || null;
-              
-              return (
-                <div
-                  key={reference.id}
-                  className={`stat-card-enter stat-card-delay-${index % 4} group ${
-                    visibleSections.grid ? "visible" : ""
-                  }`}
-                >
-                  <Link
-                    href={`${basePath}/references/${reference.id}`}
-                    className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-(--brand-red)/30 hover:shadow-xl"
+              {animatedReferences.map((reference, index) => {
+                // Fix SSL issue with localhost
+                const logoUrl =
+                  reference.logoUrl?.replace(
+                    /^https:\/\/(localhost|127\.0\.0\.1)(:\d+)?/,
+                    "http://$1$2",
+                  ) || null;
+
+                return (
+                  <div
+                    key={reference.id}
+                    className={`stat-card-enter stat-card-delay-${index % 4} group ${
+                      visibleSections.grid ? "visible" : ""
+                    }`}
                   >
-                    {/* Background gradient on hover */}
-                    <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <Link
+                      href={`${basePath}/references/${reference.id}`}
+                      className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-(--brand-red)/30 hover:shadow-xl"
+                    >
+                      {/* Background gradient on hover */}
+                      <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                    {/* Content */}
-                    <div className="relative z-10 flex h-full flex-col p-6">
-                      {/* Logo */}
-                      <div className="mb-5 flex items-center justify-center">
-                        <div className="relative h-24 w-full overflow-hidden rounded-xl bg-gray-50 p-4 transition-all duration-500 group-hover:bg-white group-hover:shadow-md">
-                          {logoUrl ? (
-                            <div className="relative h-full w-full">
-                              <Image
-                                src={logoUrl}
-                                alt={reference.name}
-                                fill
-                                className="object-contain transition-transform duration-500 group-hover:scale-110"
-                                unoptimized
-                              />
-                            </div>
-                          ) : (
-                          <div className="flex h-full w-full items-center justify-center">
-                            <Building2 className="h-12 w-12 text-gray-300 transition-colors duration-500 group-hover:text-(--brand-red)" />
+                      {/* Content */}
+                      <div className="relative z-10 flex h-full flex-col p-6">
+                        {/* Logo */}
+                        <div className="mb-5 flex items-center justify-center">
+                          <div className="relative h-24 w-full overflow-hidden rounded-xl bg-gray-50 p-4 transition-all duration-500 group-hover:bg-white group-hover:shadow-md">
+                            {logoUrl ? (
+                              <div className="relative h-full w-full">
+                                <Image
+                                  src={logoUrl}
+                                  alt={reference.name}
+                                  fill
+                                  className="object-contain transition-transform duration-500 group-hover:scale-110"
+                                  unoptimized
+                                />
+                              </div>
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center">
+                                <Building2 className="h-12 w-12 text-gray-300 transition-colors duration-500 group-hover:text-(--brand-red)" />
+                              </div>
+                            )}
                           </div>
-                        )}
+                        </div>
+
+                        {/* Name */}
+                        <h3 className="mb-3 text-center text-lg font-bold text-[#111] transition-colors duration-300 line-clamp-2 group-hover:text-(--brand-red)">
+                          {reference.name}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="mb-4 grow text-center text-sm leading-relaxed text-[#666] line-clamp-3">
+                          {stripHtml(reference.description)}
+                        </p>
+
+                        {/* Footer */}
+                        <div className="flex items-center justify-center gap-2 border-t border-gray-100 pt-4 text-xs text-[#999] transition-colors duration-300 group-hover:border-(--brand-red)/20 group-hover:text-(--brand-red)">
+                          <Globe className="h-3.5 w-3.5" />
+                          <span className="font-medium">Detayları Gör</span>
+                          <ExternalLink className="h-3.5 w-3.5" />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Name */}
-                    <h3 className="mb-3 text-center text-lg font-bold text-[#111] transition-colors duration-300 line-clamp-2 group-hover:text-(--brand-red)">
-                      {reference.name}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="mb-4 grow text-center text-sm leading-relaxed text-[#666] line-clamp-3">
-                      {stripHtml(reference.description)}
-                    </p>
-
-                    {/* Footer */}
-                    <div className="flex items-center justify-center gap-2 border-t border-gray-100 pt-4 text-xs text-[#999] transition-colors duration-300 group-hover:border-(--brand-red)/20 group-hover:text-(--brand-red)">
-                      <Globe className="h-3.5 w-3.5" />
-                      <span className="font-medium">Detayları Gör</span>
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </div>
+                      {/* Bottom line */}
+                      <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-500 group-hover:w-full" />
+                    </Link>
                   </div>
-
-                  {/* Bottom line */}
-                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-500 group-hover:w-full" />
-                </Link>
-              </div>
-            );
-            })}
+                );
+              })}
             </div>
           ) : (
             <div

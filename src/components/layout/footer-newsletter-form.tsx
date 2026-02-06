@@ -93,8 +93,8 @@ export function FooterNewsletterForm({
           Güncel haberler ve kampanyalardan haberdar olun.
         </p>
       )}
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="space-y-1.5">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="space-y-2">
           <Label
             htmlFor="footer-email"
             className={`flex items-center gap-2 ${labelAccentClass}`}
@@ -114,8 +114,8 @@ export function FooterNewsletterForm({
             disabled={status === "loading"}
           />
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="space-y-1">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
             <Label
               htmlFor="footer-name"
               className={`flex items-center gap-1.5 ${labelMutedClass}`}
@@ -133,7 +133,7 @@ export function FooterNewsletterForm({
               disabled={status === "loading"}
             />
           </div>
-          <div className="space-y-1">
+          <div className="space-y-2">
             <Label
               htmlFor="footer-surname"
               className={`flex items-center gap-1.5 ${labelMutedClass}`}
@@ -152,7 +152,7 @@ export function FooterNewsletterForm({
             />
           </div>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-2">
           <Label
             htmlFor="footer-company"
             className={`flex items-center gap-1.5 ${labelMutedClass}`}
@@ -170,7 +170,7 @@ export function FooterNewsletterForm({
             disabled={status === "loading"}
           />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-2">
           <Label
             htmlFor="footer-title"
             className={`flex items-center gap-1.5 ${labelMutedClass}`}

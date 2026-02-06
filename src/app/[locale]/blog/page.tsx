@@ -12,23 +12,13 @@ export default async function BlogPage({
   const basePath = `/${locale}`;
   const circulars = await fetchCirculars();
 
-  const posts: BlogPagePost[] =
-    circulars.length > 0
-      ? circulars.map((c) => ({
-          id: c.id,
-          title: c.title,
-          description: c.description,
-          fileUrl: c.fileUrl,
-          href: `${basePath}/blog/${c.id}`,
-        }))
-      : (Array.from({ length: 6 }, (_, i) => ({
-          id: i + 1,
-          title: "Standard Size Of Business Agency Consulating Management.",
-          description:
-            "Lorem Ipsum is simply Dummy Text Of The Printing And Wasfsa Typesetting industry Lorem Ipsum The Industry's.",
-          fileUrl: undefined as string | undefined,
-          href: `${basePath}/blog/${i + 1}`,
-        })) as BlogPagePost[]);
+  const posts: BlogPagePost[] = circulars.map((c) => ({
+    id: c.id,
+    title: c.title,
+    description: c.description,
+    fileUrl: c.fileUrl,
+    href: `${basePath}/blog/${c.id}`,
+  }));
 
   return (
     <main className="min-h-screen bg-white">

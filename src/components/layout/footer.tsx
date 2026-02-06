@@ -116,7 +116,7 @@ export default function Footer({
                     address.startsWith("http")
                       ? address
                       : `https://www.google.com/maps?q=${encodeURIComponent(
-                          address
+                          address,
                         )}`
                   }
                   target="_blank"

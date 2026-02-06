@@ -68,9 +68,10 @@ export default async function RootLayout({
         address: stripHtml(s.address ?? footerSettings.address),
         instagramUrl: s.instagramUrl ?? footerSettings.instagramUrl,
         linkedinUrl: s.linkedinUrl ?? footerSettings.linkedinUrl,
-        logoUrl: [s.siteLogoUrl, (s as { siteLogo?: string }).siteLogo]
-          .find((v) => typeof v === "string" && v.trim())
-          ?.trim() || null,
+        logoUrl:
+          [s.siteLogoUrl, (s as { siteLogo?: string }).siteLogo]
+            .find((v) => typeof v === "string" && v.trim())
+            ?.trim() || null,
       };
     }
   } catch {
@@ -86,7 +87,7 @@ export default async function RootLayout({
         <AnalyticsTracker />
         <ConditionalTopBar {...topBarProps} />
         <Header logoUrl={footerSettings.logoUrl} />
-        {children}
+        <div className="pt-0">{children}</div>
         <Footer
           phoneNumber={footerSettings.phoneNumber}
           email={footerSettings.email}

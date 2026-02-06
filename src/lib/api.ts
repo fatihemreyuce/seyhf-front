@@ -152,44 +152,26 @@ export interface BlogPost {
   href: string;
 }
 
-const FALLBACK_BLOG_POSTS: BlogPost[] = [
-  {
-    id: 1,
-    title: "Standard Size Of Business Agency Consulating Management.",
-    href: "/blog/1",
-  },
-  {
-    id: 2,
-    title: "Standard Size Of Business Agency Consulating Management.",
-    href: "/blog/2",
-  },
-  {
-    id: 3,
-    title: "Standard Size Of Business Agency Consulating Management.",
-    href: "/blog/3",
-  },
-];
-
 export async function fetchBlogs(): Promise<BlogPost[]> {
   try {
     const res = await fetch(`${API}/api/v1/blogs?page=0&size=10`, {
       headers: { Accept: "application/json" },
       next: { revalidate: 60 },
     });
-    if (!res.ok) return FALLBACK_BLOG_POSTS;
+    if (!res.ok) return [];
     const page = (await res.json()) as Page<{
       id: number;
       title: string;
       slug?: string;
     }>;
     const list = page?.content ?? [];
-    if (list.length === 0) return FALLBACK_BLOG_POSTS;
+    if (list.length === 0) return [];
     return list.map((b) => ({
       id: b.id,
       title: b.title,
       href: `/blog/${b.slug ?? b.id}`,
     }));
   } catch {
-    return FALLBACK_BLOG_POSTS;
+    return [];
   }
 }

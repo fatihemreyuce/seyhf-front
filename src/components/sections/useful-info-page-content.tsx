@@ -2,8 +2,20 @@
 
 import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { UsefulInformationResponse } from "@/types/useful.information";
-import { Search, Filter, FileText, BookOpen, Info, Sparkles, FileCheck, FileSpreadsheet, Loader2 } from "lucide-react";
+import {
+  Search,
+  Filter,
+  FileText,
+  BookOpen,
+  Info,
+  Sparkles,
+  FileCheck,
+  FileSpreadsheet,
+  Loader2,
+  ArrowRight,
+} from "lucide-react";
 
 interface UsefulInfoPageContentProps {
   data: UsefulInformationResponse[];
@@ -11,14 +23,27 @@ interface UsefulInfoPageContentProps {
 }
 
 // Icon mapper for variety
-const iconMap = [FileText, BookOpen, Info, Sparkles, FileCheck, FileSpreadsheet];
+const iconMap = [
+  FileText,
+  BookOpen,
+  Info,
+  Sparkles,
+  FileCheck,
+  FileSpreadsheet,
+];
 
 // Strip HTML tags from text
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPageContentProps) {
+export function UsefulInfoPageContent({
+  data = [],
+  basePath = "",
+}: UsefulInfoPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [animatedData, setAnimatedData] = useState(data);
@@ -53,7 +78,7 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
           }
         });
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (searchRef.current) observer.observe(searchRef.current);
@@ -70,7 +95,7 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
       (item) =>
         item.title.toLowerCase().includes(query) ||
         item.description.toLowerCase().includes(query) ||
-        item.excerpt.toLowerCase().includes(query)
+        item.excerpt.toLowerCase().includes(query),
     );
   }, [data, debouncedSearchQuery]);
 
@@ -120,77 +145,94 @@ export function UsefulInfoPageContent({ data = [], basePath = "" }: UsefulInfoPa
         {/* Grid */}
         <div ref={gridRef} className="relative min-h-[200px]">
           {isSearching && (
-            <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm" aria-hidden>
+            <div
+              className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm"
+              aria-hidden
+            >
               <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
             </div>
           )}
           {animatedData.length > 0 ? (
             <div
               className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
-            {animatedData.map((item, index) => {
-              const Icon = iconMap[index % iconMap.length];
-              const plainExcerpt = stripHtml(item.excerpt);
-              const plainDescription = stripHtml(item.description);
+              {animatedData.map((item, index) => {
+                const Icon = iconMap[index % iconMap.length];
+                const plainExcerpt = stripHtml(item.excerpt);
+                const plainDescription = stripHtml(item.description);
 
-              return (
-                <div
-                  key={item.id}
-                  className={`stat-card-enter stat-card-delay-${index % 3} group ${
-                    visibleSections.grid ? "visible" : ""
-                  }`}
-                >
-                  <Link
-                    href={`${basePath}/useful-information/${item.id}`}
-                    className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-700 hover:-translate-y-2 hover:border-gray-200 hover:shadow-2xl"
+                return (
+                  <div
+                    key={item.id}
+                    className={`stat-card-enter stat-card-delay-${index % 3} group ${
+                      visibleSections.grid ? "visible" : ""
+                    }`}
                   >
-                    {/* Background gradient on hover */}
-                    <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+                    <Link
+                      href={`${basePath}/useful-information/${item.id}`}
+                      className="relative block h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-700 hover:-translate-y-2 hover:border-gray-200 hover:shadow-2xl"
+                    >
+                      {/* Background gradient on hover */}
+                      <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
-                    {/* Content */}
-                    <div className="relative z-10 flex h-full flex-col">
-                      {/* Icon */}
-                      <div className="mb-6">
-                        <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-gray-100 to-gray-200 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 group-hover:from-(--brand-red)/20 group-hover:to-(--brand-red)/10">
-                          <Icon className="h-8 w-8 text-[#555] transition-all duration-700 group-hover:text-(--brand-red)" />
+                      {/* Content */}
+                      <div className="relative z-10 flex h-full flex-col">
+                        {/* Image or Icon */}
+                        {item.fileUrl ? (
+                          <div className="relative -mx-8 -mt-8 mb-6 aspect-video w-[calc(100%+4rem)] overflow-hidden">
+                            <Image
+                              src={item.fileUrl}
+                              alt={item.title}
+                              fill
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                              unoptimized={item.fileUrl.startsWith("http")}
+                            />
+                          </div>
+                        ) : (
+                          <div className="mb-6 p-8 pb-0">
+                            <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-gray-100 to-gray-200 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 group-hover:from-(--brand-red)/20 group-hover:to-(--brand-red)/10">
+                              <Icon className="h-8 w-8 text-[#555] transition-all duration-700 group-hover:text-(--brand-red)" />
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex flex-1 flex-col px-8 pb-8">
+                          {/* Title */}
+                          <h3 className="mb-3 text-xl font-bold text-[#111] transition-colors duration-500 group-hover:text-(--brand-red)">
+                            {item.title}
+                          </h3>
+
+                          {/* Excerpt */}
+                          <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-[#666]">
+                            {plainExcerpt}
+                          </p>
+
+                          {/* Description */}
+                          <p className="mb-4 line-clamp-2 grow text-xs leading-relaxed text-[#999]">
+                            {plainDescription}
+                          </p>
+
+                          <span className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-red) transition-all duration-300 group-hover:gap-3">
+                            Detayı Görüntüle
+                            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                          </span>
                         </div>
+
+                        {/* Decorative corner element */}
+                        <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-linear-to-br from-(--brand-red)/10 to-(--brand-red)/5 opacity-0 blur-2xl transition-all duration-700 group-hover:translate-x-6 group-hover:-translate-y-6 group-hover:opacity-100" />
                       </div>
 
-                      {/* Title */}
-                      <h3 className="mb-3 text-xl font-bold text-[#111] transition-colors duration-500 group-hover:text-(--brand-red)">
-                        {item.title}
-                      </h3>
-
-                      {/* Excerpt */}
-                      <p className="mb-4 text-sm leading-relaxed text-[#666]">
-                        {plainExcerpt}
-                      </p>
-
-                      {/* Description */}
-                      <p className="grow text-xs leading-relaxed text-[#999] line-clamp-3">
-                        {plainDescription}
-                      </p>
-
-                      {/* File indicator */}
-                      {item.fileUrl && (
-                        <div className="mt-4 inline-flex items-center gap-2 self-start rounded-lg bg-gray-50 px-3 py-1.5 text-xs font-medium text-[#666]">
-                          <FileText className="h-3.5 w-3.5" />
-                          <span>Döküman Mevcut</span>
-                        </div>
-                      )}
-
-                      {/* Decorative corner element */}
-                      <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-linear-to-br from-(--brand-red)/10 to-(--brand-red)/5 opacity-0 blur-2xl transition-all duration-700 group-hover:translate-x-6 group-hover:-translate-y-6 group-hover:opacity-100" />
-                    </div>
-
-                    {/* Bottom animated line */}
-                    <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-700 group-hover:w-full" />
-                  </Link>
-                </div>
-              );
-            })}
+                      {/* Bottom animated line */}
+                      <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-700 group-hover:w-full" />
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <div

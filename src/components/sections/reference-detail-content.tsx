@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { ReferenceResponse } from "@/types/references.types";
-import { Building2, Globe, ExternalLink, Award, FileText } from "lucide-react";
+import { Building2, Globe, ExternalLink } from "lucide-react";
 
 interface ReferenceDetailContentProps {
   reference: ReferenceResponse;
@@ -48,14 +48,6 @@ export function ReferenceDetailContent({
         className={`stat-card-enter ${isVisible ? "visible" : ""}`}
       >
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-          <div className="border-b border-gray-100 bg-linear-to-r from-(--brand-red)/5 to-transparent p-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--brand-red)/10">
-                <Award className="h-5 w-5 text-(--brand-red)" />
-              </div>
-                <h2 className="text-xl font-bold text-[#111]">Şirket Logosu</h2>
-            </div>
-          </div>
           <div className="flex items-center justify-center bg-gray-50 p-12 md:p-16">
             {logoUrl ? (
               <div className="relative h-48 w-full max-w-md">
@@ -83,14 +75,6 @@ export function ReferenceDetailContent({
         }`}
       >
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-          <div className="border-b border-gray-100 bg-linear-to-r from-gray-50 to-transparent p-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100">
-                <FileText className="h-5 w-5 text-[#555]" />
-              </div>
-              <h2 className="text-xl font-bold text-text-primary">{reference.name} Hakkında</h2>
-            </div>
-          </div>
           <div className="p-6 md:p-8">
             <p className="whitespace-pre-wrap text-base leading-relaxed text-[#666]">
               {plainDescription}

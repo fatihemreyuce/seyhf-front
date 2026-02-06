@@ -47,7 +47,7 @@ export async function HomepageAboutSection() {
           </h2>
         </div>
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
           <div className="group relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:border-(--brand-red)/20 md:p-8">
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-(--brand-red)/10 text-(--brand-red) transition-colors group-hover:bg-(--brand-red)/15">
               <BookOpen className="h-6 w-6" aria-hidden />
@@ -55,7 +55,7 @@ export async function HomepageAboutSection() {
             <h3 className="flex items-center gap-2 text-xl font-bold text-text-primary md:text-2xl">
               {stripHtml(leftTitle)}
             </h3>
-            <p className="mt-4 flex gap-2 text-lg leading-relaxed text-text-light">
+            <p className="mt-4 flex gap-2 text-base leading-relaxed text-text-light md:text-lg">
               <Quote
                 className="mt-1 h-5 w-5 shrink-0 text-(--brand-red)/50"
                 aria-hidden
@@ -70,7 +70,7 @@ export async function HomepageAboutSection() {
             <h3 className="flex items-center gap-2 text-xl font-bold text-text-primary md:text-2xl">
               {stripHtml(rightTitle)}
             </h3>
-            <p className="mt-4 flex gap-2 text-lg leading-relaxed text-text-light">
+            <p className="mt-4 flex gap-2 text-base leading-relaxed text-text-light md:text-lg">
               <Quote
                 className="mt-1 h-5 w-5 shrink-0 text-(--brand-red)/50"
                 aria-hidden

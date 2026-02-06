@@ -23,13 +23,9 @@ export async function PartnersSection() {
 
       <div className="content-container relative py-16 md:py-20">
         <AnimateOnScroll variant="from-top" className="mb-8 text-center">
-          <p className="mb-1.5 text-xs font-medium uppercase tracking-wider text-white/70 md:text-sm">
-            Partner Listemiz
-          </p>
           <h2 className="text-2xl font-bold uppercase tracking-tight text-white md:text-3xl lg:text-4xl">
-            BİRLİKTE ÇALIŞTIĞIMIZ <span className="text-brand-red">[</span>
+            BİRLİKTE ÇALIŞTIĞIMIZ{" "}
             <span className="text-(--collbrai-accent-light)">PARTNERLER</span>
-            <span className="text-brand-red">]</span>
           </h2>
         </AnimateOnScroll>
 

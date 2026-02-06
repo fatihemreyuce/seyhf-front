@@ -11,7 +11,10 @@ interface PartnersPageContentProps {
   basePath?: string;
 }
 
-export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPageContentProps) {
+export function PartnersPageContent({
+  partners = [],
+  basePath = "",
+}: PartnersPageContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [animatedPartners, setAnimatedPartners] = useState(partners);
@@ -46,7 +49,7 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
           }
         });
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (searchRef.current) observer.observe(searchRef.current);
@@ -60,7 +63,7 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
 
     const query = debouncedSearchQuery.toLowerCase();
     return partners.filter((partner) =>
-      partner.name.toLowerCase().includes(query)
+      partner.name.toLowerCase().includes(query),
     );
   }, [partners, debouncedSearchQuery]);
 
@@ -88,7 +91,8 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
           <div className="flex items-center gap-2">
             <Building2 className="h-5 w-5 text-(--brand-red)" />
             <span className="text-sm font-semibold text-[#666]">
-              {partners.length} partnerden {animatedPartners.length} tanesi gösteriliyor
+              {partners.length} partnerden {animatedPartners.length} tanesi
+              gösteriliyor
             </span>
           </div>
         </div>
@@ -115,61 +119,66 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
         {/* Grid */}
         <div ref={gridRef} className="relative min-h-[200px]">
           {isSearching && (
-            <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm" aria-hidden>
+            <div
+              className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm"
+              aria-hidden
+            >
               <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
             </div>
           )}
           {animatedPartners.length > 0 ? (
             <div
               className={`grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
-            {animatedPartners.map((partner, index) => (
-              <div
-                key={partner.id}
-                className={`stat-card-enter stat-card-delay-${index % 4} group ${
-                  visibleSections.grid ? "visible" : ""
-                }`}
-              >
-                <Link
-                  href={`${basePath}/partners/${partner.id}`}
-                  className="relative block overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-gray-200 hover:shadow-xl"
+              {animatedPartners.map((partner, index) => (
+                <div
+                  key={partner.id}
+                  className={`stat-card-enter stat-card-delay-${index % 4} group ${
+                    visibleSections.grid ? "visible" : ""
+                  }`}
                 >
-                  {/* Background gradient on hover */}
-                  <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <Link
+                    href={`${basePath}/partners/${partner.id}`}
+                    className="relative block overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-gray-200 hover:shadow-xl"
+                  >
+                    {/* Background gradient on hover */}
+                    <div className="absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                  {/* Logo Container */}
-                  <div className="relative z-10 flex aspect-square items-center justify-center">
-                    {partner.logoUrl ? (
-                      <div className="relative h-full w-full">
-                        <Image
-                          src={partner.logoUrl}
-                          alt={partner.name}
-                          fill
-                          className="object-contain transition-transform duration-500 group-hover:scale-110"
-                          unoptimized={partner.logoUrl.startsWith("http")}
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center rounded-xl bg-linear-to-br from-gray-100 to-gray-200 transition-all duration-500 group-hover:from-(--brand-red)/10 group-hover:to-(--brand-red)/5">
-                        <Building2 className="h-12 w-12 text-gray-400 transition-colors duration-500 group-hover:text-(--brand-red)" />
-                      </div>
-                    )}
-                  </div>
+                    {/* Logo Container */}
+                    <div className="relative z-10 flex aspect-square items-center justify-center">
+                      {partner.logoUrl ? (
+                        <div className="relative h-full w-full">
+                          <Image
+                            src={partner.logoUrl}
+                            alt={partner.name}
+                            fill
+                            className="object-contain transition-transform duration-500 group-hover:scale-110"
+                            unoptimized={partner.logoUrl.startsWith("http")}
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center rounded-xl bg-linear-to-br from-gray-100 to-gray-200 transition-all duration-500 group-hover:from-(--brand-red)/10 group-hover:to-(--brand-red)/5">
+                          <Building2 className="h-12 w-12 text-gray-400 transition-colors duration-500 group-hover:text-(--brand-red)" />
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Partner Name */}
-                  <div className="relative z-10 mt-4 text-center">
-                    <h3 className="text-sm font-bold text-[#111] transition-colors duration-300 line-clamp-2 group-hover:text-(--brand-red)">
-                      {partner.name}
-                    </h3>
-                  </div>
+                    {/* Partner Name */}
+                    <div className="relative z-10 mt-4 text-center">
+                      <h3 className="text-sm font-bold text-[#111] transition-colors duration-300 line-clamp-2 group-hover:text-(--brand-red)">
+                        {partner.name}
+                      </h3>
+                    </div>
 
-                  {/* Bottom animated line */}
-                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-500 group-hover:w-full" />
-                </Link>
-              </div>
-            ))}
+                    {/* Bottom animated line */}
+                    <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-(--brand-red) to-(--brand-red)/70 transition-all duration-500 group-hover:w-full" />
+                  </Link>
+                </div>
+              ))}
             </div>
           ) : (
             <div

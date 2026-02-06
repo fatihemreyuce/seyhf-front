@@ -13,7 +13,7 @@ export interface BlogPageContentProps {
 
 function filterPostsByKeyword(
   posts: BlogPagePost[],
-  keyword: string
+  keyword: string,
 ): BlogPagePost[] {
   const q = keyword.trim().toLowerCase();
   if (!q) return posts;
@@ -39,7 +39,7 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
 
   const filteredPosts = useMemo(
     () => filterPostsByKeyword(posts, debouncedSearchQuery),
-    [posts, debouncedSearchQuery]
+    [posts, debouncedSearchQuery],
   );
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
           }
         });
       },
-      { threshold: 0.2, rootMargin: "-50px" }
+      { threshold: 0.2, rootMargin: "-50px" },
     );
 
     if (searchRef.current) observer.observe(searchRef.current);
@@ -116,26 +116,31 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
         {/* Grid */}
         <div ref={gridRef} className="relative min-h-[200px]">
           {isSearching && (
-            <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm" aria-hidden>
+            <div
+              className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm"
+              aria-hidden
+            >
               <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
             </div>
           )}
           {animatedPosts.length > 0 ? (
             <div
               className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ${
-                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching
+                  ? "pointer-events-none scale-95 opacity-0"
+                  : "scale-100 opacity-100"
               }`}
             >
-            {animatedPosts.map((post, index) => (
-              <div
-                key={post.id}
-                className={`stat-card-enter stat-card-delay-${index % 3} ${
-                  visibleSections.grid ? "visible" : ""
-                }`}
-              >
-                <BlogPageCard post={post} index={index} />
-              </div>
-            ))}
+              {animatedPosts.map((post, index) => (
+                <div
+                  key={post.id}
+                  className={`stat-card-enter stat-card-delay-${index % 3} ${
+                    visibleSections.grid ? "visible" : ""
+                  }`}
+                >
+                  <BlogPageCard post={post} index={index} />
+                </div>
+              ))}
             </div>
           ) : (
             <div
@@ -143,22 +148,23 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
                 isSearching ? "opacity-0" : "opacity-100"
               }`}
             >
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-200">
-              <Search className="h-8 w-8 text-gray-400" />
-            </div>
-            <h3 className="mb-2 text-xl font-bold text-[#333]">
-              Sonuç bulunamadı
-            </h3>
-            <p className="mb-6 text-[#666]">
-              Arama kriterinize uygun yazı bulunamadı. Farklı anahtar kelimeler deneyin.
-            </p>
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="rounded-xl bg-(--brand-red) px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
-            >
-              Aramayı Temizle
-            </button>
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-200">
+                <Search className="h-8 w-8 text-gray-400" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-[#333]">
+                Sonuç bulunamadı
+              </h3>
+              <p className="mb-6 text-[#666]">
+                Arama kriterinize uygun yazı bulunamadı. Farklı anahtar
+                kelimeler deneyin.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="rounded-xl bg-(--brand-red) px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
+              >
+                Aramayı Temizle
+              </button>
             </div>
           )}
         </div>

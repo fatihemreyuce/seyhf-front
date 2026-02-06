@@ -32,8 +32,7 @@ export function HomepageContactSection() {
   return (
     <section className="bg-linear-to-b from-white to-gray-50/50 py-16 md:py-20">
       <div className="content-container">
-        <div className="mx-auto max-w-4xl">
-          <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-lg shadow-gray-200/50 transition-shadow hover:shadow-xl hover:shadow-gray-200/60">
+        <div className="w-full overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-lg shadow-gray-200/50 transition-shadow hover:shadow-xl hover:shadow-gray-200/60">
             {/* Üst alan */}
             <div className="relative border-b border-gray-100 bg-(--brand-red)/5 px-8 py-10 text-center md:px-12 md:py-12">
               <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/10 shadow-inner">
@@ -57,11 +56,11 @@ export function HomepageContactSection() {
             </div>
 
             {/* Özellik noktaları */}
-            <div className="grid grid-cols-1 gap-6 border-b border-gray-100 bg-gray-50/30 px-8 py-8 md:grid-cols-3 md:gap-8 md:px-10 md:py-10">
+            <div className="grid grid-cols-1 gap-6 border-b border-gray-100 px-8 py-8 md:grid-cols-3 md:gap-8 md:px-10 md:py-10">
               {CONTACT_POINTS.map(({ icon: Icon, label, description }) => (
                 <div
                   key={label}
-                  className="flex flex-col items-center gap-3 rounded-xl bg-white p-5 text-center shadow-sm transition-colors hover:bg-(--brand-red)/5 hover:shadow-md"
+                  className="flex flex-col items-center gap-3 text-center"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--brand-red)/10 text-(--brand-red)">
                     <Icon className="h-6 w-6" aria-hidden />
@@ -99,7 +98,6 @@ export function HomepageContactSection() {
               </Button>
             </div>
           </div>
-        </div>
       </div>
     </section>
   );
