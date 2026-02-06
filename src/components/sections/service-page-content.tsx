@@ -6,7 +6,7 @@ import type { ServiceCategoryResponse } from "@/types/service.categories.types";
 import type { ServiceStatsResponse } from "@/types/service.stats.types";
 import { ServiceCard } from "@/components/sections/service-card";
 import { AnimatedStatCard } from "@/components/sections/animated-stat-card";
-import { Search, LayoutList, Loader2 } from "lucide-react";
+import { Search, LayoutList, Loader2, LayoutGrid, ChevronRight, ChevronDown } from "lucide-react";
 
 export interface ServicePageContentProps {
   services: ServiceResponse[];
@@ -45,6 +45,22 @@ export function ServicePageContent({
     categories.forEach((cat) => map.set(cat.id, cat));
     return map;
   }, [categories]);
+
+  // Her kategorideki hizmet sayısı
+  const categoryCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    categories.forEach((cat, index) => {
+      const count = services.filter((s) => {
+        if (s.categoryId.toString() === cat.id) return true;
+        const catIdNum = parseInt(cat.id, 10);
+        if (!isNaN(catIdNum) && s.categoryId === catIdNum) return true;
+        if (s.categoryId === index + 1) return true;
+        return false;
+      }).length;
+      counts.set(cat.id, count);
+    });
+    return counts;
+  }, [services, categories]);
 
   // Debounce search query with longer delay
   useEffect(() => {
@@ -130,21 +146,39 @@ export function ServicePageContent({
 
   const CategoryButton = ({
     label,
+    count,
     isActive,
     onClick,
   }: {
     label: string;
+    count: number;
     isActive: boolean;
     onClick: () => void;
   }) => (
     <button
       type="button"
       onClick={onClick}
-      className={`w-full rounded-xl px-4 py-3 text-left text-sm font-medium transition-colors duration-300 ease-out ${
-        isActive ? "bg-brand-red text-white shadow-sm" : "text-text-secondary"
+      className={`group relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-3.5 text-left text-sm font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 ${
+        isActive
+          ? "bg-brand-red text-white shadow-md shadow-brand-red/25"
+          : "text-gray-600 hover:translate-x-0.5 hover:bg-gray-50 hover:text-[#111] active:scale-[0.99]"
       }`}
     >
-      {label}
+      <span className="relative z-10 flex min-w-0 flex-1 items-center gap-3">
+        {isActive && (
+          <ChevronRight className="h-4 w-4 shrink-0 opacity-90" strokeWidth={2.5} />
+        )}
+        <span className="line-clamp-1 truncate">{label}</span>
+      </span>
+      <span
+        className={`relative z-10 shrink-0 rounded-md px-2 py-0.5 text-xs font-medium tabular-nums ${
+          isActive
+            ? "bg-white/20 text-white backdrop-blur-sm"
+            : "bg-gray-100 text-gray-500 group-hover:bg-gray-200 group-hover:text-gray-700"
+        }`}
+      >
+        {count}
+      </span>
     </button>
   );
 
@@ -152,16 +186,21 @@ export function ServicePageContent({
     <nav className="space-y-1.5">
       <CategoryButton
         label="Tüm Hizmetler"
+        count={services.length}
         isActive={selectedCategoryId === null}
         onClick={() => {
           setSelectedCategoryId(null);
           onSelect?.();
         }}
       />
+      {categories.length > 0 && (
+        <div className="my-2 border-t border-gray-200/80" aria-hidden />
+      )}
       {categories.map((cat: ServiceCategoryResponse) => (
         <CategoryButton
           key={cat.id}
           label={cat.name}
+          count={categoryCounts.get(cat.id) ?? 0}
           isActive={selectedCategoryId === cat.id}
           onClick={() => {
             setSelectedCategoryId(cat.id);
@@ -175,6 +214,29 @@ export function ServicePageContent({
   return (
     <section className="bg-white">
       <div className="content-container py-16 md:py-20">
+        {/* Search Bar - Top, Full Width */}
+        <div
+          ref={searchRef}
+          className={`stat-card-enter stat-card-delay-0 relative mb-8 ${
+            visibleSections.search ? "visible" : ""
+          }`}
+        >
+          <input
+            id="service-page-search"
+            type="search"
+            placeholder="Başlık veya açıklamaya göre hizmet ara..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-5 pr-12 text-sm text-[#333] shadow-sm placeholder:text-gray-400 focus:border-brand-red focus:outline-none focus:ring-2 focus:ring-brand-red/20"
+          />
+          <label
+            htmlFor="service-page-search"
+            className="search-icon-focusable absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 cursor-pointer items-center justify-center"
+          >
+            <Search className="h-5 w-5 text-gray-400" />
+          </label>
+        </div>
+
         {/* Stats Banner */}
         {stats.length > 0 && (
           <div className="mb-12 grid grid-cols-2 gap-5 md:grid-cols-4">
@@ -209,14 +271,18 @@ export function ServicePageContent({
                       : (categoryMap.get(selectedCategoryId)?.name ??
                         "Kategori seçin")}
                   </span>
-                  <span
-                    className={`text-xs text-gray-500 transition-transform ${mobileCategoriesOpen ? "rotate-180" : ""}`}
-                  >
-                    ▼
-                  </span>
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 text-gray-500 transition-transform duration-200 ${mobileCategoriesOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {mobileCategoriesOpen && (
-                  <div className="mt-3 max-h-64 overflow-y-auto rounded-xl border border-gray-100 bg-gray-50 p-3">
+                  <div className="mt-3 max-h-64 overflow-y-auto rounded-xl border border-gray-200/60 bg-white p-4 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)]">
+                    <div className="mb-4 flex items-center gap-2.5">
+                      <LayoutGrid className="h-4 w-4 text-brand-red" strokeWidth={2} />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                        Kategoriler
+                      </span>
+                    </div>
                     <CategorySidebar
                       onSelect={() => setMobileCategoriesOpen(false)}
                     />
@@ -228,34 +294,23 @@ export function ServicePageContent({
                 ref={categoriesRef}
                 className={`hidden lg:block stat-card-enter stat-card-delay-1 ${visibleSections.categories ? "visible" : ""}`}
               >
-                <div className="sticky top-24 rounded-2xl border border-gray-100 bg-gray-50/80 p-4 shadow-sm backdrop-blur-sm">
-                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-text-muted">
-                    Kategoriler
-                  </h3>
+                <div className="sticky top-24 overflow-hidden rounded-2xl border border-gray-200/60 bg-white p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06),0_2px_8px_-2px_rgba(0,0,0,0.04)]">
+                  <div className="mb-5 flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-red/10">
+                      <LayoutGrid className="h-4 w-4 text-brand-red" strokeWidth={2} />
+                    </div>
+                    <h3 className="text-sm font-semibold tracking-tight text-[#111]">
+                      Kategoriler
+                    </h3>
+                  </div>
                   <CategorySidebar />
                 </div>
               </div>
             </aside>
           )}
 
-          {/* Main Content: Search + Services Grid */}
+          {/* Main Content: Services Grid */}
           <div className="min-w-0 flex-1 overflow-hidden">
-            <div
-              ref={searchRef}
-              className={`stat-card-enter stat-card-delay-0 relative mb-8 ${
-                visibleSections.search ? "visible" : ""
-              }`}
-            >
-              <input
-                type="search"
-                placeholder="Başlık veya açıklamaya göre hizmet ara..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-5 pr-12 text-sm text-[#333] shadow-sm placeholder:text-gray-400 focus:border-brand-red focus:outline-none focus:ring-2 focus:ring-brand-red/20"
-              />
-              <Search className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-            </div>
-
             {/* Services Grid */}
             <div ref={servicesRef} className="relative min-h-[200px]">
               {isSearching && (

@@ -83,13 +83,19 @@ export function PartnerDetailSidebar({
           <div className="p-5">
             <div className="relative">
               <input
+                id="partner-detail-sidebar-search"
                 type="search"
                 placeholder="Buradan arayın..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 py-3 pl-4 pr-11 text-sm text-[#333] transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:bg-white focus:outline-none focus:ring-2 focus:ring-(--brand-red)/20"
               />
-              <Search className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <label
+                htmlFor="partner-detail-sidebar-search"
+                className="search-icon-focusable absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 cursor-pointer items-center justify-center"
+              >
+                <Search className="h-5 w-5 text-gray-400" />
+              </label>
             </div>
           </div>
         </div>
@@ -109,7 +115,7 @@ export function PartnerDetailSidebar({
           <div className="relative min-h-[120px] max-h-96 overflow-y-auto p-3">
             {isSearching && (
               <div
-                className="absolute inset-0 z-10 flex items-center justify-center py-8"
+                className="absolute inset-0 z-10 flex min-h-[120px] items-center justify-center rounded-xl bg-white"
                 aria-hidden
               >
                 <Loader2 className="h-8 w-8 animate-spin text-brand-red" />

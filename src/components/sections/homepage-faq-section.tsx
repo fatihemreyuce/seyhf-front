@@ -3,7 +3,8 @@ import { getFaqs } from "@/services/server/faqs-service";
 import { HelpCircle, Sparkles } from "lucide-react";
 import { FaqAccordionList } from "./homepage-faq-accordion-list";
 
-import faqImage from "@/app/assets/images/image-box/journey-1.jpg";
+const FAQ_IMAGE =
+  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80";
 
 const HOMEPAGE_FAQ_LIMIT = 6;
 
@@ -44,7 +45,7 @@ export async function HomepageFaqSection() {
             </p>
             <div className="relative mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-200/80 bg-gray-100 shadow-lg">
               <Image
-                src={faqImage}
+                src={FAQ_IMAGE}
                 alt="Sıkça sorulan sorular"
                 fill
                 className="object-cover"

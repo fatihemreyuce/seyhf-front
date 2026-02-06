@@ -126,7 +126,7 @@ export function Slider({ slides }: SliderProps) {
                   aria-hidden
                 />
               </span>
-              <span className="text-sm text-white xs:text-base">
+              <span className="text-sm font-bold text-white xs:text-base">
                 +55 (121) 234 444
               </span>
             </div>

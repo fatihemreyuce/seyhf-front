@@ -78,13 +78,19 @@ export function ServiceDetailSidebar({
           <h3 className="mb-4 text-lg font-bold text-[#111]">Hizmet Ara</h3>
           <div className="relative">
             <input
+              id="service-detail-sidebar-search"
               type="search"
               placeholder="Buradan arayın..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-4 pr-11 text-sm text-[#333] transition-colors placeholder:text-gray-400 focus:border-(--brand-red) focus:bg-white focus:outline-none focus:ring-2 focus:ring-(--brand-red)/20"
             />
-            <Search className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+            <label
+              htmlFor="service-detail-sidebar-search"
+              className="search-icon-focusable absolute right-4 top-1/2 flex h-5 w-5 -translate-y-1/2 cursor-pointer items-center justify-center"
+            >
+              <Search className="h-5 w-5 text-gray-400" />
+            </label>
           </div>
         </div>
 
@@ -100,7 +106,7 @@ export function ServiceDetailSidebar({
           <div className="relative min-h-[120px]">
             {isSearching && (
               <div
-                className="absolute inset-0 z-10 flex items-center justify-center py-8"
+                className="absolute inset-0 z-10 flex min-h-[120px] items-center justify-center rounded-xl bg-white"
                 aria-hidden
               >
                 <Loader2 className="h-8 w-8 animate-spin text-brand-red" />

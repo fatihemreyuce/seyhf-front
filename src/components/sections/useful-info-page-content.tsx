@@ -113,6 +113,31 @@ export function UsefulInfoPageContent({
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="content-container">
+        {/* Search Bar - Top, Full Width */}
+        <div
+          ref={searchRef}
+          className={`stat-card-enter relative mb-8 ${
+            visibleSections.search ? "visible" : ""
+          }`}
+        >
+          <div className="relative w-full">
+            <input
+              id="useful-info-page-search"
+              type="search"
+              placeholder="Başlık, açıklama veya anahtar kelimelere göre ara..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
+            />
+            <label
+              htmlFor="useful-info-page-search"
+              className="search-icon-focusable absolute right-5 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center"
+            >
+              <Search className="h-6 w-6 text-gray-400" />
+            </label>
+          </div>
+        </div>
+
         {/* Stats Bar */}
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gray-100 bg-gray-50/50 px-6 py-4">
           <div className="flex items-center gap-2">
@@ -120,25 +145,6 @@ export function UsefulInfoPageContent({
             <span className="text-sm font-semibold text-[#666]">
               {data.length} kaynaktan {animatedData.length} tanesi gösteriliyor
             </span>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        <div
-          ref={searchRef}
-          className={`stat-card-enter mb-12 ${
-            visibleSections.search ? "visible" : ""
-          }`}
-        >
-          <div className="relative mx-auto max-w-2xl">
-            <input
-              type="search"
-              placeholder="Başlık, açıklama veya anahtar kelimelere göre ara..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
-            />
-            <Search className="pointer-events-none absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-400" />
           </div>
         </div>
 

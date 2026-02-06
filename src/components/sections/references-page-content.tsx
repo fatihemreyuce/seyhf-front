@@ -102,6 +102,31 @@ export function ReferencesPageContent({
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="content-container">
+        {/* Search Bar - Top, Full Width */}
+        <div
+          ref={searchRef}
+          className={`stat-card-enter relative mb-8 ${
+            visibleSections.search ? "visible" : ""
+          }`}
+        >
+          <div className="relative w-full">
+            <input
+              id="references-page-search"
+              type="search"
+              placeholder="Referans adı veya açıklamasına göre ara..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
+            />
+            <label
+              htmlFor="references-page-search"
+              className="search-icon-focusable absolute right-5 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center"
+            >
+              <Search className="h-6 w-6 text-gray-400" />
+            </label>
+          </div>
+        </div>
+
         {/* Stats Bar */}
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gray-100 bg-gray-50/50 px-6 py-4">
           <div className="flex items-center gap-2">
@@ -110,25 +135,6 @@ export function ReferencesPageContent({
               {references.length} referanstan {animatedReferences.length} tanesi
               gösteriliyor
             </span>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        <div
-          ref={searchRef}
-          className={`stat-card-enter mb-12 ${
-            visibleSections.search ? "visible" : ""
-          }`}
-        >
-          <div className="relative mx-auto max-w-2xl">
-            <input
-              type="search"
-              placeholder="Referans adı veya açıklamasına göre ara..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border-2 border-gray-200 bg-white py-4 pl-6 pr-14 text-[#333] shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-4 focus:ring-(--brand-red)/10"
-            />
-            <Search className="pointer-events-none absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-400" />
           </div>
         </div>
 
@@ -196,17 +202,17 @@ export function ReferencesPageContent({
                         </div>
 
                         {/* Name */}
-                        <h3 className="mb-3 text-center text-lg font-bold text-[#111] transition-colors duration-300 line-clamp-2 group-hover:text-(--brand-red)">
+                        <h3 className="mb-3 text-left text-lg font-bold text-[#111] transition-colors duration-300 line-clamp-2 group-hover:text-(--brand-red)">
                           {reference.name}
                         </h3>
 
                         {/* Description */}
-                        <p className="mb-4 grow text-center text-sm leading-relaxed text-[#666] line-clamp-3">
+                        <p className="mb-4 grow text-left text-sm leading-relaxed text-[#666] line-clamp-3">
                           {stripHtml(reference.description)}
                         </p>
 
                         {/* Footer */}
-                        <div className="flex items-center justify-center gap-2 border-t border-gray-100 pt-4 text-xs text-[#999] transition-colors duration-300 group-hover:border-(--brand-red)/20 group-hover:text-(--brand-red)">
+                        <div className="flex items-center justify-start gap-2 border-t border-gray-100 pt-4 text-xs text-[#999] transition-colors duration-300 group-hover:border-(--brand-red)/20 group-hover:text-(--brand-red)">
                           <Globe className="h-3.5 w-3.5" />
                           <span className="font-medium">Detayları Gör</span>
                           <ExternalLink className="h-3.5 w-3.5" />

@@ -50,9 +50,12 @@ export function BlogSearch({
           className="blog-search-input w-full rounded-lg border border-gray-200 bg-white py-3 pl-4 pr-12 text-[#333] placeholder:text-gray-400 focus:border-(--brand-red) focus:outline-none focus:ring-1 focus:ring-(--brand-red)"
           aria-label="Blog başlığı veya anahtar kelime ara"
         />
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+        <label
+          htmlFor="blog-search"
+          className="search-icon-focusable absolute right-3 top-1/2 flex -translate-y-1/2 cursor-pointer items-center justify-center"
+        >
           <SearchIcon />
-        </span>
+        </label>
       </div>
     </div>
   );

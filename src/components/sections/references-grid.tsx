@@ -122,12 +122,12 @@ function ReferenceCard({ reference, index, isVisible }: ReferenceCardProps) {
           </div>
 
           {/* Company Name */}
-          <h3 className="mb-3 text-center text-lg font-bold text-[#111] transition-colors duration-500 line-clamp-2 group-hover:text-(--brand-red)">
+          <h3 className="mb-3 text-left text-lg font-bold text-[#111] transition-colors duration-500 line-clamp-2 group-hover:text-(--brand-red)">
             {reference.name}
           </h3>
 
           {/* Description */}
-          <p className="mb-4 grow text-center text-sm leading-relaxed text-[#666] line-clamp-3">
+          <p className="mb-4 grow text-left text-sm leading-relaxed text-[#666] line-clamp-3">
             {plainDescription}
           </p>
 
