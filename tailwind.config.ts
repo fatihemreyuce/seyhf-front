@@ -17,11 +17,20 @@ const config = {
     },
     extend: {
       colors: {
-        // Brand Colors - Mavi Tonları
+        // Collbrai Logo Renkleri
+        collbrai: {
+          "dark": "#1A2F6B",
+          "dark-light": "#2F52A3",
+          "accent": "#4A8EF8",
+          "accent-light": "#66A8FB",
+          "accent-highlight": "#B3D4FF",
+          white: "#FFFFFF",
+        },
+        // Brand Colors - Collbrai paletinden
         brand: {
-          red: "#2563EB", // Ana mavi (eski kırmızı yerine)
-          "red-hover": "#1D4ED8", // Koyu mavi hover
-          "red-light": "#3B82F6", // Açık mavi
+          red: "#4A8EF8",
+          "red-hover": "#1A2F6B",
+          "red-light": "#66A8FB",
         },
 
         // Text Colors - Mavi Uyumlu Tonlar

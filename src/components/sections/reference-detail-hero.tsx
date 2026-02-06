@@ -1,8 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronRight, Award } from "lucide-react";
-import bgService from "@/app/assets/images/background-section/bg-service.jpg";
-import markPage from "@/app/assets/images/mark-page/mark-page.png";
+import { ChevronRight, Home, Award, Building2 } from "lucide-react";
 
 interface ReferenceDetailHeroProps {
   name: string;
@@ -13,67 +10,56 @@ export function ReferenceDetailHero({
   name,
   basePath = "",
 }: ReferenceDetailHeroProps) {
+  const rootHref = basePath || "/";
+  const refsHref = basePath ? `${basePath}/references` : "/references";
+
   return (
-    <section className="relative overflow-hidden bg-[#282A2E] py-20 md:py-28">
-      {/* Background Image */}
-      <div className="absolute inset-0 opacity-10">
-        <Image
-          src={bgService}
-          alt="Background"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-
-      {/* Wave Decoration */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <Image
-          src={markPage}
-          alt=""
-          className="h-auto w-full"
-          priority
-          aria-hidden
-        />
-      </div>
-
-      {/* Content */}
-      <div className="content-container relative z-20">
-        <div className="mx-auto max-w-4xl">
-          {/* Breadcrumb */}
-          <nav
-            className="stat-card-enter visible mb-6 flex items-center gap-2 text-sm"
-            aria-label="Breadcrumb"
-          >
-            <Link
-              href={basePath || "/"}
-              className="text-gray-300 transition-colors hover:text-white"
-            >
-              Ana Sayfa
-            </Link>
-            <ChevronRight className="h-4 w-4 text-gray-500" />
-            <Link
-              href={`${basePath}/references`}
-              className="text-gray-300 transition-colors hover:text-white"
-            >
-              Referanslar
-            </Link>
-            <ChevronRight className="h-4 w-4 text-gray-500" />
-            <span className="text-white line-clamp-1" aria-current="page">
-              {name}
-            </span>
-          </nav>
-
-          {/* Icon */}
-          <div className="stat-card-enter stat-card-delay-1 visible mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-(--brand-red)/20 backdrop-blur-sm">
-            <Award className="h-8 w-8 text-white" />
-          </div>
-
-          {/* Title */}
-          <h1 className="stat-card-enter stat-card-delay-2 visible text-3xl font-extrabold leading-tight text-white md:text-4xl lg:text-5xl">
-            {name}
-          </h1>
+    <section
+      className="relative overflow-hidden border-b border-white/10 bg-linear-to-b from-gray-900 via-gray-900 to-gray-950 py-12 md:py-16"
+      aria-labelledby="reference-detail-hero-heading"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden
+        style={{
+          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(43, 97, 214, 0.25), transparent)`,
+        }}
+      />
+      <div className="content-container relative z-10 flex flex-col items-start justify-center text-left">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 text-white">
+          <Award className="h-7 w-7" aria-hidden />
         </div>
+        <h1
+          id="reference-detail-hero-heading"
+          className="text-2xl font-bold tracking-tight text-white md:text-3xl line-clamp-2"
+        >
+          {name}
+        </h1>
+        <nav
+          className="mt-5 flex flex-wrap items-center justify-start gap-2 text-sm text-white/80"
+          aria-label="Breadcrumb"
+        >
+          <Link
+            href={rootHref}
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+          >
+            <Home className="h-4 w-4" aria-hidden />
+            Ana Sayfa
+          </Link>
+          <ChevronRight className="h-4 w-4 text-white/50" aria-hidden />
+          <Link
+            href={refsHref}
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+          >
+            <Award className="h-4 w-4" aria-hidden />
+            Referanslarımız
+          </Link>
+          <ChevronRight className="h-4 w-4 text-white/50" aria-hidden />
+          <span className="inline-flex items-center gap-1.5 text-white line-clamp-1">
+            <Building2 className="h-4 w-4" aria-hidden />
+            {name}
+          </span>
+        </nav>
       </div>
     </section>
   );

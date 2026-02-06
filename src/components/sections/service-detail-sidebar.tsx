@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search, ArrowRight, FileText } from "lucide-react";
+import { Search, ArrowRight, FileText, Loader2 } from "lucide-react";
 import type { ServiceResponse } from "@/types/service.types";
 
 interface ServiceDetailSidebarProps {
@@ -95,11 +95,17 @@ export function ServiceDetailSidebar({
             </span>
           </h3>
 
-          <div
-            className={`space-y-2 transition-all duration-500 ${
-              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
-            }`}
-          >
+          <div className="relative min-h-[120px]">
+            {isSearching && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center py-8" aria-hidden>
+                <Loader2 className="h-8 w-8 animate-spin text-brand-red" />
+              </div>
+            )}
+            <div
+              className={`space-y-2 transition-all duration-500 ${
+                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
             {filteredServices.length > 0 ? (
               filteredServices.map((service, index) => (
                 <Link
@@ -125,6 +131,7 @@ export function ServiceDetailSidebar({
                 Hizmet bulunamadı
               </div>
             )}
+            </div>
           </div>
         </div>
 

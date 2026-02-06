@@ -1,78 +1,48 @@
 import Link from "next/link";
-import Image from "next/image";
-
-import ellipse1 from "@/app/assets/images/mark-page/ellipse1.png";
-import Ellipse2 from "@/app/assets/images/mark-page/Ellipse2.png";
-import markPage from "@/app/assets/images/mark-page/mark-page.png";
-
-const HERO_GRAY = "#8d929b";
+import { ChevronRight, Home, Info } from "lucide-react";
 
 export function AboutPageHero() {
   return (
     <section
-      className="relative min-h-[220px] overflow-hidden py-14 xs:min-h-[260px] xs:py-20 md:min-h-[320px] md:py-28 lg:min-h-[360px]"
-      style={{ backgroundColor: HERO_GRAY }}
+      className="relative overflow-hidden border-b border-white/10 bg-linear-to-b from-gray-900 via-gray-900 to-gray-950 py-12 md:py-16"
+      aria-labelledby="about-hero-heading"
     >
-      <svg
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
         aria-hidden
-        className="pointer-events-none absolute left-0 top-0 z-1 h-full w-full"
-        viewBox="0 0 1200 500"
-        preserveAspectRatio="xMinYMid slice"
-        fill="none"
-      >
-        <path
-          d="M -60 120 Q 180 60 420 100 T 900 200 T 1300 280"
-          stroke="var(--brand-red)"
-          strokeWidth="5"
-          strokeLinecap="round"
-          fill="none"
-        />
-      </svg>
-
-      <div className="pointer-events-none absolute left-6 top-[18%] z-1 md:left-10 md:top-[15%]">
-        <Image
-          src={ellipse1}
-          alt=""
-          width={200}
-          height={200}
-          className="h-28 w-28 object-contain opacity-50 md:h-36 md:w-36 lg:h-40 lg:w-40"
-        />
-      </div>
-      <div className="pointer-events-none absolute left-10 top-[20%] z-1 md:left-14 md:top-[17%]">
-        <Image
-          src={Ellipse2}
-          alt=""
-          width={160}
-          height={160}
-          className="h-24 w-24 object-contain opacity-55 md:h-32 md:w-32 lg:h-36 lg:w-36"
-        />
-      </div>
-
-      <div className="pointer-events-none absolute right-0 top-0 z-1 opacity-90">
-        <Image
-          src={markPage}
-          alt=""
-          width={420}
-          height={320}
-          className="h-48 w-64 object-contain object-top-right xs:h-56 xs:w-72 sm:h-64 sm:w-80 md:h-80 md:w-96 lg:h-96 lg:w-[28rem]"
-        />
-      </div>
-
-      <div className="content-container relative z-10 flex min-h-[220px] flex-col items-center justify-center text-center xs:min-h-[260px] md:min-h-[320px] lg:min-h-[360px]">
-        <h1 className="text-2xl font-bold tracking-tight text-white xs:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+        style={{
+          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(43, 97, 214, 0.25), transparent)`,
+        }}
+      />
+      <div className="content-container relative z-10 flex flex-col items-start justify-center text-left">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 text-white">
+          <Info className="h-7 w-7" aria-hidden />
+        </div>
+        <h1
+          id="about-hero-heading"
+          className="text-2xl font-bold tracking-tight text-white md:text-3xl"
+        >
           Hakkımızda
         </h1>
+        <p className="mt-1 text-sm text-white/70">
+          Kurumsal hikayemiz ve değerlerimiz hakkında bilgi edinin
+        </p>
         <nav
-          className="mt-3 flex items-center gap-2 text-sm text-white md:mt-4 md:text-base"
+          className="mt-5 flex items-center justify-start gap-2 text-sm text-white/80"
           aria-label="Breadcrumb"
         >
-          <Link href="/" className="transition-opacity hover:opacity-90">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+          >
+            <Home className="h-4 w-4" aria-hidden />
             Ana Sayfa
           </Link>
-          <span aria-hidden className="opacity-80">
-            &gt;
+          <ChevronRight className="h-4 w-4 text-white/50" aria-hidden />
+          <span className="inline-flex items-center gap-1.5 text-white">
+            <Info className="h-4 w-4" aria-hidden />
+            Hakkımızda
           </span>
-          <span className="opacity-95">Hakkımızda</span>
         </nav>
       </div>
     </section>

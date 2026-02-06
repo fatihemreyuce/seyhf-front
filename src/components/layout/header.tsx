@@ -4,12 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logoHome2 from "@/app/assets/images/logo/logo-home2.png";
 
 const BRAND_RED = "var(--brand-red)";
-const BLOG_HEADER_GRAY = "#8d929b";
+
+function normalizeLogoUrl(url: string | null | undefined): string | null {
+  if (!url?.trim()) return null;
+  return url
+    .replace(/^https:\/\/(localhost|127\.0\.0\.1|::1)(:\d+)?/, "http://$1$2")
+    .trim();
+}
 
 const navItems = [
   { label: "Ana Sayfa", href: "/" },
@@ -21,7 +26,11 @@ const navItems = [
   { label: "İletişim", href: "/contact" },
 ];
 
-export default function Header() {
+export interface HeaderProps {
+  logoUrl?: string | null;
+}
+
+export default function Header({ logoUrl }: HeaderProps = {}) {
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -74,28 +83,10 @@ export default function Header() {
   }, []);
 
   const transparent = !isScrolled;
-  const isBlogPage = pathname.startsWith("/blog");
-  const isServicePage = pathname.startsWith("/services");
-  const isUsefulInfoPage = pathname.startsWith("/useful-information");
-  const isPartnersPage = pathname.startsWith("/partners");
-  const isReferencesPage = pathname.startsWith("/references");
-  const isGrayHeroPage =
-    isBlogPage ||
-    isServicePage ||
-    isUsefulInfoPage ||
-    isPartnersPage ||
-    isReferencesPage;
-
-  /* Pages with gray/dark hero: Blog, Services, Useful Information, Partners, References */
-  const navTextClass =
-    transparent && isGrayHeroPage
-      ? "text-white hover:text-white/95"
-      : "text-[#282A2E] hover:text-[#282A2E]";
+  const navTextClass = "text-(--collbrai-dark) hover:text-(--brand-red)";
   const navActiveClass = "text-[var(--brand-red)]";
   const borderClass = transparent
-    ? isGrayHeroPage
-      ? "border-white/20"
-      : "border-gray-200 bg-white"
+    ? "border-gray-200 bg-white"
     : "border-gray-200/80 bg-white/90 backdrop-blur-md";
 
   return (
@@ -103,28 +94,22 @@ export default function Header() {
       className={`sticky top-0 z-50 border-b transition-all duration-300 ease-out ${borderClass}`}
       style={{
         transform: headerVisible ? "translateY(0)" : "translateY(-100%)",
-        ...(transparent && isGrayHeroPage
-          ? { backgroundColor: BLOG_HEADER_GRAY }
-          : {}),
       }}
     >
       <div className="content-container relative z-10">
         <div className="flex h-20 items-center justify-between pt-3 sm:h-24 sm:pt-4 md:h-28 md:pt-4">
           {/* Logo */}
-          <div className="mr-6 xl:mr-8 shrink-0">
-            <Link href="/" className="block">
+          <div className="mr-6 flex h-12 items-center xl:mr-8 md:h-14">
+            <Link href="/" className="block h-full">
               <Image
-                src={logoHome2}
+                src={normalizeLogoUrl(logoUrl) || logoHome2}
                 alt="BIXOS Logo"
                 width={150}
-                height={50}
-                className={`w-24 transition-all duration-300 sm:w-32 md:w-[150px] ${
-                  transparent && isBlogPage ? "brightness-0 invert" : ""
-                }`}
-                style={{ width: "auto", height: "auto" }}
+                height={56}
+                className="h-full w-auto max-w-[150px] object-contain object-left transition-all duration-300"
                 sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 150px"
                 loading="eager"
-                unoptimized
+                unoptimized={!!normalizeLogoUrl(logoUrl)}
               />
             </Link>
           </div>
@@ -161,25 +146,9 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden lg:block shrink-0 ml-6 xl:ml-10">
-            <Link href="/contact">
-              <Button
-                className="cursor-pointer px-4 xl:px-6 2xl:px-10 py-5 xl:py-5 2xl:py-6 text-xs xl:text-sm 2xl:text-base whitespace-nowrap"
-                style={{ backgroundColor: BRAND_RED }}
-              >
-                Teklif Al <span className="ml-1">+</span>
-              </Button>
-            </Link>
-          </div>
-
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden shrink-0 p-2 transition-all duration-300 ${
-              transparent && isBlogPage
-                ? "text-white hover:opacity-90"
-                : "text-[#282A2E] hover:text-(--brand-red)"
-            }`}
+            className="lg:hidden shrink-0 p-2 transition-all duration-300 text-(--collbrai-dark) hover:text-(--brand-red)"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Menüyü Aç/Kapat"
           >
@@ -206,7 +175,7 @@ export default function Header() {
         <div
           className={`lg:hidden border-t overflow-hidden ${
             mobileMenuOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
-          } ${transparent ? "border-white/20" : "border-gray-100"}`}
+          } border-gray-100`}
           style={{
             transform: mobileMenuOpen ? "translateY(0)" : "translateY(-30px)",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -219,7 +188,7 @@ export default function Header() {
                 href={item.href}
                 className={`flex items-center justify-between py-3 px-4 rounded-lg transition-all duration-300 ${
                   mobileMenuOpen ? "opacity-100" : "opacity-0"
-                } ${transparent ? "hover:bg-white/10" : "hover:bg-gray-50"}`}
+                } hover:bg-gray-50`}
                 style={{
                   transform: mobileMenuOpen
                     ? "translateY(0)"
@@ -236,32 +205,13 @@ export default function Header() {
                   className={`font-extrabold text-base transition-colors duration-200 ${
                     hoveredItem === item.label || isActive(item.href)
                       ? "text-(--brand-red)"
-                      : "text-[#282A2E]"
+                      : "text-(--collbrai-dark)"
                   }`}
                 >
                   {item.label}
                 </span>
               </Link>
             ))}
-            <div
-              className={`pt-2 px-4 transition-all duration-300 ${
-                mobileMenuOpen ? "opacity-100" : "opacity-0"
-              }`}
-              style={{
-                transform: mobileMenuOpen
-                  ? "translateY(0)"
-                  : "translateY(-10px)",
-                transition: `all 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${
-                  mobileMenuOpen ? `${navItems.length * 0.06}s` : "0s"
-                }`,
-              }}
-            >
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full bg-gray-900 text-white px-6 py-5 xs:py-6 transition-colors duration-300 hover:bg-brand-red hover:text-white">
-                  Teklif Al <span className="ml-1">+</span>
-                </Button>
-              </Link>
-            </div>
           </nav>
         </div>
       </div>

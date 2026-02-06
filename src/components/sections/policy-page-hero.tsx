@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { ChevronRight, Home, FileText, Cookie } from "lucide-react";
 
-const HERO_GRAY = "#8d929b";
-
 type PolicyPageHeroProps = {
   title: string;
   variant: "privacy" | "cookie";
@@ -10,38 +8,44 @@ type PolicyPageHeroProps = {
 
 export function PolicyPageHero({ title, variant }: PolicyPageHeroProps) {
   const Icon = variant === "privacy" ? FileText : Cookie;
-  const breadcrumbLabel = title;
 
   return (
     <section
-      className="relative overflow-hidden py-12 md:py-16"
-      style={{ backgroundColor: HERO_GRAY }}
+      className="relative overflow-hidden border-b border-white/10 bg-linear-to-b from-gray-900 via-gray-900 to-gray-950 py-12 md:py-16"
       aria-labelledby="policy-hero-heading"
     >
-      <div className="content-container relative z-10 flex flex-col items-center justify-center text-center">
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/90 text-(--brand-red) shadow-sm">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden
+        style={{
+          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(43, 97, 214, 0.25), transparent)`,
+        }}
+      />
+      <div className="content-container relative z-10 flex flex-col items-start justify-center text-left">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 text-white">
           <Icon className="h-7 w-7" aria-hidden />
         </div>
         <h1
           id="policy-hero-heading"
-          className="text-2xl font-bold tracking-tight text-[#282A2E] md:text-3xl"
+          className="text-2xl font-bold tracking-tight text-white md:text-3xl"
         >
           {title}
         </h1>
         <nav
-          className="mt-5 flex items-center gap-2 text-sm text-[#282A2E]/80"
+          className="mt-5 flex items-center justify-start gap-2 text-sm text-white/80"
           aria-label="Breadcrumb"
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 transition-colors hover:text-(--brand-red)"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
           >
             <Home className="h-4 w-4" aria-hidden />
             Ana Sayfa
           </Link>
-          <ChevronRight className="h-4 w-4 text-[#282A2E]/50" aria-hidden />
-          <span className="inline-flex items-center gap-1.5 text-[#282A2E] font-medium">
-            {breadcrumbLabel}
+          <ChevronRight className="h-4 w-4 text-white/50" aria-hidden />
+          <span className="inline-flex items-center gap-1.5 text-white">
+            <Icon className="h-4 w-4" aria-hidden />
+            {title}
           </span>
         </nav>
       </div>

@@ -25,23 +25,19 @@ export function ServiceCard({ id, title, description, href, basePath = "" }: Ser
   return (
     <Link
       href={linkHref}
-      className="service-card group relative flex h-full w-full cursor-pointer flex-col items-center overflow-hidden rounded-2xl border border-gray-100 bg-white px-6 py-10 text-center shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+      className="service-card group relative flex h-full w-full cursor-pointer flex-col items-start overflow-hidden rounded-2xl border border-gray-100 bg-white px-6 py-10 text-left shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
       aria-label={title}
     >
       <span aria-hidden className="service-card-corner" />
 
-      <div className="mb-7 flex h-24 w-24 items-center justify-center rounded-2xl bg-linear-to-br from-gray-100 to-gray-200 transition-transform duration-500 group-hover:scale-110">
-        <div className="h-12 w-12 rounded-lg bg-white/40" />
-      </div>
-
-      <h3 className="mb-4 text-lg font-bold leading-snug text-text-secondary transition-colors duration-300 group-hover:text-(--brand-red)">
+      <h3 className="mb-4 text-lg font-bold leading-snug text-text-secondary transition-colors duration-300 group-hover:text-(--brand-red) w-full">
         {title}
       </h3>
       <p className="mb-6 flex-1 text-sm leading-relaxed text-text-lighter line-clamp-3">
         {plainDescription}
       </p>
 
-      <ArrowRight className="h-5 w-5 text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-(--brand-red)" />
+      <ArrowRight className="mt-auto h-5 w-5 self-end text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-(--brand-red)" />
 
       <span className="service-card-line" aria-hidden />
     </Link>

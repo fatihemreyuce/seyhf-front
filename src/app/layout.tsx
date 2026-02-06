@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ConditionalTopBar from "@/components/layout/conditional-top-bar";
-import { RouteLoadingOverlay } from "@/components/loading/route-loading";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
 import { getSettings } from "@/services/server/settings-service";
@@ -50,6 +49,7 @@ export default async function RootLayout({
     address: PLACEHOLDER_SETTINGS.address,
     instagramUrl: PLACEHOLDER_SETTINGS.instagramUrl,
     linkedinUrl: PLACEHOLDER_SETTINGS.linkedinUrl,
+    logoUrl: null as string | null,
   };
 
   try {
@@ -68,6 +68,9 @@ export default async function RootLayout({
         address: stripHtml(s.address ?? footerSettings.address),
         instagramUrl: s.instagramUrl ?? footerSettings.instagramUrl,
         linkedinUrl: s.linkedinUrl ?? footerSettings.linkedinUrl,
+        logoUrl: [s.siteLogoUrl, (s as { siteLogo?: string }).siteLogo]
+          .find((v) => typeof v === "string" && v.trim())
+          ?.trim() || null,
       };
     }
   } catch {
@@ -82,8 +85,7 @@ export default async function RootLayout({
         <ScrollToTop />
         <AnalyticsTracker />
         <ConditionalTopBar {...topBarProps} />
-        <Header />
-        <RouteLoadingOverlay />
+        <Header logoUrl={footerSettings.logoUrl} />
         {children}
         <Footer
           phoneNumber={footerSettings.phoneNumber}
@@ -91,6 +93,7 @@ export default async function RootLayout({
           address={footerSettings.address}
           instagramUrl={footerSettings.instagramUrl}
           linkedinUrl={footerSettings.linkedinUrl}
+          logoUrl={footerSettings.logoUrl}
         />
       </body>
     </html>

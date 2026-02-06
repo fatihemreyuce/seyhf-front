@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ArrowRight, Building2, Mail } from "lucide-react";
+import { Search, ArrowRight, Building2, Mail, Loader2 } from "lucide-react";
 import type { PartnerResponse } from "@/types/partner.types";
 
 interface PartnerDetailSidebarProps {
@@ -106,10 +106,15 @@ export function PartnerDetailSidebar({
             </h3>
           </div>
 
-          <div className="max-h-96 overflow-y-auto p-3">
+          <div className="relative min-h-[120px] max-h-96 overflow-y-auto p-3">
+            {isSearching && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center py-8" aria-hidden>
+                <Loader2 className="h-8 w-8 animate-spin text-brand-red" />
+              </div>
+            )}
             <div
               className={`space-y-1 transition-all duration-500 ${
-                isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
+                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
               }`}
             >
               {filteredPartners.length > 0 ? (

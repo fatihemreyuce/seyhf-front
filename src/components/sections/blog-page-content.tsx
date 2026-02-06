@@ -5,7 +5,7 @@ import {
   BlogPageCard,
   type BlogPagePost,
 } from "@/components/sections/blog-page-grid";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, Loader2 } from "lucide-react";
 
 export interface BlogPageContentProps {
   posts: BlogPagePost[];
@@ -114,13 +114,18 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
         </div>
 
         {/* Grid */}
-        {animatedPosts.length > 0 ? (
-          <div
-            ref={gridRef}
-            className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ${
-              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
-            }`}
-          >
+        <div ref={gridRef} className="relative min-h-[200px]">
+          {isSearching && (
+            <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm" aria-hidden>
+              <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
+            </div>
+          )}
+          {animatedPosts.length > 0 ? (
+            <div
+              className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ${
+                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
             {animatedPosts.map((post, index) => (
               <div
                 key={post.id}
@@ -131,9 +136,13 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
                 <BlogPageCard post={post} index={index} />
               </div>
             ))}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-gray-100 bg-gray-50 py-20 text-center">
+            </div>
+          ) : (
+            <div
+              className={`rounded-2xl border border-gray-100 bg-gray-50 py-20 text-center transition-opacity ${
+                isSearching ? "opacity-0" : "opacity-100"
+              }`}
+            >
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-200">
               <Search className="h-8 w-8 text-gray-400" />
             </div>
@@ -150,8 +159,9 @@ export function BlogPageContent({ posts }: BlogPageContentProps) {
             >
               Aramayı Temizle
             </button>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -16,9 +16,8 @@ interface FaqAccordionListProps {
 export function FaqAccordionList({ faqs }: FaqAccordionListProps) {
   return (
     <Accordion
-      type="single"
-      collapsible
-      defaultValue={`faq-${faqs[0]?.id ?? "item-1"}`}
+      type="multiple"
+      defaultValue={faqs[0] ? [`faq-${faqs[0].id}`] : []}
     >
       {faqs.map((faq) => (
         <AccordionItem key={faq.id} value={`faq-${faq.id}`}>

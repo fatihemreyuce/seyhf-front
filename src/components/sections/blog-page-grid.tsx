@@ -21,6 +21,20 @@ export interface BlogPagePost {
 
 const iconMap = [FileText, BookOpen, Newspaper, FileCheck, FileText, BookOpen];
 
+function getFileTypeLabel(url: string): string {
+  const ext = url.split(".").pop()?.toLowerCase() || "";
+  const known: Record<string, string> = {
+    pdf: "PDF",
+    doc: "DOC",
+    docx: "DOCX",
+    xls: "XLS",
+    xlsx: "XLSX",
+    ppt: "PPT",
+    pptx: "PPTX",
+  };
+  return known[ext] || (ext ? ext.toUpperCase() : "Dosya");
+}
+
 interface BlogPageCardProps {
   post: BlogPagePost;
   index?: number;
@@ -35,11 +49,11 @@ export function BlogPageCard({ post, index = 0 }: BlogPageCardProps) {
 
   return (
     <div className={cardClasses}>
-      {/* Tıklanınca detaya gider */}
+      {/* Tıklanınca detaya gider — aria-label ile erişilebilir */}
       <Link
         href={post.href}
         className="absolute inset-0 z-10"
-        aria-hidden
+        aria-label={`Makaleyi oku: ${post.title}`}
       />
       {/* Hover gradient */}
       <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-(--brand-red)/5 via-transparent to-gray-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -52,7 +66,7 @@ export function BlogPageCard({ post, index = 0 }: BlogPageCardProps) {
           {post.fileUrl && (
             <div className="inline-flex items-center gap-1.5 rounded-lg bg-gray-50 px-3 py-1.5 text-xs font-medium text-[#666]">
               <Download className="h-3.5 w-3.5" />
-              <span>PDF</span>
+              <span>{getFileTypeLabel(post.fileUrl)}</span>
             </div>
           )}
         </div>

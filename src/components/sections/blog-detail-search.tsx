@@ -28,7 +28,7 @@ export function BlogDetailSearch({ basePath = "" }: { basePath?: string }) {
       />
       <button
         type="submit"
-        className="mt-3 w-full rounded-lg bg-[#282A2E] py-2.5 text-sm font-medium text-white transition-colors hover:bg-(--brand-red)"
+        className="mt-3 w-full rounded-lg bg-(--collbrai-dark) py-2.5 text-sm font-medium text-white transition-colors hover:bg-(--brand-red)"
       >
         Ara
       </button>

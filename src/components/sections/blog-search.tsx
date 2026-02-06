@@ -36,7 +36,7 @@ export function BlogSearch({
     <div className="rounded-lg bg-[#f0f0f0] p-4 md:p-5">
       <label
         htmlFor="blog-search"
-        className="mb-3 block text-base font-bold text-[#282A2E]"
+        className="mb-3 block text-base font-bold text-(--collbrai-dark)"
       >
         Buradan Ara
       </label>

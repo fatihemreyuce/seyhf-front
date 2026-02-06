@@ -22,6 +22,7 @@ export interface SettingsResponse {
   privacyPolicy: string;
   contactFormText: string;
   cookiePolicy: string;
+  siteLogoUrl?: string | null;
   createdAt: string;
   updatedAt: string;
 }

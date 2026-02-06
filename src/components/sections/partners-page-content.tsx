@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { PartnerResponse } from "@/types/partner.types";
-import { Search, Building2 } from "lucide-react";
+import { Search, Building2, Loader2 } from "lucide-react";
 
 interface PartnersPageContentProps {
   partners: PartnerResponse[];
@@ -113,13 +113,18 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
         </div>
 
         {/* Grid */}
-        {animatedPartners.length > 0 ? (
-          <div
-            ref={gridRef}
-            className={`grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 transition-all duration-500 ${
-              isSearching ? "scale-95 opacity-0" : "scale-100 opacity-100"
-            }`}
-          >
+        <div ref={gridRef} className="relative min-h-[200px]">
+          {isSearching && (
+            <div className="absolute inset-0 z-10 flex min-h-[200px] items-center justify-center bg-white/90 py-12 backdrop-blur-sm" aria-hidden>
+              <Loader2 className="h-10 w-10 animate-spin text-brand-red" />
+            </div>
+          )}
+          {animatedPartners.length > 0 ? (
+            <div
+              className={`grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 transition-all duration-500 ${
+                isSearching ? "pointer-events-none scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
+            >
             {animatedPartners.map((partner, index) => (
               <div
                 key={partner.id}
@@ -165,27 +170,32 @@ export function PartnersPageContent({ partners = [], basePath = "" }: PartnersPa
                 </Link>
               </div>
             ))}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-gray-100 bg-gray-50 py-20 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-200">
-              <Search className="h-8 w-8 text-gray-400" />
             </div>
-            <h3 className="mb-2 text-xl font-bold text-[#333]">
-              No partners found
-            </h3>
-            <p className="mb-6 text-[#666]">
-              Try adjusting your search to find what you're looking for
-            </p>
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="rounded-xl bg-(--brand-red) px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
+          ) : (
+            <div
+              className={`rounded-2xl border border-gray-100 bg-gray-50 py-20 text-center transition-opacity ${
+                isSearching ? "opacity-0" : "opacity-100"
+              }`}
             >
-              Clear Search
-            </button>
-          </div>
-        )}
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-200">
+                <Search className="h-8 w-8 text-gray-400" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-[#333]">
+                No partners found
+              </h3>
+              <p className="mb-6 text-[#666]">
+                Try adjusting your search to find what you're looking for
+              </p>
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="rounded-xl bg-(--brand-red) px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-(--brand-red)/90 hover:shadow-md"
+              >
+                Clear Search
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

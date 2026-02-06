@@ -79,7 +79,7 @@ function CircularCard({ circular }: { circular: CircularResponse }) {
           ) : null}
         </div>
       </div>
-      <div className="relative -mt-8 rounded-t-2xl bg-[#2563EB] px-4 pb-4 pt-10 transition-colors duration-500 group-hover:bg-[#1D4ED8]">
+      <div className="relative -mt-8 rounded-t-2xl bg-(--brand-red) px-4 pb-4 pt-10 transition-colors duration-500 group-hover:bg-(--collbrai-dark)">
         <span className="text-xs font-normal text-white">Genelge</span>
         <h3 className="mt-1 text-base font-bold leading-tight text-white md:text-lg">
           {circular.title}

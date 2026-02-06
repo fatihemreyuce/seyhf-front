@@ -14,8 +14,8 @@ export function ContactPageHero() {
           backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(43, 97, 214, 0.25), transparent)`,
         }}
       />
-      <div className="content-container relative z-10 flex flex-col items-center justify-center text-center">
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-red/20 text-brand-red-light">
+      <div className="content-container relative z-10 flex flex-col items-start justify-center text-left">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 text-white">
           <MessageCircle className="h-7 w-7" aria-hidden />
         </div>
         <h1
@@ -28,7 +28,7 @@ export function ContactPageHero() {
           Sorularınız ve teklifleriniz için buradayız
         </p>
         <nav
-          className="mt-5 flex items-center gap-2 text-sm text-white/80"
+          className="mt-5 flex items-center justify-start gap-2 text-sm text-white/80"
           aria-label="Breadcrumb"
         >
           <Link

@@ -1,8 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronRight, Home } from "lucide-react";
-import bgService from "@/app/assets/images/background-section/bg-service.jpg";
-import markPage from "@/app/assets/images/mark-page/mark-page.png";
+import { ChevronRight, Home, LayoutGrid } from "lucide-react";
 
 interface ServiceDetailHeroProps {
   title: string;
@@ -10,54 +7,55 @@ interface ServiceDetailHeroProps {
 }
 
 export function ServiceDetailHero({ title, basePath = "" }: ServiceDetailHeroProps) {
+  const rootHref = basePath || "/";
+  const servicesHref = basePath ? `${basePath}/services` : "/services";
+
   return (
-    <section className="relative bg-[#8d929b] py-20 md:py-28 overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src={bgService}
-          alt=""
-          fill
-          className="object-cover opacity-10"
-          priority
-        />
-      </div>
-
-      {/* Wave Decoration */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <Image
-          src={markPage}
-          alt=""
-          className="w-full"
-          style={{ height: "auto" }}
-        />
-      </div>
-
-      <div className="content-container relative z-10">
-        {/* Breadcrumb */}
-        <nav className="stat-card-enter visible mb-6 flex items-center gap-2 text-sm" style={{ animationDelay: '0ms' }}>
-          <Link
-            href={basePath || "/"}
-            className="flex items-center gap-1 text-white/80 transition-colors hover:text-white"
-          >
-            <Home className="h-4 w-4" />
-            <span>Ana Sayfa</span>
-          </Link>
-          <ChevronRight className="h-4 w-4 text-white/60" />
-          <Link
-            href={`${basePath}/services`}
-            className="text-white/80 transition-colors hover:text-white"
-          >
-            Hizmetlerimiz
-          </Link>
-          <ChevronRight className="h-4 w-4 text-white/60" />
-          <span className="font-medium text-white">{title}</span>
-        </nav>
-
-        {/* Title */}
-        <h1 className="stat-card-enter visible text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl" style={{ animationDelay: '200ms' }}>
+    <section
+      className="relative overflow-hidden border-b border-white/10 bg-linear-to-b from-gray-900 via-gray-900 to-gray-950 py-12 md:py-16"
+      aria-labelledby="service-detail-hero-heading"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden
+        style={{
+          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(43, 97, 214, 0.25), transparent)`,
+        }}
+      />
+      <div className="content-container relative z-10 flex flex-col items-start justify-center text-left">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 text-white">
+          <LayoutGrid className="h-7 w-7" aria-hidden />
+        </div>
+        <h1
+          id="service-detail-hero-heading"
+          className="text-2xl font-bold tracking-tight text-white md:text-3xl"
+        >
           {title}
         </h1>
+        <nav
+          className="mt-5 flex items-center justify-start gap-2 text-sm text-white/80"
+          aria-label="Breadcrumb"
+        >
+          <Link
+            href={rootHref}
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+          >
+            <Home className="h-4 w-4" aria-hidden />
+            Ana Sayfa
+          </Link>
+          <ChevronRight className="h-4 w-4 text-white/50" aria-hidden />
+          <Link
+            href={servicesHref}
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+          >
+            <LayoutGrid className="h-4 w-4" aria-hidden />
+            Hizmetlerimiz
+          </Link>
+          <ChevronRight className="h-4 w-4 text-white/50" aria-hidden />
+          <span className="inline-flex items-center gap-1.5 text-white" aria-current="page">
+            {title}
+          </span>
+        </nav>
       </div>
     </section>
   );

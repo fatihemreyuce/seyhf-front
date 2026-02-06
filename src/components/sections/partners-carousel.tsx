@@ -165,8 +165,8 @@ export function PartnersCarousel({ partners }: PartnersCarouselProps) {
               type="button"
               onClick={() => goTo(idx)}
               className={cn(
-                "h-2 w-8 cursor-pointer rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#2a2a2a]",
-                idx === page ? "bg-[#2563EB]" : "bg-white/60 hover:bg-white/80",
+                "h-2 w-8 cursor-pointer rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-(--collbrai-dark)",
+                idx === page ? "bg-(--brand-red)" : "bg-white/60 hover:bg-white/80",
               )}
               aria-label={`Sayfa ${idx + 1}`}
               aria-current={idx === page ? "true" : undefined}
@@ -225,7 +225,7 @@ function PartnerCard({
         </div>
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-10 origin-left scale-x-0 bg-[#2563EB]/80 transition-transform duration-500 ease-out group-hover:scale-x-100"
+          className="pointer-events-none absolute inset-0 z-10 origin-left scale-x-0 bg-(--brand-red)/80 transition-transform duration-500 ease-out group-hover:scale-x-100"
         />
         <CardContent className="relative z-20 flex flex-col items-center gap-1 p-3 text-center">
           <p className="text-sm font-semibold text-gray-900 transition-colors duration-500 group-hover:text-white">

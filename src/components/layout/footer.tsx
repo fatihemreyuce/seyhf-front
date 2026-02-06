@@ -32,6 +32,14 @@ export interface FooterProps {
   address: string;
   instagramUrl: string;
   linkedinUrl: string;
+  logoUrl?: string | null;
+}
+
+function normalizeLogoUrl(url: string | null | undefined): string | null {
+  if (!url?.trim()) return null;
+  return url
+    .replace(/^https:\/\/(localhost|127\.0\.0\.1|::1)(:\d+)?/, "http://$1$2")
+    .trim();
 }
 
 export default function Footer({
@@ -40,6 +48,7 @@ export default function Footer({
   address,
   instagramUrl,
   linkedinUrl,
+  logoUrl,
 }: FooterProps) {
   return (
     <footer className="border-t border-white/10 bg-gray-900 text-white">
@@ -47,13 +56,14 @@ export default function Footer({
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Marka */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-flex h-12 items-center">
               <Image
-                src={logoFooter}
+                src={normalizeLogoUrl(logoUrl) || logoFooter}
                 alt="Logo"
                 width={140}
-                height={40}
-                className="h-10 w-auto object-contain"
+                height={48}
+                className="h-10 max-h-12 w-auto max-w-[140px] object-contain object-left"
+                unoptimized={!!normalizeLogoUrl(logoUrl)}
               />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
