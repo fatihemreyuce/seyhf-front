@@ -31,7 +31,7 @@ const CONTACT_POINTS = [
 export function HomepageContactSection() {
   return (
     <section className="bg-linear-to-b from-white to-gray-50/50 py-16 md:py-20">
-      <div className="content-container">
+      <div className="content-container max-w-[112rem]">
         <div className="w-full overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-lg shadow-gray-200/50 transition-shadow hover:shadow-xl hover:shadow-gray-200/60">
             {/* Üst alan */}
             <div className="relative border-b border-gray-100 bg-(--brand-red)/5 px-8 py-10 text-center md:px-12 md:py-12">

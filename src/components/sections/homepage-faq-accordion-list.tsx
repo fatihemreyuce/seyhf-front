@@ -22,7 +22,9 @@ export function FaqAccordionList({ faqs }: FaqAccordionListProps) {
       {faqs.map((faq) => (
         <AccordionItem key={faq.id} value={`faq-${faq.id}`}>
           <AccordionTrigger>{stripHtml(faq.question)}</AccordionTrigger>
-          <AccordionContent>{stripHtml(faq.answer)}</AccordionContent>
+          <AccordionContent className="max-h-56 overflow-y-auto pr-1">
+            {stripHtml(faq.answer)}
+          </AccordionContent>
         </AccordionItem>
       ))}
     </Accordion>

@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { getReferences } from "@/services/server/references-service";
 import { ReferencesGrid } from "./references-grid";
-import { Award, Sparkles } from "lucide-react";
+import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
+import { Award, Plus, Sparkles } from "lucide-react";
 
 export async function ReferencesSection() {
   let referencesData;
@@ -59,8 +61,31 @@ export async function ReferencesSection() {
           </p>
         </div>
 
-        {/* Grid */}
-        <ReferencesGrid references={referencesData} />
+        {/* Grid — ilk 4 referans */}
+        <ReferencesGrid references={referencesData.slice(0, 4)} />
+
+        <AnimateOnScroll
+            variant="from-bottom"
+            className="mt-12 flex justify-center md:mt-16"
+          >
+            <Link
+              href="/references"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-xl px-8 py-4 text-base font-bold text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 md:px-10 md:py-4 md:text-lg"
+              style={{ backgroundColor: "var(--brand-red)" }}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Tüm Referansları Görüntüle
+                <Plus
+                  className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:rotate-90"
+                  aria-hidden
+                />
+              </span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 origin-center scale-x-0 bg-black transition-transform duration-350 ease-out group-hover:scale-x-100"
+              />
+            </Link>
+          </AnimateOnScroll>
       </div>
     </section>
   );
