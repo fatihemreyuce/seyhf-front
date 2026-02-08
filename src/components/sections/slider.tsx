@@ -48,7 +48,7 @@ export function Slider({ slides }: SliderProps) {
         setIsTransitioning(false);
       }, SLIDE_TRANSITION_MS);
     },
-    [items.length]
+    [items.length],
   );
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export function Slider({ slides }: SliderProps) {
         className={cn(
           "slider-transition-wrap absolute inset-0 z-0 overflow-hidden",
           transitionOut && "slider-transition-out-fade",
-          !transitionOut && (hover ? "opacity-80" : "opacity-55")
+          !transitionOut && (hover ? "opacity-80" : "opacity-55"),
         )}
       >
         <Image
@@ -97,7 +97,7 @@ export function Slider({ slides }: SliderProps) {
           key={index}
           className={cn(
             "slider-content-enter slider-transition-wrap max-w-2xl space-y-3 text-left text-white xs:space-y-4",
-            transitionOut && "slider-transition-out"
+            transitionOut && "slider-transition-out",
           )}
         >
           <h1 className="text-xl font-bold leading-tight text-white xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:leading-tight">
@@ -153,7 +153,7 @@ export function Slider({ slides }: SliderProps) {
         onClick={() => go(-1)}
         className={cn(
           "absolute left-1.5 top-1/2 z-20 flex min-h-touch min-w-touch -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-colors duration-200 active:scale-95 sm:left-2 md:left-4 md:h-11 md:w-11",
-          "bg-[#9ca3af] hover:bg-(--brand-red)"
+          "bg-[#9ca3af] hover:bg-(--brand-red)",
         )}
         aria-label="Önceki slide"
       >
@@ -164,7 +164,7 @@ export function Slider({ slides }: SliderProps) {
         onClick={() => go(1)}
         className={cn(
           "absolute right-1.5 top-1/2 z-20 flex min-h-touch min-w-touch -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-colors duration-200 active:scale-95 sm:right-2 md:right-4 md:h-11 md:w-11",
-          "bg-[#9ca3af] hover:bg-(--brand-red)"
+          "bg-[#9ca3af] hover:bg-(--brand-red)",
         )}
         aria-label="Sonraki slide"
       >

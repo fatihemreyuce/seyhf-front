@@ -40,7 +40,7 @@ export default function TopBar({
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-red-500 transition-colors shrink-0"
+                className="hover:text-brand-red transition-colors shrink-0"
                 aria-label="Instagram"
               >
                 <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -51,7 +51,7 @@ export default function TopBar({
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-red-500 transition-colors shrink-0"
+                className="hover:text-brand-red transition-colors shrink-0"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

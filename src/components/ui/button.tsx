@@ -3,8 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/utils";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
@@ -13,7 +12,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseClassName = cn(
       "group relative inline-flex items-center justify-center overflow-hidden rounded-lg px-10 py-5 text-sm font-bold text-white",
       "bg-[var(--brand-red)] transition-colors duration-300",
-      className
+      className,
     );
 
     if (asChild) {
@@ -33,12 +32,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           aria-hidden="true"
           className={cn(
             "pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 bg-black",
-            "origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-350 ease-out"
+            "origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-350 ease-out",
           )}
         />
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

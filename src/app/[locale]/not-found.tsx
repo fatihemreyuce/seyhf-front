@@ -13,7 +13,10 @@ export default function NotFound() {
             <div className="relative">
               <div className="absolute inset-0 animate-ping rounded-full bg-(--brand-red)/20 opacity-75" />
               <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-linear-to-br from-(--brand-red)/10 to-(--brand-red)/5 shadow-lg">
-                <FileQuestion className="h-16 w-16 text-(--brand-red)" strokeWidth={1.5} />
+                <FileQuestion
+                  className="h-16 w-16 text-(--brand-red)"
+                  strokeWidth={1.5}
+                />
               </div>
             </div>
           </div>

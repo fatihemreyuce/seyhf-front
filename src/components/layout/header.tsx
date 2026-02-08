@@ -65,15 +65,15 @@ export default function Header({ logoUrl }: HeaderProps = {}) {
       <div className="content-container relative z-10">
         <div className="flex h-20 items-center justify-between pt-3 sm:h-24 sm:pt-4 md:h-28 md:pt-4">
           {/* Logo */}
-          <div className="mr-6 flex h-12 items-center xl:mr-8 md:h-14">
+          <div className="mr-6 flex h-14 items-center xl:mr-8 md:h-16">
             <Link href="/" className="block h-full">
               <Image
                 src={normalizeLogoUrl(logoUrl) || logoHome2}
                 alt="BIXOS Logo"
-                width={150}
-                height={56}
-                className="h-full w-auto max-w-[150px] object-contain object-left transition-all duration-300"
-                sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 150px"
+                width={180}
+                height={64}
+                className="h-full w-auto max-w-[180px] object-contain object-left transition-all duration-300"
+                sizes="(max-width: 640px) 112px, (max-width: 768px) 140px, 180px"
                 loading="eager"
                 unoptimized={!!normalizeLogoUrl(logoUrl)}
               />

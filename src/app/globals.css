@@ -165,7 +165,7 @@ html {
   }
 
   .text-glitch:hover {
-    color: #ff8c00;
+    color: var(--brand-red);
   }
 
   /* Ortak layout: siyah çizgi hizası — geniş container */

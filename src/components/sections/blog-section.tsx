@@ -72,7 +72,7 @@ export async function BlogSection() {
             </span>
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 origin-center scale-x-0 bg-white/20 transition-transform duration-350 ease-out group-hover:scale-x-100"
+              className="pointer-events-none absolute inset-y-0 left-1/2 w-full -translate-x-1/2 origin-center scale-x-0 bg-black transition-transform duration-350 ease-out group-hover:scale-x-100"
             />
           </Link>
         </AnimateOnScroll>

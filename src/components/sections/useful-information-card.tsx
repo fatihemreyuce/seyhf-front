@@ -14,13 +14,24 @@ interface UsefulInformationCardProps {
 }
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-export function UsefulInformationCard({ info, index, basePath = "" }: UsefulInformationCardProps) {
+export function UsefulInformationCard({
+  info,
+  index,
+  basePath = "",
+}: UsefulInformationCardProps) {
   const plainExcerpt = stripHtml(info.excerpt);
   const plainDesc = stripHtml(info.description);
-  const excerpt = plainExcerpt || (plainDesc ? plainDesc.slice(0, 120) + (plainDesc.length > 120 ? "…" : "") : null);
+  const excerpt =
+    plainExcerpt ||
+    (plainDesc
+      ? plainDesc.slice(0, 120) + (plainDesc.length > 120 ? "…" : "")
+      : null);
   const href = `${basePath}/useful-information/${info.id}`;
 
   const imageZone = info.fileUrl ? (
@@ -33,7 +44,10 @@ export function UsefulInformationCard({ info, index, basePath = "" }: UsefulInfo
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         unoptimized={info.fileUrl.startsWith("http")}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        aria-hidden
+      />
     </div>
   ) : (
     <div className="relative flex aspect-[16/10] w-full flex-col items-center justify-center overflow-hidden bg-linear-to-br from-gray-50 via-gray-100 to-gray-200/90">
@@ -65,7 +79,7 @@ export function UsefulInformationCard({ info, index, basePath = "" }: UsefulInfo
       <article
         className={cn(
           "group blog-card-hover-lift relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm",
-          "transition-all duration-300 hover:border-brand-red/20 hover:shadow-xl"
+          "transition-all duration-300 hover:border-brand-red/20 hover:shadow-xl",
         )}
       >
         <span
